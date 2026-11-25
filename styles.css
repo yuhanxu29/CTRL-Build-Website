@@ -471,3 +471,26 @@ dialog.modal[open]::backdrop{animation:fade .3s ease}
   .layer,.cloud,.rig,.pend,.pend .plate,.pend .ch,.lec,.stage,.beam,.tape .run{transform:none!important}
   .qi{opacity:1;transform:none}
 }
+
+/* Ambient layers: slow, lava-lamp blobs behind sections (not on reduced motion) */
+.why,.prizes,.judges,.sponsors,.faq,.hosts,.tracks{position:relative;isolation:isolate}
+.lava{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.lava i{position:absolute;display:block;border-radius:46% 54% 52% 48% / 50% 44% 56% 50%;filter:blur(70px);opacity:.5;will-change:transform}
+.lava i:nth-child(1){width:46vw;height:40vw;left:-8vw;top:6%;background:var(--mist);animation:lava1 34s ease-in-out infinite alternate}
+.lava i:nth-child(2){width:38vw;height:34vw;right:-6vw;top:36%;background:var(--harbour);opacity:.4;animation:lava2 41s ease-in-out infinite alternate}
+.lava i:nth-child(3){width:30vw;height:26vw;left:38%;bottom:-8%;background:var(--sand);opacity:.35;animation:lava3 29s ease-in-out infinite alternate}
+.dark .lava i:nth-child(1){background:var(--steel);opacity:.26}
+.dark .lava i:nth-child(2){background:var(--cer);opacity:.14}
+.dark .lava i:nth-child(3){background:var(--line);opacity:.5}
+@keyframes lava1{from{transform:translate3d(0,0,0) scale(1) rotate(0deg)}to{transform:translate3d(14vw,-6vh,0) scale(1.18) rotate(40deg)}}
+@keyframes lava2{from{transform:translate3d(0,0,0) scale(1.05) rotate(0deg)}to{transform:translate3d(-16vw,8vh,0) scale(.9) rotate(-35deg)}}
+@keyframes lava3{from{transform:translate3d(0,0,0) scale(.95)}to{transform:translate3d(-10vw,-10vh,0) scale(1.2)}}
+
+/* Tracks */
+.tracks{padding:12vh 0 14vh}
+.trk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:40px}
+.trk{position:relative;margin:0;background:rgba(255,255,255,.84);border:2px solid var(--steel);padding:26px 24px 28px}
+.trk b{display:block;font:400 30px/1.05 var(--serif);color:var(--steel);margin-bottom:12px}
+.trk p{margin:0;font-size:16px;color:var(--ink-2)}
+
+@media (prefers-reduced-motion:reduce){.lava i{animation:none!important}}
