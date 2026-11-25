@@ -494,3 +494,45 @@ dialog.modal[open]::backdrop{animation:fade .3s ease}
 .trk p{margin:0;font-size:16px;color:var(--ink-2)}
 
 @media (prefers-reduced-motion:reduce){.lava i{animation:none!important}}
+
+/* Ctrl + B keycap logo */
+.kc-base{fill:var(--ink)}
+.kc-top{fill:var(--steel)}
+.kc-t{fill:var(--sky);font:400 26px var(--sans);letter-spacing:.06em}
+.kc-b{fill:var(--cer)}
+.kc-bt{fill:var(--white);font:400 64px var(--serif)}
+.lgd .kc-base{fill:var(--line)}
+.lgd .kc-top{fill:var(--mist)}
+.lgd .kc-t{fill:var(--night)}
+.lgd .kc-b{fill:var(--harbour)}
+.lgd .kc-bt{fill:var(--night)}
+.kb{transition:transform .16s var(--ease)}
+.badge:hover .kb,.bulb:hover .kb{transform:translateY(5px)}
+.bulb[aria-pressed="true"] .kb{transform:translateY(8px)}
+.badge svg{display:block;overflow:visible}
+
+/* Floating ambient layers: each blob drifts along a loose path, like wax in a lava lamp */
+.lava i{transition:none}
+.lava i:nth-child(1){animation:lava1 38s ease-in-out infinite}
+.lava i:nth-child(2){animation:lava2 46s ease-in-out infinite}
+.lava i:nth-child(3){animation:lava3 33s ease-in-out infinite}
+@keyframes lava1{0%{transform:translate3d(0,0,0) scale(1) rotate(0deg)}25%{transform:translate3d(9vw,-5vh,0) scale(1.12) rotate(14deg)}50%{transform:translate3d(16vw,4vh,0) scale(1.2) rotate(36deg)}75%{transform:translate3d(6vw,10vh,0) scale(.94) rotate(18deg)}100%{transform:translate3d(0,0,0) scale(1) rotate(0deg)}}
+@keyframes lava2{0%{transform:translate3d(0,0,0) scale(1.04) rotate(0deg)}30%{transform:translate3d(-10vw,6vh,0) scale(.92) rotate(-22deg)}60%{transform:translate3d(-16vw,-4vh,0) scale(1.08) rotate(-38deg)}85%{transform:translate3d(-5vw,-9vh,0) scale(.98) rotate(-12deg)}100%{transform:translate3d(0,0,0) scale(1.04) rotate(0deg)}}
+@keyframes lava3{0%{transform:translate3d(0,0,0) scale(.96)}35%{transform:translate3d(-8vw,-8vh,0) scale(1.16)}70%{transform:translate3d(-12vw,4vh,0) scale(1)}100%{transform:translate3d(0,0,0) scale(.96)}}
+
+/* Never a blank white page: layered sky mesh behind everything */
+body{background:
+  radial-gradient(60% 45% at 8% 4%,rgba(202,230,248,.95),rgba(202,230,248,0) 70%),
+  radial-gradient(45% 40% at 92% 26%,rgba(140,192,224,.42),rgba(140,192,224,0) 70%),
+  radial-gradient(55% 42% at 40% 92%,rgba(192,191,170,.32),rgba(192,191,170,0) 70%),
+  linear-gradient(180deg,#f2faff,#e2f1fb)}
+.day-pin{background:linear-gradient(180deg,#f2faff,#dcedf8)}
+
+/* Foreground panels: tinted glass, soft depth, comfortable text */
+.plate,.face,.trk,.award{background:linear-gradient(165deg,rgba(255,255,255,.95),rgba(226,242,252,.88));-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-radius:18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 28px 52px -30px rgba(14,37,64,.5)}
+.plate{border:1.5px solid var(--steel)}
+.face{overflow:hidden;border-radius:22px}
+.plate p,.trk p,.award p{color:var(--ink-2);line-height:1.62}
+.trk{transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+.trk:hover{transform:translateY(-6px);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 40px 64px -30px rgba(14,37,64,.55)}
+.trk b{letter-spacing:-.01em}
