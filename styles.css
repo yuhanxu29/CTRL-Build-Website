@@ -488,10 +488,10 @@ dialog.modal[open]::backdrop{animation:fade .3s ease}
 
 /* Tracks */
 .tracks{padding:12vh 0 14vh}
-.trk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:40px}
-.trk{position:relative;margin:0;background:rgba(255,255,255,.84);border:2px solid var(--steel);padding:26px 24px 28px}
-.trk b{display:block;font:400 30px/1.05 var(--serif);color:var(--steel);margin-bottom:12px}
-.trk p{margin:0;font-size:16px;color:var(--ink-2)}
+.tcard-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:40px}
+.tcard{position:relative;margin:0;background:rgba(255,255,255,.84);border:2px solid var(--steel);padding:26px 24px 28px}
+.tcard b{display:block;font:400 30px/1.05 var(--serif);color:var(--steel);margin-bottom:12px}
+.tcard p{margin:0;font-size:16px;color:var(--ink-2)}
 
 @media (prefers-reduced-motion:reduce){.lava i{animation:none!important}}
 
@@ -529,13 +529,13 @@ body{background:
 .day-pin{background:linear-gradient(180deg,#f2faff,#dcedf8)}
 
 /* Foreground panels: tinted glass, soft depth, comfortable text */
-.plate,.face,.trk,.award{background:linear-gradient(165deg,rgba(255,255,255,.95),rgba(226,242,252,.88));-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-radius:18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 28px 52px -30px rgba(14,37,64,.5)}
+.plate,.face,.tcard,.award{background:linear-gradient(165deg,rgba(255,255,255,.95),rgba(226,242,252,.88));-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-radius:18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 28px 52px -30px rgba(14,37,64,.5)}
 .plate{border:1.5px solid var(--steel)}
 .face{overflow:hidden;border-radius:22px}
-.plate p,.trk p,.award p{color:var(--ink-2);line-height:1.62}
-.trk{transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
-.trk:hover{transform:translateY(-6px);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 40px 64px -30px rgba(14,37,64,.55)}
-.trk b{letter-spacing:-.01em}
+.plate p,.tcard p,.award p{color:var(--ink-2);line-height:1.62}
+.tcard{transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+.tcard:hover{transform:translateY(-6px);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 40px 64px -30px rgba(14,37,64,.55)}
+.tcard b{letter-spacing:-.01em}
 
 /* Lava lamp: more present behind each section */
 .lava i:nth-child(1){width:58vw;height:50vw;left:-12vw;opacity:.85}
@@ -547,11 +547,11 @@ body{background:
 
 /* Text rises into place as it scrolls into view (scroll-driven; unsupported browsers just show it) */
 @supports (animation-timeline:view()){
-  .h2,.lead,.trk,.dates,.specs{animation:rise-in linear both;animation-timeline:view();animation-range:entry 0% cover 34%}
+  .h2,.lead,.tcard,.dates,.specs{animation:rise-in linear both;animation-timeline:view();animation-range:entry 0% cover 34%}
   @keyframes rise-in{from{opacity:0;transform:translate3d(0,46px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
 }
 @media (prefers-reduced-motion:reduce){
-  .h2,.lead,.trk,.dates,.specs{animation:none!important}
+  .h2,.lead,.tcard,.dates,.specs{animation:none!important}
 }
 
 /* Smooth lava: fade every blob out softly toward the section edges so no colour is cut off */
