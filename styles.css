@@ -608,3 +608,10 @@ body { background: transparent; }
 }
 
 .hero-grid { position: relative; z-index: 2; }
+
+/* Hero logo: replaces the bulb ring. Switching the idea on adds an amber glow. */
+.bulb .hero-logo { display: block; width: 100%; height: auto; transition: filter .9s ease, transform .45s var(--ease); }
+.bulb:hover .hero-logo, .bulb:focus-visible .hero-logo { transform: translateY(-4px); }
+.lit .bulb .hero-logo { filter: drop-shadow(0 0 28px rgba(255, 194, 75, .9)) drop-shadow(0 0 60px rgba(255, 194, 75, .5)); }
+.bulb { width: min(520px, 42vw, max(300px, calc((100vh - 330px) * 1.6))); }
+@media (max-width: 900px) { .bulb { width: min(340px, 84vw); } }
