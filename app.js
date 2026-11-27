@@ -108,8 +108,8 @@ addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&!e.altKey
 /* ================= HEADER ================= */
 const topBar=$('#topBar'),ind=$('#ind'),trolley=$('#trolley'),rail=trolley.parentElement;
 const navLinks=$$('.nav a.lk, .nav a.sp');
-const navMap={top:null,what:'what',why:'what',board:'board',tracks:'board',prizes:'prizes',day:'day',bandsN:'day',sponsors:'sponsors',judges:'judges',faq:'faq',hosts:'hosts',notify:'hosts'};
-const navSecs=[['top','#top'],['what','#what'],['why','#why'],['board','#board'],['tracks','#tracks'],['prizes','#prizes'],['day','#day'],['bandsN','#bandsN'],['sponsors','#sponsors'],['judges','#judges'],['faq','#faq'],['hosts','#hosts'],['notify','#notify']].map(([k,s])=>[k,$(s)]).filter(([,s])=>s);
+const navMap={top:null,what:'what',why:'what',board:'board',tracks:'board',prizes:'prizes',day:'day',bandsN:'day',sponsors:'sponsors',judges:'judges',faq:'faq',hosts:'hosts',build:null,notify:'hosts'};
+const navSecs=[['top','#top'],['what','#what'],['why','#why'],['board','#board'],['tracks','#tracks'],['prizes','#prizes'],['day','#day'],['bandsN','#bandsN'],['sponsors','#sponsors'],['judges','#judges'],['faq','#faq'],['hosts','#hosts'],['build','#build'],['notify','#notify']].map(([k,s])=>[k,$(s)]).filter(([,s])=>s);
 const themed=$$('[data-theme]');
 let curNav,headerLayout;
 function measureHeader(y){const bounds=new Map([...new Set([...navSecs.map(([,s])=>s),...themed])].map(s=>{const r=s.getBoundingClientRect();return[s,[r.top+y,r.bottom+y]]}));const links=new Map(navLinks.map(a=>[a,[a.offsetLeft,a.offsetWidth]]));headerLayout={bounds,links,max:document.documentElement.scrollHeight-innerHeight,railW:rail.clientWidth,indW:ind.offsetWidth};curNav=undefined}
@@ -361,6 +361,41 @@ function planFrame(){const p=plan.getBoundingClientRect(),vh=innerHeight;walls.s
 
 /* ================= FAQ ================= */
 $$('.qi').forEach(q=>{const b=$('.q',q),a=$('.a',q);a.hidden=b.getAttribute('aria-expanded')!=='true';b.addEventListener('click',()=>{const open=a.hidden;b.setAttribute('aria-expanded',String(open));q.classList.toggle('open',open);a.hidden=!open})});
+
+const faqFilters=$('#faqFilters'),faqSearch=$('#faqSearch'),faqCategory=$('#faqCategory'),faqCount=$('#faqCount');
+const faqText=text=>text.toLowerCase().replace(/['’]/g,'');
+const faqGroups=$$('.faq-group').map(group=>({group,items:$$('.qi',group).map(item=>({item,text:faqText(item.textContent)}))}));
+function filterFaq(){
+  const terms=faqText(faqSearch.value.trim()).split(/\s+/).filter(Boolean),category=faqCategory.value;
+  let count=0;
+  for(const {group,items} of faqGroups){
+    const matchesCategory=!category||category===group.dataset.category;
+    let visible=0;
+    for(const {item,text} of items){item.hidden=!matchesCategory||!terms.every(term=>text.includes(term));if(!item.hidden)visible++}
+    group.hidden=visible===0;count+=visible;
+  }
+  faqCount.textContent=count===0?'No questions match.':`${count} ${count===1?'question':'questions'}`;
+}
+function restoreFaqFilters(){
+  const params=new URLSearchParams(location.search);
+  faqSearch.value=params.get('faq')||'';
+  faqCategory.value=params.get('faqCategory')||'';
+  if(faqCategory.selectedIndex<0)faqCategory.value='';
+  filterFaq();
+}
+function updateFaqFilters(){
+  filterFaq();
+  if(location.protocol==='file:')return;
+  const url=new URL(location.href);
+  for(const [key,value] of [['faq',faqSearch.value.trim()],['faqCategory',faqCategory.value]]){
+    if(value)url.searchParams.set(key,value);else url.searchParams.delete(key);
+  }
+  history.replaceState(history.state,'',url);
+}
+faqSearch.addEventListener('input',updateFaqFilters);
+faqCategory.addEventListener('change',updateFaqFilters);
+addEventListener('popstate',restoreFaqFilters);
+restoreFaqFilters();faqFilters.hidden=false;
 
 /* ================= CLUBS ================= */
 const hosts=$('#hosts');

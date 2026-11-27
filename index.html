@@ -87,8 +87,8 @@
 <!-- WHY -->
 <section class="why grid-bg" id="why" data-scene data-theme="light" aria-labelledby="whyH">
   <div class="wrap">
-    <h2 class="h2" id="whyH">Why you should come</h2>
-    <p class="lead">Three reasons, hung where you can't miss them. Give them a push.</p>
+    <h2 class="h2" id="whyH">Not another case comp.</h2>
+    <p class="lead">If you’ve played with a few tools and never shipped anything, you’re exactly who this is for.</p>
     <div class="rig" id="rig">
       <svg class="lift" id="lift" aria-hidden="true"></svg>
       <div class="girder" aria-hidden="true"></div>
@@ -197,7 +197,7 @@
 <section class="sponsors dark" id="sponsors" data-scene data-theme="dark" aria-labelledby="sponH">
   <div class="wrap">
     <h2 class="h2" id="sponH">Room for your company</h2>
-    <p class="lead">This is the floor plan for March. Every room is a sponsor seat, and signed sponsors move in as they join. Pick a room to talk to us about it.</p>
+    <p class="lead">Bring a real problem and leave with a room full of prototypes aimed at it. Pick a room on the floor plan to talk to us about sponsoring.</p>
     <div class="plan-wrap">
       <div class="plan" id="plan">
         <svg class="walls" id="walls" aria-hidden="true"></svg>
@@ -213,7 +213,13 @@
         <button class="room r-c4" type="button" data-open="sponsor" data-pkg="Community"><small>Community, $1,000</small><b>Mentor seat</b></button>
       </div>
       <div>
-        <ul class="tiers"><li><span>Title sponsor<small>Presented by you, one room</small></span><b>$10,000</b></li><li><span>Gold<small>Your challenge and your judge</small></span><b>$5,000</b></li><li><span>Silver<small>Booth and resumes</small></span><b>$2,500</b></li><li><span>Community<small>Mentor seat</small></span><b>$1,000</b></li><li><span>In-kind<small>Credits, food or venue</small></span><b>Let's talk</b></li></ul>
+        <ul class="tiers">
+          <li><div><strong>Title sponsor</strong><span>Presented by you</span><p>Put your name on the whole day, from the opening bell to the closing awards.</p></div><b>$10,000</b></li>
+          <li><div><strong>Gold</strong><span>Your challenge and your judge</span><p>Put your challenge on the board and help judge the prototypes students build.</p></div><b>$5,000</b></li>
+          <li><div><strong>Silver</strong><span>Booth and resumes</span><p>Meet students at your booth and collect resumes from the people you talk to.</p></div><b>$2,500</b></li>
+          <li><div><strong>Community</strong><span>Mentor seat</span><p>Work with a team during the day and help them get to a prototype.</p></div><b>$1,000</b></li>
+          <li><div><strong>In-kind</strong><span>Software, food or space</span><p>Contribute software credits, development resources, meals or event space.</p></div><b>Let’s talk</b></li>
+        </ul>
         <div class="ctas"><button class="btn lamp" type="button" data-open="call">Book a call</button><button class="btn line" type="button" data-open="prospectus">Get the prospectus</button></div>
       </div>
     </div>
@@ -239,15 +245,58 @@
 <section class="faq dark" id="faq" data-theme="dark" aria-labelledby="faqH">
   <div class="wrap">
     <h2 class="h2" id="faqH">Questions</h2>
+    <div class="faq-filters" id="faqFilters" hidden>
+      <label for="faqSearch">Search questions<input id="faqSearch" type="search" name="q" autocomplete="off" placeholder="Try “teams”…"></label>
+      <label for="faqCategory">Category<select id="faqCategory" name="category">
+        <option value="">All categories</option>
+        <option value="getting-started">Getting started</option>
+        <option value="teams-and-building">Teams and building</option>
+        <option value="competition-and-judging">Competition and judging</option>
+        <option value="event-logistics">Event logistics</option>
+        <option value="partnerships">Partnerships</option>
+      </select></label>
+      <p id="faqCount" aria-live="polite">24 questions</p>
+    </div>
     <div class="qa" id="qa">
-      <div class="qi"><button class="q" type="button" aria-expanded="false" aria-controls="a1" id="q1"><span class="q-label">Do I need to know how to code?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a1" role="region" aria-labelledby="q1" hidden><p>No. Use no-code tools, AI, slides, spreadsheets, whatever gets your idea across. Judges score the business, the customer and the pitch.</p></div></div>
-      <div class="qi"><button class="q" type="button" aria-expanded="false" aria-controls="a2" id="q2"><span class="q-label">Who can apply?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a2" role="region" aria-labelledby="q2" hidden><p>University students in Ontario, any program and any year. Apply alone or with a team of up to four.</p></div></div>
-      <div class="qi"><button class="q" type="button" aria-expanded="false" aria-controls="a3" id="q3"><span class="q-label">What does it cost?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a3" role="region" aria-labelledby="q3" hidden><p>Nothing. Lunch and dinner are included.</p></div></div>
-      <div class="qi"><button class="q" type="button" aria-expanded="false" aria-controls="a4" id="q4"><span class="q-label">How are teams formed?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a4" role="region" aria-labelledby="q4" hidden><p>Bring your own team, or tell us you want one and we'll match you before the day.</p></div></div>
-      <div class="qi"><button class="q" type="button" aria-expanded="false" aria-controls="a5" id="q5"><span class="q-label">When will I hear back?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a5" role="region" aria-labelledby="q5" hidden><p>Applications open in January. Decisions go out a few weeks before the event, with a waitlist if we fill up.</p></div></div>
-      <div class="qi"><button class="q" type="button" aria-expanded="false" aria-controls="a6" id="q6"><span class="q-label">Is there travel support?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a6" role="region" aria-labelledby="q6" hidden><p>We're working on it. Details come with applications in January.</p></div></div>
-      <div class="qi"><button class="q" type="button" aria-expanded="false" aria-controls="a7" id="q7"><span class="q-label">What does sponsoring cost?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a7" role="region" aria-labelledby="q7" hidden><p>Packages run from $1,000 (a mentor seat) to $10,000 (title sponsor). Credits, food or venue count too, so tell us what you can offer.</p></div></div>
-      <div class="qi"><button class="q" type="button" aria-expanded="false" aria-controls="a8" id="q8"><span class="q-label">How do I sponsor?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a8" role="region" aria-labelledby="q8" hidden><p>Pick a room on the floor plan, book a call, or ask for the prospectus. We will walk you through the rest.</p></div></div>
+      <section class="faq-group" data-category="getting-started" aria-labelledby="faq-getting-started">
+        <h3 class="faq-category" id="faq-getting-started">Getting started</h3>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a1" id="q1"><span class="q-label">What is CTRL Build?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a1" hidden><p>A commerce hackathon in Toronto. 150 to 200 students tackle business problems, build prototypes, and pitch to investors and industry leaders.</p></div></div>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a2" id="q2"><span class="q-label">Who can apply?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a2" hidden><p>University students in Ontario, any program and any year. Apply alone or with a team of up to four.</p></div></div>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a3" id="q3"><span class="q-label">Do I need to know how to code?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a3" hidden><p>No. Use no-code tools, AI, slides, spreadsheets, whatever gets your idea across. Judges score the business, the customer and the pitch.</p></div></div>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a4" id="q4"><span class="q-label">How is it different from a traditional hackathon?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a4" hidden><p>The focus is commercial viability. Start with a real customer problem and build something that shows how your business could solve it.</p></div></div>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a5" id="q5"><span class="q-label">How is it different from a case competition?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a5" hidden><p>Build a working prototype that shows your idea in action.</p></div></div>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a6" id="q6"><span class="q-label">How much does it cost?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a6" hidden><p>Nothing. Lunch and dinner are included.</p></div></div>
+      </section>
+      <section class="faq-group" data-category="teams-and-building" aria-labelledby="faq-teams-and-building">
+        <h3 class="faq-category" id="faq-teams-and-building">Teams and building</h3>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a7" id="q7"><span class="q-label">How many people can be on a team?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a7" hidden><p>Three to four people.</p></div></div>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a8" id="q8"><span class="q-label">What if I don’t have a team?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a8" hidden><p>Apply on your own and tell us you want a team. We’ll match you before the day.</p></div></div>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a9" id="q9"><span class="q-label">What will we be building?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a9" hidden><p>Sponsors reveal real business problems at the opening bell. Pick a challenge and build a prototype. Your team might make a website, an app, an AI tool or another digital product.</p></div></div>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a10" id="q10"><span class="q-label">Can I use AI tools?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a10" hidden><p>Yes. AI and no-code tools are welcome.</p></div></div>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a11" id="q11"><span class="q-label">Can I start building beforehand?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a11" hidden><p>You can get familiar with your tools before the event. Rules for work prepared in advance are TBA.</p></div></div>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a12" id="q12"><span class="q-label">Will there be mentors?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a12" hidden><p>Yes. Founders and investors give feedback during the mentor rounds.</p></div></div>
+      </section>
+      <section class="faq-group" data-category="competition-and-judging" aria-labelledby="faq-competition-and-judging">
+        <h3 class="faq-category" id="faq-competition-and-judging">Competition and judging</h3>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a13" id="q13"><span class="q-label">What do I need to submit?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a13" hidden><p>Submit a prototype that demonstrates your solution and a pitch deck explaining how the business would work.</p></div></div>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a14" id="q14"><span class="q-label">How will projects be judged?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a14" hidden><p>Is the problem real? Who is the customer? Does the business model work? Does the prototype show it? Can you pitch it and take questions?</p></div></div>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a15" id="q15"><span class="q-label">Who will we pitch to?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a15" hidden><p>Finalists pitch to investors and sponsor judges. The investor panel is announced in February.</p></div></div>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a16" id="q16"><span class="q-label">What can I win?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a16" hidden><p>First, second and third place prizes are announced in February. There are also Best sponsor solution and People’s choice awards.</p></div></div>
+      </section>
+      <section class="faq-group" data-category="event-logistics" aria-labelledby="faq-event-logistics">
+        <h3 class="faq-category" id="faq-event-logistics">Event logistics</h3>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a17" id="q17"><span class="q-label">How long is CTRL Build?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a17" hidden><p>Ten hours, start to finish. The opening bell is at 10:00 and lights out is at 20:00.</p></div></div>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a18" id="q18"><span class="q-label">What should I bring?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a18" hidden><p>Bring a laptop. Other requirements are TBA.</p></div></div>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a19" id="q19"><span class="q-label">Can I participate virtually?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a19" hidden><p>Virtual participation details are TBA.</p></div></div>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a20" id="q20"><span class="q-label">When do applications open?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a20" hidden><p>Applications open in January. Decisions go out a few weeks before the event, with a waitlist if we fill up.</p></div></div>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a21" id="q21"><span class="q-label">Is there travel support?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a21" hidden><p>We’re working on it. Details come with applications in January.</p></div></div>
+      </section>
+      <section class="faq-group" data-category="partnerships" aria-labelledby="faq-partnerships">
+        <h3 class="faq-category" id="faq-partnerships">Partnerships</h3>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a22" id="q22"><span class="q-label">Who is organizing CTRL Build?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a22" hidden><p>RCEO, RCIG and RCVC, three Rotman Commerce student groups.</p></div></div>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a23" id="q23"><span class="q-label">How can my company get involved?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a23" hidden><p>Bring a challenge, mentor or judge, or contribute software credits, development resources, meals or space. Packages run from $1,000 to $10,000. Pick a room on the floor plan, book a call or ask for the prospectus.</p></div></div>
+        <div class="qi"><h4><button class="q" type="button" aria-expanded="false" aria-controls="a24" id="q24"><span class="q-label">Still have questions?</span><span class="ic" aria-hidden="true"></span></button></h4><div class="a" id="a24" hidden><p>Email <a href="mailto:ctrlbuildto@gmail.com">ctrlbuildto@gmail.com</a>.</p></div></div>
+      </section>
     </div>
   </div>
 </section>
@@ -267,6 +316,14 @@
     </div>
   </div>
 </section>
+<!-- CLOSING CTA -->
+<section class="build-cta" id="build" data-theme="dark" aria-labelledby="buildH">
+  <div class="wrap">
+    <h2 class="h2" id="buildH">Stop scrolling. Start building.</h2>
+    <p>Free to attend, meals included, no code required. Bring a laptop and an idea worth arguing about.</p>
+    <div class="ctas"><button class="btn lamp" type="button" data-open="notify">Get notified when applications open</button></div>
+  </div>
+</section>
 </main>
 
 <!-- FOOTER -->
@@ -277,6 +334,7 @@
         <p class="big">Build boldly.</p>
         <form class="signup" id="footForm" novalidate><div class="signup-field"><label class="sr" for="footEmail">Email address</label><input id="footEmail" name="email" type="email" placeholder="name@example.com…" autocomplete="email" spellcheck="false" required aria-describedby="footEmail-err"><span class="err" id="footEmail-err" aria-live="polite"></span></div><button class="btn lamp" type="submit">Get notified</button></form>
         <p class="note">One email when applications open in January. No spam.</p>
+        <p class="foot-contact"><a href="mailto:ctrlbuildto@gmail.com">ctrlbuildto@gmail.com</a></p>
       </div>
       <div class="links">
         <div><h3>Event</h3><ul><li><a href="#what">About</a></li><li><a href="#board">Challenges</a></li><li><a href="#prizes">Prizes</a></li><li><a href="#day">Schedule</a></li><li><a href="#judges">Judges</a></li><li><a href="#faq">FAQ</a></li><li><a href="#hosts">Clubs</a></li></ul></div>

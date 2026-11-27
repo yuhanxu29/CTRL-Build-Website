@@ -301,12 +301,22 @@ button{font:inherit;color:inherit}
 .room:focus-visible .arc,.room:focus-visible .spill{opacity:1;transition:none}
 .tiers{list-style:none;margin:0;padding:0}
 .tiers li{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);font-size:17px}
-.tiers li span small{display:block;margin-top:2px;font-size:14px;color:var(--on-dark-2)}
-.tiers li b{font:400 24px var(--serif);color:var(--fil);white-space:nowrap;font-weight:400}
+.tiers li > div{overflow-wrap:anywhere}
+.tiers li span{display:block;color:var(--on-dark)}
+.tiers li p{margin:4px 0 0;font-size:14px;color:var(--on-dark-2)}
+.tiers li b{flex:none;font:400 24px var(--serif);color:var(--fil);white-space:nowrap;font-weight:400}
 
 /* ---------------- faq ---------------- */
 .faq{padding:12vh 0 14vh}
-.qa{max-width:920px;margin-top:6vh;border-top:1px solid var(--line)}
+.faq-filters:not([hidden]){display:flex;flex-wrap:wrap;gap:12px 24px;align-items:end;max-width:920px;margin-top:32px}
+.faq-filters label{display:grid;gap:5px;color:var(--sky);font-size:15px;font-weight:600}
+.faq-filters label:first-child{flex:1 0 min(100%,280px)}
+.faq-filters input,.faq-filters select{width:100%;min-height:44px;padding:8px 12px;border:1px solid var(--on-dark-2);background:var(--deep);color:var(--sky);font:400 16px var(--sans);color-scheme:dark}
+.faq-filters input::placeholder,.faq-filters p{color:var(--on-dark-2)}
+.faq-filters p{flex-basis:100%;margin:0;font-size:14px}
+.qa{max-width:920px}
+.faq-category{margin:32px 0 0;padding-bottom:10px;border-bottom:1px solid var(--line);color:var(--harbour);font-size:16px}
+.qi h4{margin:0}
 .qi{border-bottom:1px solid var(--line)}
 .qi .q{display:flex;width:100%;justify-content:space-between;align-items:center;gap:20px;padding:22px 6px;background:none;border:0;cursor:pointer;text-align:left;font:400 clamp(22px,2.1vw,30px)/1.2 var(--serif);color:var(--sky)}
 .qi .q-label{transition:transform 150ms var(--ease-out)}
@@ -314,6 +324,7 @@ button{font:inherit;color:inherit}
 .qi .ic::before,.qi .ic::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:2px;background:var(--harbour);transform:translate(-50%,-50%)}
 .qi .ic::after{transform:translate(-50%,-50%) rotate(90deg)}
 .qi .q:focus-visible .ic,.qi .q:focus-visible .q-label{transition:none}
+.qi a{color:var(--fil);overflow-wrap:anywhere}
 .qi.open .ic{transform:rotate(135deg);background:var(--fil);border-color:var(--fil)}
 .qi.open .ic::before,.qi.open .ic::after{background:var(--night)}
 .qi .a p{margin:0;padding:0 6px 24px;max-width:42em;color:var(--on-dark)}
@@ -340,6 +351,11 @@ button{font:inherit;color:inherit}
 
 .plinth{height:16px;background:var(--line);margin-top:0}
 
+/* ---------------- closing CTA ---------------- */
+.build-cta{padding:clamp(56px,10vh,100px) 0;background:var(--deep);color:var(--sky)}
+.build-cta .h2{color:var(--sky)}
+.build-cta p{max-width:38em;margin:18px 0 0;color:var(--on-dark)}
+
 /* ---------------- footer ---------------- */
 .foot{position:relative;padding:12vh 0 0;overflow:hidden}
 .foot-top{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:56px;align-items:start}
@@ -350,6 +366,7 @@ button{font:inherit;color:inherit}
 .signup input::placeholder{color:var(--on-dark-2)}
 .signup input:focus-visible{outline:3px solid var(--harbour);outline-offset:2px}
 .signup .err{color:var(--fil-soft);padding-inline:20px}
+.foot-contact a{color:var(--fil);overflow-wrap:anywhere}
 .foot .note{margin:12px 0 0;font-size:14px;color:var(--on-dark-2)}
 .links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
 .links h3{margin:0 0 14px;font-size:14px;font-weight:600;color:var(--harbour)}
