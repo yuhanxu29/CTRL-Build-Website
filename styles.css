@@ -11,7 +11,7 @@
   --cerulean-ink: #066f9c;
   --steel: #3066a0;
   --ink: #0e2540;
-  --night: #0b1a2e;
+  --night: #0a1633;
   --deep: #12294a;
   --line: #24406a;
   --amber: #ffc24b;
@@ -242,11 +242,11 @@ section { padding: clamp(96px, 13vw, 180px) 0; }
 /* ---------- Hero ---------- */
 .hero {
   min-height: 100vh; min-height: 100svh; display: flex; align-items: flex-end;
-  padding: 0 0 clamp(64px, 12vh, 136px); overflow: hidden; color: var(--sky); isolation: isolate;
+  padding: clamp(140px, 18vh, 190px) 0 clamp(56px, 9vh, 96px); overflow: hidden; color: var(--sky); isolation: isolate;
 }
 .hero::before {
   content: ""; position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(180deg, rgba(11, 26, 46, .74) 0%, rgba(18, 41, 74, .5) 55%, rgba(18, 41, 74, 0) 100%);
+  background: linear-gradient(180deg, rgba(10, 22, 51, .8) 0%, rgba(10, 22, 51, .76) 84%, rgba(10, 22, 51, .3) 97%, rgba(10, 22, 51, 0) 100%);
 }
 .hero::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 30%; z-index: -1;
@@ -257,8 +257,8 @@ section { padding: clamp(96px, 13vw, 180px) 0; }
   height: min(86svh, 820px); aspect-ratio: 200 / 600; opacity: .9; pointer-events: none; z-index: 0;
 }
 .tower { width: 100%; height: 100%; overflow: visible; }
-.tower .d { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 3.2s .3s var(--ease) forwards; }
-@keyframes draw { to { stroke-dashoffset: 0; } }
+.tower .d { stroke-dasharray: 1; stroke-dashoffset: 0; animation: draw 3.2s .3s var(--ease) both; }
+@keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 .corner {
   position: absolute; z-index: 1; font: 500 11px/1 var(--mono); letter-spacing: .14em;
   text-transform: uppercase; color: var(--sky); opacity: .85;
@@ -270,7 +270,7 @@ section { padding: clamp(96px, 13vw, 180px) 0; }
 .hero-grid { position: relative; z-index: 1; width: 100%; padding: 0 var(--pad); }
 .kicker { margin: 0 0 18px; font: 500 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--harbour); }
 .headline {
-  margin: 0 0 28px -.04em; font: 400 clamp(92px, 21vw, 340px)/.84 var(--display);
+  margin: 0 0 24px -.04em; font: 400 clamp(84px, 15vw, 220px)/.84 var(--display);
   letter-spacing: -.035em; white-space: normal;
 }
 .headline em { display: block; }
@@ -638,3 +638,15 @@ section { padding: clamp(96px, 13vw, 180px) 0; }
   .trk:not(.open) .trk-body, .qi:not(.open) .a { grid-template-rows: 0fr; }
   .stop { opacity: 1; }
 }
+
+/* ---------- Hero stats and closing call to action ---------- */
+.stats {
+  list-style: none; margin: 32px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0;
+  border-top: 1px solid rgba(202, 230, 248, .3); max-width: 760px;
+}
+.stats li { flex: 1 1 200px; padding: 18px 24px 0 0; display: grid; gap: 6px; }
+.stats b { font: 400 clamp(26px, 2.6vw, 36px)/1.05 var(--display); color: var(--amber); white-space: nowrap; }
+.stats span { font-size: 15px; color: var(--mist); }
+.closing { padding: clamp(120px, 16vw, 200px) 0; text-align: left; }
+.closing .label { color: var(--harbour); opacity: 1; }
+.closing-h { max-width: none; font-size: clamp(56px, 11vw, 180px); margin-bottom: 48px; }
