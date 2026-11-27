@@ -118,12 +118,13 @@ const themed=$$('[data-theme]');
 let curNav=undefined;
 function moveInd(key){if(key===curNav)return;curNav=key;navLinks.forEach(a=>a.removeAttribute('aria-current'));const a=key&&navLinks.find(l=>l.dataset.sec===key);if(a)a.setAttribute('aria-current','true');if(!a||!a.offsetWidth||a.classList.contains('sp')){ind.style.opacity=0;return}ind.style.left=a.offsetLeft+'px';ind.style.width=a.offsetWidth+'px';ind.style.opacity=1}
 const menuBtn=$('#menuBtn'),menu=$('#menu');
-function closeMenu(restore=false){menu.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');if(restore)menuBtn.focus()}
+function closeMenu(restore=false){if(!menu.classList.contains('open'))return;menu.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');if(restore)menuBtn.focus()}
 menuBtn.addEventListener('click',()=>{if(menu.classList.contains('open')){closeMenu();return}menu.classList.add('open');menuBtn.setAttribute('aria-expanded','true');$('a',menu).focus()});
 menu.addEventListener('click',e=>{const a=e.target.closest('a');if(!a||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;const section=$(a.hash);if(section){section.tabIndex=-1;section.focus({preventScroll:true})}closeMenu()});
 document.addEventListener('focusin',e=>{if(e.target!==menuBtn&&!menu.contains(e.target))closeMenu()});
 document.addEventListener('click',e=>{if(!menu.contains(e.target)&&!menuBtn.contains(e.target))closeMenu(menu.contains(document.activeElement))});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.contains('open')){e.preventDefault();closeMenu(true)}});
+addEventListener('resize',()=>{if(!menu.classList.contains('open')||menuBtn.getClientRects().length)return;const active=document.activeElement;closeMenu();if(menu.contains(active)){const link=navLinks.find(a=>a.hash===active.hash&&a.offsetWidth)||navLinks.find(a=>a.offsetWidth);link?.focus()}});
 function header(){
   const vh=innerHeight;let k=null;
   for(const[key,s]of navSecs){const r=s.getBoundingClientRect();if(r.top<=vh*.45&&r.bottom>vh*.45){k=navMap[key];break}}
@@ -284,9 +285,11 @@ function stageFrame(){
 
 /* ================= THE DAY ================= */
 const day=$('#day'),track=$('#track'),dpin=$('#dayPin'),skyG=$('#skyG'),sun=$('#sun'),moon=$('#moon'),clock=$('#clock'),head=$('#dayHead'),ruler=$('#ruler'),rFill=$('#rFill'),rKnob=$('#rKnob'),pano=$('#pano'),btip=$('#btip');
-let pwins=[],dayBucket=-1;
+let pwins=[],dayBucket=-1,hoveredLandmark,dismissedLandmark;
+const dayTravel=()=>Math.max(0,track.scrollWidth-innerWidth);
 function buildPano(){
-  pano.innerHTML='';if(!motion())return;
+  const active=focusedLandmark();hoveredLandmark=dismissedLandmark=null;btip.classList.remove('on');
+  pano.innerHTML='';if(!motion()){if(active)$('#dayH').focus({preventScroll:true});return}
   const H=pano.getBoundingClientRect().height,W=track.scrollWidth;pano.setAttribute('viewBox',`0 0 ${W} ${H}`);pano.setAttribute('width',W);pano.style.width=W+'px';
   const k=H/520,r=rng(99),c='#3066a0',win='#cae6f8';const stops=$$('.stop',track);const sx=i=>stops[i].offsetLeft;
   const g=el('g',{},pano);
@@ -298,13 +301,14 @@ function buildPano(){
   filler(g,x,W+50,H,90*k,300*k,c,r,win,k);
   $$('.nm',pano).forEach((landmark,i)=>{const id='landmark-desc-'+i;const desc=el('desc',{id},landmark);desc.textContent=landmark.dataset.fact;landmark.setAttribute('tabindex','0');landmark.setAttribute('role','img');landmark.setAttribute('aria-label',landmark.dataset.name);landmark.setAttribute('aria-describedby',id)});
   pwins=$$('.w',pano);dayBucket=-1;
+  if(active)$('#'+active.getAttribute('aria-describedby'),pano)?.parentElement.focus({preventScroll:true});
 }
 const SKY=[[0,'eaf6ff','f2faff'],[.24,'d6ecfb','eef8ff'],[.42,'cfe7f8','f6ead0'],[.55,'a9cbe6','f5d39c'],[.63,'6b8fbc','f1ae7c'],[.71,'33558a','d28c78'],[.79,'1a3459','4f5d86'],[.88,'0e2038','1a3155'],[1,'0b1a2e','0b1a2e']];
 const SKYT=SKY.map(s=>[s[0],s[1]]),SKYH=SKY.map(s=>[s[0],s[2]]);
 function dayFrame(){
   if(!motion())return;const r=day.getBoundingClientRect(),vh=innerHeight,vw=innerWidth;if(r.bottom<0||r.top>vh)return;
   const p=clamp(-r.top/(r.height-vh));
-  track.style.transform=`translate3d(${-p*(track.scrollWidth-vw)}px,0,0)`;
+  track.style.transform=`translate3d(${-p*dayTravel()}px,0,0)`;
   const top=stopsAt(SKYT,p),hor=stopsAt(SKYH,p);skyG.style.background=`linear-gradient(${top} 0%, ${hor} 58%, ${hor} 100%)`;
   const dark=p>.66;dpin.classList.toggle('night',dark);head.style.color=dark?'#f2faff':'#0e2540';ruler.style.color=dark?'#cae6f8':'#3066a0';
   const m=Math.round(p*600);clock.textContent=String(10+Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
@@ -319,14 +323,16 @@ function dayFrame(){
 }
 function showLandmark(t,x,y){const r=dpin.getBoundingClientRect();btip.innerHTML=`<b>${t.dataset.name}</b>${t.dataset.fact}`;btip.style.left=clamp(x-r.left,150,r.width-150)+'px';btip.style.top=Math.max(110,y-r.top)+'px';btip.classList.add('on')}
 function focusedLandmark(){const t=document.activeElement;return pano.contains(t)&&t.matches('.nm')?t:null}
-dpin.addEventListener('pointermove',e=>{if(focusedLandmark())return;const t=e.target.closest('.nm');if(t&&motion())showLandmark(t,e.clientX,e.clientY);else btip.classList.remove('on')});
-dpin.addEventListener('pointerleave',()=>{if(!focusedLandmark())btip.classList.remove('on')});
-pano.addEventListener('focusin',e=>{const t=e.target;if(!t.matches('.nm'))return;const r=day.getBoundingClientRect(),item=t.getBoundingClientRect(),trackLeft=track.getBoundingClientRect().left;
-  const offset=clamp((item.left+item.right)/2-trackLeft-innerWidth/2,0,track.scrollWidth-innerWidth);
-  window.scrollTo({top:scrollY+r.top+offset/(track.scrollWidth-innerWidth)*(r.height-innerHeight),behavior:'instant'});dayFrame();
-  const visible=t.getBoundingClientRect();showLandmark(t,(visible.left+visible.right)/2,visible.top)});
-pano.addEventListener('focusout',()=>btip.classList.remove('on'));
-dpin.addEventListener('keydown',e=>{if(e.key==='Escape'&&btip.classList.contains('on')){e.preventDefault();btip.classList.remove('on')}});
+function showFocusedLandmark(){const t=focusedLandmark();if(!t||t===dismissedLandmark){btip.classList.remove('on');return}const r=t.getBoundingClientRect();showLandmark(t,(r.left+r.right)/2,r.top)}
+dpin.addEventListener('pointermove',e=>{if(e.pointerType==='touch'||btip.contains(e.target))return;const t=e.target.closest('.nm');if(t===hoveredLandmark)return;if(hoveredLandmark===dismissedLandmark&&hoveredLandmark!==focusedLandmark())dismissedLandmark=null;hoveredLandmark=t;if(t&&t!==dismissedLandmark&&motion())showLandmark(t,e.clientX,e.clientY);else showFocusedLandmark()});
+dpin.addEventListener('pointerleave',()=>{if(hoveredLandmark!==focusedLandmark())dismissedLandmark=null;hoveredLandmark=null;showFocusedLandmark()});
+pano.addEventListener('focusin',e=>{const t=e.target;if(!t.matches('.nm'))return;hoveredLandmark=dismissedLandmark=null;
+  const r=day.getBoundingClientRect(),item=t.getBoundingClientRect(),trackLeft=track.getBoundingClientRect().left,travel=dayTravel();
+  const offset=clamp((item.left+item.right)/2-trackLeft-innerWidth/2,0,travel);
+  if(travel){window.scrollTo({top:scrollY+r.top+offset/travel*(r.height-innerHeight),behavior:'instant'});dayFrame()}
+  showFocusedLandmark()});
+pano.addEventListener('focusout',()=>{hoveredLandmark=dismissedLandmark=null;btip.classList.remove('on')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!e.defaultPrevented&&!modal.open&&btip.classList.contains('on')){e.preventDefault();dismissedLandmark=hoveredLandmark||focusedLandmark();btip.classList.remove('on')}});
 
 /* ================= FLOOR PLAN ================= */
 const plan=$('#plan'),walls=$('#walls');
@@ -385,7 +391,7 @@ const VIEWS={
 };
 let modalTrigger;
 const emailError='Enter an email like name@mail.utoronto.ca.';
-const validEmail=value=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+const validEmail=input=>!input.validity.typeMismatch&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
 const escapeHTML=value=>value.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 function fieldError(input,message){$('#'+input.id+'-err').textContent=message;if(message)input.setAttribute('aria-invalid','true');else input.removeAttribute('aria-invalid')}
 function openModal(kind,opts={},trigger=document.activeElement){
@@ -397,8 +403,8 @@ function openModal(kind,opts={},trigger=document.activeElement){
   const f=$('form',mBody);if(!f)return;
   const callBox=$('#s-call',f);if(callBox)callBox.addEventListener('change',()=>{$('#s-when',f).hidden=!callBox.checked});
   f.addEventListener('submit',e=>{e.preventDefault();let invalid;
-    $$('[required]',f).forEach(i=>{let message='';if(i.type==='checkbox'){if(!i.checked)message='Tick this box so we can email you.'}else if(!i.value.trim())message=i.labels[0].textContent.trim()+' is required.';else if(i.type==='email'&&!validEmail(i.value.trim()))message=emailError;fieldError(i,message);if(message&&!invalid)invalid=i});
-    if(invalid){invalid.focus();return}const val=id=>{const i=$('#'+id,f);return i?i.value.trim():''};const name=val('n-name')||val('s-name')||val('p-name');
+    $$('[required]',f).forEach(i=>{let message='';if(i.type==='checkbox'){if(!i.checked)message='Tick this box so we can email you.'}else if(!i.value.trim())message=i.labels[0].textContent.trim()+' is required.';else if(i.type==='email'&&!validEmail(i))message=emailError;fieldError(i,message);if(message&&!invalid)invalid=i});
+    if(invalid){mStatus.textContent=document.activeElement===invalid?$('#'+invalid.id+'-err').textContent:'';invalid.focus();return}const val=id=>{const i=$('#'+id,f);return i?i.value.trim():''};const name=val('n-name')||val('s-name')||val('p-name');
     const vv={first:escapeHTML(name.split(/\s+/)[0]),email:escapeHTML(val('n-email')||val('s-email')||val('p-email')),call:callBox&&callBox.checked};
     mBody.innerHTML=v.done(vv);mTitle.textContent=kind==='notify'?'You\'re in':kind==='prospectus'?'Prospectus requested':'Message ready';mSub.textContent='';mClose.focus();
     mStatus.textContent=$('.done h3',mBody).textContent+' '+$('.done small',mBody).textContent;
@@ -410,7 +416,7 @@ modal.addEventListener('click',e=>{if(e.target===modal)modal.close()});
 modal.addEventListener('close',()=>{if(modal.open)return;if(modalTrigger?.isConnected)modalTrigger.focus();modalTrigger=null});
 const footEmail=$('#footEmail');
 footEmail.addEventListener('input',()=>{if(footEmail.hasAttribute('aria-invalid'))fieldError(footEmail,'')});
-$('#footForm').addEventListener('submit',e=>{e.preventDefault();const email=footEmail.value.trim();const message=validEmail(email)?'':emailError;fieldError(footEmail,message);if(message){footEmail.focus();return}openModal('notify',{email},e.submitter||footEmail)});
+$('#footForm').addEventListener('submit',e=>{e.preventDefault();const email=footEmail.value.trim();const message=validEmail(footEmail)?'':emailError;fieldError(footEmail,message);if(message){footEmail.focus();return}openModal('notify',{email},e.submitter||footEmail)});
 
 /* ================= LOOP ================= */
 function fitHero(){const h=$('.hero'),c=$('.hero-grid > :first-child');if(innerWidth<=900){h.style.removeProperty('--skyH');return}const top=c.getBoundingClientRect().bottom+scrollY-h.getBoundingClientRect().top-scrollY;h.style.setProperty('--skyH',clamp(innerHeight-top-16,170,330)+'px')}
