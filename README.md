@@ -23,5 +23,5 @@ Netlify: drag this folder onto app.netlify.com/drop.
 ## Before launch
 
 - Forms are previews: they validate and confirm but send nothing. Connect them to Formspree, Basin or a Google Sheet.
-- Replace placeholders: sponsor names, prize amounts, judge names, sample briefs, contact email.
+- Replace placeholders: search for `TBA` (sponsor names on the board and in `BRIEFS` in `app.js`, prize amounts), the unlit investor panel in Judges, sample briefs, contact email.
 - If the site moves to a paid domain, update `og:url`, `og:image` and the canonical link in `index.html` to the new address.
