@@ -3,6 +3,8 @@
    PICTURE: the RCEO bulb over an accurate downtown skyline; cranes, girders, a roadside billboard, a keynote stage, a floor plan.
    COLOUR and TYPE: RCEO sky, steel, cerulean, mist, sand by day; night navy after the schedule; filament only for light. Gloock + Schibsted Grotesk.
    LAYOUT: one 1240px content column, full-bleed bands; every section is a built object. */
+@font-face{font-family:Gloock;src:url("assets/gloock-latin.woff2") format("woff2");font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:"Schibsted Grotesk";src:url("assets/schibsted-grotesk-latin.woff2") format("woff2");font-style:normal;font-weight:400 700;font-display:swap}
 :root{
   --sky:#f2faff;--steel:#3066a0;--cer:#0889bc;--mist:#cae6f8;--harbour:#8cc0e0;--sand:#c0bfaa;--ink:#0e2540;
   --night:#0b1a2e;--deep:#12294a;--line:#24406a;--fil:#ffc24b;--white:#fff;
@@ -49,7 +51,7 @@ button{font:inherit;color:inherit}
 .badge .lgd{display:none}.top.on-dark .badge .lgl{display:none}.top.on-dark .badge .lgd{display:block}
 .badge span{font:400 21px/1 var(--serif);white-space:nowrap}
 .nav{position:relative;display:flex;align-items:center;gap:2px;padding:5px 5px 9px}
-.nav a.lk{position:relative;z-index:2;text-decoration:none;font-weight:500;font-size:15px;padding:8px 13px;border-radius:999px;transition:color .25s}
+.nav a.lk{position:relative;z-index:2;text-decoration:none;font-weight:500;font-size:15px;padding:8px 13px;border-radius:999px;transition:color 150ms var(--ease-out)}
 .nav .ind{position:absolute;z-index:1;top:5px;left:0;width:80px;height:35px;transform-origin:left center;border-radius:999px;background:var(--mist);transition:transform 200ms var(--ease-out),opacity 150ms var(--ease-out);opacity:0;pointer-events:none}
 .top.on-dark .nav .ind{background:var(--line)}
 .nav .rail{position:absolute;left:18px;right:150px;bottom:3px;height:2px;border-radius:2px;background:rgba(48,102,160,.18)}
@@ -318,11 +320,12 @@ button{font:inherit;color:inherit}
 .faq{padding:12vh 0 14vh}
 .qa{max-width:920px;margin-top:6vh;border-top:1px solid var(--line)}
 .qi{border-bottom:1px solid var(--line)}
-.qi .q{display:flex;width:100%;justify-content:space-between;align-items:center;gap:20px;padding:22px 6px;background:none;border:0;cursor:pointer;text-align:left;font:400 clamp(22px,2.1vw,30px)/1.2 var(--serif);color:var(--sky)}
-.qi .ic{flex:none;position:relative;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--harbour)}
-.qi .ic::before,.qi .ic::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:2px;background:var(--harbour);transform:translate(-50%,-50%)}
+.qi .q{display:flex;width:100%;justify-content:space-between;align-items:center;gap:20px;padding:22px 6px;background:none;border:0;cursor:pointer;text-align:left;font:400 clamp(22px,2.1vw,30px)/1.2 var(--serif);color:var(--sky);transition:color 150ms var(--ease-out)}
+.qi .q-label{transition:transform 150ms var(--ease-out)}
+.qi .ic{flex:none;position:relative;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--harbour);transition:transform 150ms var(--ease-out),background 150ms var(--ease-out),border-color 150ms var(--ease-out)}
+.qi .ic::before,.qi .ic::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:2px;background:var(--harbour);transform:translate(-50%,-50%);transition:background 150ms var(--ease-out)}
 .qi .ic::after{transform:translate(-50%,-50%) rotate(90deg)}
-@media (hover:hover) and (pointer:fine){.qi .q:hover{color:var(--white)}.qi .q:hover .ic{border-color:var(--fil)}.qi:not(.open) .q:hover .ic::before,.qi:not(.open) .q:hover .ic::after{background:var(--fil)}}
+.qi .q:focus-visible .ic,.qi .q:focus-visible .q-label{transition:none}
 .qi.open .ic{transform:rotate(135deg);background:var(--fil);border-color:var(--fil)}
 .qi.open .ic::before,.qi.open .ic::after{background:var(--night)}
 .qi .a p{margin:0;padding:0 6px 24px;max-width:42em;color:var(--on-dark)}
@@ -383,8 +386,8 @@ button{font:inherit;color:inherit}
 /* ---------------- modal ---------------- */
 dialog.modal{width:min(560px,calc(100vw - 32px));max-height:calc(100vh - 48px);padding:0;border:0;border-radius:24px;background:var(--sky);color:var(--ink);box-shadow:0 30px 80px rgba(11,26,46,.45);overflow:auto;overscroll-behavior:contain}
 dialog.modal::backdrop{background:rgba(11,26,46,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
-dialog.modal[open]{animation:pop .35s var(--ease)}
-dialog.modal[open]::backdrop{animation:fade .3s ease}
+dialog.modal[open]{animation:pop 240ms var(--ease-out)}
+dialog.modal[open]::backdrop{animation:fade 150ms var(--ease-out)}
 @keyframes pop{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 .m-head{position:relative;padding:28px 28px 0}
@@ -477,6 +480,7 @@ dialog.modal[open]::backdrop{animation:fade .3s ease}
   .btn:active{transform:none!important}
   .bulb .tip{transform:translateX(-50%)!important}
   .col::before{transform:none}
+  .trolley{display:none}
 }
 
 /* Tracks */
@@ -512,11 +516,11 @@ dialog.modal[open]::backdrop{animation:fade .3s ease}
 .panel-note{max-width:28em;margin:16px 0 0;font-size:15px;color:var(--on-dark-2)}
 
 @media (hover:hover) and (pointer:fine){
-  .bulb:hover .glow{opacity:.35}
+  .bulb[aria-pressed="false"]:hover .glow{opacity:.35}
   .bulb:hover .tip{opacity:1}
   .row:hover{background:#f7fbff}.row:hover::before{opacity:1}
   .room:hover .arc,.room:hover .spill{opacity:1}
-  .qi .q:hover{color:#fff}.qi .q:hover .ic{border-color:var(--fil)}
+  .qi .q:hover{color:var(--white)}.qi .q:hover .ic{border-color:var(--fil)}
   .qi:not(.open) .q:hover .ic::before,.qi:not(.open) .q:hover .ic::after{background:var(--fil)}
   .col:hover::before{opacity:1}
 }
@@ -525,8 +529,8 @@ dialog.modal[open]::backdrop{animation:fade .3s ease}
   .bulb:hover .tip{transform:translate(-50%,0)}
   .row:hover > :not(:last-child){transform:translateX(8px)}
   .room:hover .leaf{transform:rotate(-90deg)}
-  .qi .q:hover{transform:translateX(6px)}
+  .qi .q:hover .q-label{transform:translateX(6px)}
   .qi:not(.open) .q:hover .ic{transform:rotate(90deg)}
   .col:hover::before{transform:scaleX(1)}
-  .badge:hover .kb,.bulb:hover .kb{transform:translateY(5px)}
+  .badge:hover .kb,.bulb[aria-pressed="false"]:hover .kb{transform:translateY(5px)}
 }

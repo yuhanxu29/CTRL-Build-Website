@@ -116,8 +116,8 @@ const navMap={top:null,what:'what',why:'what',board:'board',tracks:'board',prize
 const navSecs=[['top','#top'],['what','#what'],['why','#why'],['board','#board'],['tracks','#tracks'],['prizes','#prizes'],['day','#day'],['bandsN','#bandsN'],['sponsors','#sponsors'],['judges','#judges'],['faq','#faq'],['hosts','#hosts'],['notify','#notify']].map(([k,s])=>[k,$(s)]).filter(([,s])=>s);
 const themed=$$('[data-theme]');
 let curNav,headerLayout;
-function measureHeader(y){const bounds=new Map([...new Set([...navSecs.map(([,s])=>s),...themed])].map(s=>{const r=s.getBoundingClientRect();return[s,[r.top+y,r.bottom+y]]}));headerLayout={bounds,max:document.documentElement.scrollHeight-innerHeight,railW:rail.clientWidth};curNav=undefined}
-function moveInd(key){if(key===curNav)return;curNav=key;const a=key&&isWide()&&navLinks.find(l=>l.dataset.sec===key),x=a&&a.offsetLeft,w=a&&a.offsetWidth;navLinks.forEach(l=>{if(l===a)l.setAttribute('aria-current','true');else l.removeAttribute('aria-current')});if(a)ind.style.transform=`translateX(${x}px) scaleX(${w/80})`;ind.style.opacity=a?1:0}
+function measureHeader(y){const bounds=new Map([...new Set([...navSecs.map(([,s])=>s),...themed])].map(s=>{const r=s.getBoundingClientRect();return[s,[r.top+y,r.bottom+y]]}));const links=new Map(navLinks.map(a=>[a,[a.offsetLeft,a.offsetWidth]]));headerLayout={bounds,links,max:document.documentElement.scrollHeight-innerHeight,railW:rail.clientWidth,indW:ind.offsetWidth};curNav=undefined}
+function moveInd(key,links,indW){if(key===curNav)return;curNav=key;const a=key&&navLinks.find(l=>l.dataset.sec===key),[x,w]=links.get(a)||[],show=indW&&w&&!a.classList.contains('sp');navLinks.forEach(l=>{if(l===a)l.setAttribute('aria-current','true');else l.removeAttribute('aria-current')});if(show)ind.style.transform=`translateX(${x}px) scaleX(${w/indW})`;ind.style.opacity=show?1:0}
 const menuBtn=$('#menuBtn'),menu=$('#menu');
 function closeMenu(restore=false){if(!menu.classList.contains('open'))return;menu.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');if(restore)menuBtn.focus()}
 menuBtn.addEventListener('click',()=>{if(menu.classList.contains('open')){closeMenu();return}menu.classList.add('open');menuBtn.setAttribute('aria-expanded','true');$('a',menu).focus()});
@@ -128,9 +128,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.cont
 addEventListener('resize',()=>{if(!menu.classList.contains('open')||menuBtn.getClientRects().length)return;const active=document.activeElement;closeMenu();if(menu.contains(active)){const link=navLinks.find(a=>a.hash===active.hash&&a.offsetWidth)||navLinks.find(a=>a.offsetWidth);link?.focus()}});
 function header(y){
   if(!headerLayout)measureHeader(y);
-  const {bounds,max,railW}=headerLayout,active=(s,line)=>{const [top,bottom]=bounds.get(s);return top<=line&&bottom>line};
+  const {bounds,links,max,railW,indW}=headerLayout,active=(s,line)=>{const [top,bottom]=bounds.get(s);return top<=line&&bottom>line};
   const key=navSecs.find(([,s])=>active(s,y+innerHeight*.45))?.[0],sec=themed.find(s=>active(s,y+40));
-  moveInd(navMap[key]??null);topBar.classList.toggle('on-dark',sec?.dataset.theme==='dark');trolley.style.transform=`translateX(${max>0?clamp(y/max)*railW:0}px)`;
+  moveInd(navMap[key]??null,links,indW);topBar.classList.toggle('on-dark',sec?.dataset.theme==='dark');if(!RM.matches)trolley.style.transform=`translateX(${max>0?clamp(y/max)*railW:0}px)`;
 }
 
 /* ================= POINTER ================= */
@@ -208,11 +208,30 @@ function craneFrame(dt){
 }
 
 /* ================= BANDS ================= */
-const tapes=$$('.tape').map(t=>{const run=$('.run',t);const unit=run.innerHTML;run.insertAdjacentHTML('beforeend',`<span class="tape-copy" aria-hidden="true">${unit}</span>`.repeat(3));return{t,run,unitW:0,x:0,sp:+t.dataset.speed,sec:t.closest('.bands'),paused:false}});
-function measureTapes(){tapes.forEach(o=>{o.unitW=o.run.scrollWidth/4})}
-$$('.bands .pause').forEach(b=>b.addEventListener('click',()=>{const sec=b.closest('.bands');const now=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(now));tapes.filter(o=>o.sec===sec).forEach(o=>o.paused=now);wake()}));
+const tapes=$$('.tape').map(t=>{const run=$('.run',t);const unit=run.innerHTML;run.insertAdjacentHTML('beforeend',`<span class="tape-copy" aria-hidden="true">${unit}</span>`.repeat(3));return{t,run,unitW:0,sp:+t.dataset.speed,sec:t.closest('.bands'),paused:false}});
+function measureTapes(){
+  const widths=tapes.map(o=>o.run.scrollWidth/4);
+  for(const [i,o] of tapes.entries()){
+    const w=widths[i];if(w===o.unitW)continue;
+    const phase=o.animation?(o.animation.currentTime/o.duration)%1:0;o.animation?.cancel();o.unitW=w;o.animation=null;
+    if(w&&o.sp){o.duration=w/Math.abs(o.sp)*1000;const poses=[0,-w].map(x=>({transform:`translate3d(${x}px,0,0)`}));o.animation=o.run.animate(o.sp<0?poses.reverse():poses,{duration:o.duration,iterations:Infinity});o.animation.pause();o.animation.currentTime=(1+phase)*o.duration}
+  }
+}
+$$('.bands .pause').forEach(b=>b.addEventListener('click',()=>{const sec=b.closest('.bands');const now=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(now));tapes.filter(o=>o.sec===sec).forEach(o=>o.paused=now);redraw()}));
 let scrollV=0,lastY=scrollY;
-function tapeFrame(dt){let playing=false;for(const o of tapes){if(!visible.has(o.sec)||o.paused||!o.unitW)continue;const boost=1+Math.min(4,Math.abs(scrollV)/700),dir=scrollV<-30?-1:1;o.x+=o.sp*boost*dir*dt;o.x=((o.x%o.unitW)+o.unitW)%o.unitW;o.run.style.transform=`translate3d(${-o.x}px,0,0)`;playing=true}return playing}
+// Only playback rate settling needs JS frames; the browser moves the tapes.
+function tapeFrame(){
+  let settling=false;
+  for(const o of tapes){
+    if(!o.animation)continue;const playing=!RM.matches&&visible.has(o.sec)&&!o.paused;
+    if(!playing){if(o.animation.playState!=='paused')o.animation.pause();continue}
+    const rate=(1+Math.min(4,Math.abs(scrollV)/700))*(scrollV<-30?-1:1);
+    if(rate<0&&o.animation.currentTime<o.duration)o.animation.currentTime+=o.duration;
+    if(o.animation.playbackRate!==rate)o.animation.updatePlaybackRate(rate);
+    if(o.animation.playState!=='running')o.animation.play();settling=settling||scrollV!==0;
+  }
+  return settling;
+}
 
 /* ================= WHY RIG ================= */
 const rig=$('#rig'),why=$('#why');
@@ -273,7 +292,7 @@ function boardFrame(){
 
 /* ================= PRIZES STAGE ================= */
 const stage=$('#stage'),lecs=$$('.lec',stage),cones=$$('.cone',stage),cans=$$('.can',stage),pools=$$('.pool',stage);
-function alignStage(){const sr=stage.getBoundingClientRect();lecs.forEach(l=>{const i=+l.dataset.i;l.style.transform='none';const lr=l.getBoundingClientRect();const cx=lr.left-sr.left+lr.width/2;cones[i].style.left=cx+'px';cans[i].style.left=cx+'px';cones[i].style.width=(lr.width*1.9)+'px';pools[i].style.left=cx+'px';pools[i].style.width=(lr.width*1.75)+'px'})}
+function alignStage(){stage.style.transform='';lecs.forEach(l=>l.style.transform='none');const sr=stage.getBoundingClientRect(),lecterns=lecs.map(l=>l.getBoundingClientRect());lecs.forEach((l,j)=>{const i=+l.dataset.i,lr=lecterns[j];const cx=lr.left-sr.left+lr.width/2;cones[i].style.left=cx+'px';cans[i].style.left=cx+'px';cones[i].style.width=(lr.width*1.9)+'px';pools[i].style.left=cx+'px';pools[i].style.width=(lr.width*1.75)+'px'})}
 function stageFrame(){
   const vh=innerHeight,sr=stage.parentElement.getBoundingClientRect();
   const t=clamp((vh-sr.top)/(vh*.95));const tilt=ease(clamp(t/.6));
@@ -429,6 +448,7 @@ function rebuild(){
   craneSettling=rigSettling=false;invalidate();
 }
 let rz,raf,started=false,dirty=true,lastT=0,craneSettling=false,rigSettling=false;
+// Keep visibility decisions here so scene frames only measure visible geometry.
 const visible=new Set(),sceneIO=new IntersectionObserver(entries=>{for(const e of entries){if(e.isIntersecting)visible.add(e.target);else{visible.delete(e.target);if(e.target===craneScene){CR.init=true;craneSettling=false}if(e.target===why)rigSettling=false}}redraw()});
 const layoutRO=new ResizeObserver(invalidate);
 function wake(){if(started&&!raf)raf=requestAnimationFrame(loop)}
@@ -439,7 +459,7 @@ addEventListener('resize',()=>{invalidate();clearTimeout(rz);rz=setTimeout(rebui
 RM.addEventListener('change',()=>{if(started)rebuild()});
 function loop(now){
   raf=undefined;const dt=lastT?clamp((now-lastT)/1000,.001,.05):1/60,y=scrollY,draw=dirty;dirty=false;
-  scrollV+=( (y-lastY)/dt-scrollV)*Math.min(1,dt*8);lastY=y;lastT=now;
+  scrollV+=((y-lastY)/dt-scrollV)*Math.min(1,dt*8);if(Math.abs(scrollV)<1)scrollV=0;lastY=y;lastT=now;
   const kick=now-ptr.t<80&&Math.abs(ptr.vx)>1;if(!kick)ptr.vx=0;
   if(draw){header(y);if(!RM.matches&&visible.has(hero))heroFrame(y);if(!userSet&&!RM.matches&&y>innerHeight*.15&&!document.body.classList.contains('lit'))setLit(true)}
   if(motion()){
@@ -447,8 +467,8 @@ function loop(now){
     if(visible.has(why)&&(draw||kick||rigSettling))rigSettling=rigFrame(dt);
     if(draw){if(visible.has(bbScene))boardFrame();if(visible.has(stage.parentElement))stageFrame();if(visible.has(day))dayFrame();if(visible.has(plan))planFrame();if(visible.has(hosts))clubsFrame()}
   }
-  const playing=!RM.matches&&tapeFrame(dt);
-  if(playing||craneSettling||rigSettling)wake();else{lastT=0;scrollV=0}
+  const tapeSettling=tapeFrame();
+  if(tapeSettling||craneSettling||rigSettling)wake();else{lastT=0;scrollV=0}
 }
 function start(){started=true;lastY=scrollY;rebuild();for(const s of new Set([hero,craneScene,why,bbScene,stage.parentElement,day,plan,hosts,...tapes.map(o=>o.sec)]))sceneIO.observe(s);for(const s of new Set([...navSecs.map(([,s])=>s),...themed,rail,...navLinks]))layoutRO.observe(s)}
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(start);else addEventListener('load',start);
