@@ -12,13 +12,14 @@
   <meta property="og:title" content="CTRL Build | March 2027">
   <meta property="og:description" content="A one-day commerce hackathon in Toronto. No code required.">
   <meta property="og:url" content="https://ctrlbuild.vercel.app/">
-  <meta property="og:image" content="https://ctrlbuild.vercel.app/assets/og.jpg">
+  <meta property="og:image" content="/assets/og.jpg">
   <link rel="canonical" href="https://ctrlbuild.vercel.app/">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preload" href="assets/fonts/ibm-plex-mono-600.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
+  <script src="faq.js" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -53,26 +54,385 @@
 
   <main id="main" tabindex="-1">
     <!-- Upper sections start -->
-    <section id="top"></section>
-    <section id="what"></section>
-    <section id="tracks"></section>
-    <section id="day"></section>
-    <section id="prizes"></section>
+    <section class="upper-hero" id="top" aria-labelledby="upper-title">
+      <div class="wrap section-layout">
+        <div class="upper-hero-copy">
+          <p class="upper-dateline">Toronto <span aria-hidden="true">/</span> March 2027</p>
+          <h1 id="upper-title"><span class="prompt" aria-hidden="true">&gt;</span> CTRL Build</h1>
+          <p class="lede">A one-day commerce hackathon. Take on a real business problem, build a working prototype, and pitch it to investors.</p>
+          <p>Applications open in January.</p>
+          <div class="upper-hero-actions">
+            <button class="button button-primary" type="button" data-open="sponsor">For sponsors</button>
+            <button class="button" type="button" data-open="notify">Get notified</button>
+          </div>
+        </div>
+        <button class="button upper-build-toggle" type="button" data-build-toggle aria-pressed="false" aria-keyshortcuts="Control+B">
+          <svg viewBox="0 0 200 120" width="200" height="120" aria-hidden="true" focusable="false">
+            <rect class="kc-base" x="2" y="12" width="92" height="96" rx="20"/>
+            <rect class="kc-top" x="2" y="4" width="92" height="96" rx="20"/>
+            <text class="kc-t" x="48" y="60" text-anchor="middle">CTRL</text>
+            <rect class="kc-base" x="106" y="12" width="92" height="96" rx="20"/>
+            <rect class="kc-b" x="106" y="4" width="92" height="96" rx="20"/>
+            <text class="kc-bt" x="152" y="72" text-anchor="middle">B</text>
+          </svg>
+          <span class="build-label">Build mode <span class="build-indicator" data-build-state aria-hidden="true">Off</span></span>
+        </button>
+      </div>
+    </section>
+
+    <section class="section" id="what" aria-labelledby="upper-what-title">
+      <div class="wrap section-layout">
+        <div class="section-intro">
+          <h2 id="upper-what-title"><span class="prompt" aria-hidden="true">&gt;</span> Not another case comp.</h2>
+          <p class="lede">If you’ve played with a few tools and never shipped anything, you’re exactly who this is for.</p>
+        </div>
+        <div class="upper-premise">
+          <p>Hosted by Rotman Commerce’s RCEO, RCIG and RCVC, CTRL Build brings together 150 to 200 students in teams of 3 to 4. University students in Ontario can apply from any program and any year. It’s free, lunch and dinner are included, and no code is required.</p>
+          <dl class="upper-premise-log">
+            <div><dt>A slide deck</dt><dd>A working prototype</dd></div>
+            <div><dt>Technical complexity</dt><dd>Commercial viability</dd></div>
+            <div><dt>An audience</dt><dd>Investors in the room</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="section upper-tracks" id="tracks" aria-labelledby="upper-tracks-title">
+      <div class="wrap section-layout">
+        <div class="section-intro">
+          <h2 id="upper-tracks-title"><span class="prompt" aria-hidden="true">&gt;</span> Tracks</h2>
+        </div>
+        <ul class="upper-track-log" role="list">
+          <li><h3>Consumer and retail</h3></li>
+          <li><h3>Future of work</h3></li>
+          <li><h3>Fintech and payments</h3></li>
+          <li><h3>Social impact</h3></li>
+          <li><h3>Open track</h3></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="day" aria-labelledby="upper-day-title">
+      <div class="wrap section-layout">
+        <div class="section-intro">
+          <h2 id="upper-day-title"><span class="prompt" aria-hidden="true">&gt;</span> The day</h2>
+          <p class="lede">No overnight hacking, no 3am energy drinks. Just ten hours of building with people who have done it before.</p>
+          <p class="upper-day-aside">Dinner is on us.</p>
+        </div>
+        <ol class="upper-day-log" role="list">
+          <li><time datetime="10:00">10:00</time><h3>Opening bell</h3></li>
+          <li><time datetime="12:30">12:30</time><h3>Lunch and mentor rounds</h3></li>
+          <li><time datetime="14:00">14:00</time><h3>Pitch workshop</h3></li>
+          <li><time datetime="16:00">16:00</time><h3>Pencils down</h3></li>
+          <li><time datetime="17:00">17:00</time><h3>Demo Day</h3></li>
+          <li><time datetime="19:15">19:15</time><h3>Closing bell</h3></li>
+          <li><time datetime="20:00">20:00</time><h3>Lights out</h3></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section upper-prizes" id="prizes" aria-labelledby="upper-prizes-title">
+      <div class="wrap section-layout">
+        <div class="section-intro">
+          <h2 id="upper-prizes-title"><span class="prompt" aria-hidden="true">&gt;</span> Prizes</h2>
+          <p class="lede">First, second and third place prize amounts will be announced in February.</p>
+          <p>The investor panel will also be announced in February.</p>
+        </div>
+        <div class="upper-awards">
+          <dl class="upper-placements">
+            <div><dt>First place</dt><dd>TBA</dd></div>
+            <div><dt>Second place</dt><dd>TBA</dd></div>
+            <div><dt>Third place</dt><dd>TBA</dd></div>
+          </dl>
+          <ul class="upper-special-awards" role="list">
+            <li><h3>Best sponsor solution</h3></li>
+            <li><h3>People’s choice</h3></li>
+          </ul>
+        </div>
+      </div>
+    </section>
     <!-- Upper sections end -->
 
     <!-- Lower sections start -->
-    <section id="sponsors"></section>
-    <section id="faq"></section>
-    <section id="hosts"></section>
-    <section id="closing"></section>
+    <section class="section lower-sponsors" id="sponsors" aria-labelledby="sponsors-title">
+      <div class="wrap section-layout">
+        <div class="section-intro">
+          <h2 id="sponsors-title"><span class="prompt" aria-hidden="true">&gt;</span> Sponsors</h2>
+          <p class="lede">Bring a real problem and leave with a room full of prototypes aimed at it.</p>
+          <p class="sponsor-status">Sponsor lineup: TBA</p>
+          <div class="lower-actions">
+            <button class="button button-primary" type="button" data-open="call">Book a call</button>
+            <button class="button" type="button" data-open="prospectus">Get the prospectus</button>
+          </div>
+        </div>
+
+        <table class="sponsor-tiers">
+          <caption>Sponsorship packages</caption>
+          <thead>
+            <tr>
+              <th scope="col">Tier</th>
+              <th scope="col">Perks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Title <span class="sponsor-price">$10,000</span></th>
+              <td>
+                <strong>Presented by you</strong>
+                <p>The whole day carries your name, from opening bell to closing awards.</p>
+                <button class="button" type="button" data-open="sponsor" data-pkg="Title">Ask about Title</button>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Gold <span class="sponsor-price">$5,000</span></th>
+              <td>
+                <strong>Your challenge, your judge</strong>
+                <p>Put your problem on the board, then judge what comes back.</p>
+                <button class="button" type="button" data-open="sponsor" data-pkg="Gold">Ask about Gold</button>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Silver <span class="sponsor-price">$2,500</span></th>
+              <td>
+                <strong>Booth and resumes</strong>
+                <p>Meet students at your booth and collect resumes.</p>
+                <button class="button" type="button" data-open="sponsor" data-pkg="Silver">Ask about Silver</button>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Community <span class="sponsor-price">$1,000</span></th>
+              <td>
+                <strong>Mentor seat</strong>
+                <p>Work with a team for the day and help them get to a prototype.</p>
+                <button class="button" type="button" data-open="sponsor" data-pkg="Community">Ask about Community</button>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">In-kind <span class="sponsor-price">Let's talk</span></th>
+              <td>
+                <strong>In-kind contributions</strong>
+                <p>Offer software credits, development resources, meals or a venue.</p>
+                <button class="button" type="button" data-open="sponsor" data-pkg="In-kind">Ask about In-kind</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section lower-faq" id="faq" aria-labelledby="faq-title">
+      <div class="wrap section-layout">
+        <div class="section-intro">
+          <h2 id="faq-title"><span class="prompt" aria-hidden="true">&gt;</span> FAQ</h2>
+          <div class="faq-controls" role="search" aria-label="FAQ" hidden>
+            <div class="field">
+              <label for="faq-search">Search questions and answers</label>
+              <input type="search" id="faq-search" aria-controls="faq-results">
+            </div>
+            <div class="field">
+              <label for="faq-category">Category</label>
+              <select id="faq-category" aria-controls="faq-results">
+                <option value="">All categories</option>
+                <option value="getting-started">Getting started</option>
+                <option value="teams">Teams and building</option>
+                <option value="judging">Competition and judging</option>
+                <option value="logistics">Event logistics</option>
+                <option value="partnerships">Partnerships</option>
+              </select>
+            </div>
+            <p class="faq-status" id="faq-status" role="status" aria-atomic="true"></p>
+          </div>
+        </div>
+
+        <div class="faq-results" id="faq-results">
+          <div class="faq-group" data-category="getting-started">
+            <h3>Getting started</h3>
+            <details>
+              <summary>What is CTRL Build?</summary>
+              <p>A commerce hackathon where 150 to 200 students tackle real business challenges, build prototypes, and pitch to investors and industry leaders.</p>
+            </details>
+            <details>
+              <summary>Who can participate?</summary>
+              <p>University students in Ontario, any program and any year. Apply alone or with a team of up to four.</p>
+            </details>
+            <details>
+              <summary>Do I need to know how to code?</summary>
+              <p>No. You can build with AI tools, no-code platforms, or traditional programming.</p>
+            </details>
+            <details>
+              <summary>How is CTRL Build different from a traditional hackathon?</summary>
+              <p>The focus is on business viability, creativity, customer needs, and execution.</p>
+            </details>
+            <details>
+              <summary>How is it different from a case competition?</summary>
+              <p>You build a working prototype that shows how your proposed solution works.</p>
+            </details>
+            <details>
+              <summary>How much does it cost?</summary>
+              <p>It's free to attend. Lunch and dinner are included.</p>
+            </details>
+          </div>
+
+          <div class="faq-group" data-category="teams">
+            <h3>Teams and building</h3>
+            <details>
+              <summary>How many people can be on a team?</summary>
+              <p>Teams have three to four people.</p>
+            </details>
+            <details>
+              <summary>What if I don't have a team?</summary>
+              <p>Apply individually and we'll help you find teammates.</p>
+            </details>
+            <details>
+              <summary>What will we be building?</summary>
+              <p>You'll prototype a solution to a business challenge from a corporate or startup partner. It could be a website, an app, an AI-powered tool, or another digital product.</p>
+            </details>
+            <details>
+              <summary>Can I use AI tools?</summary>
+              <p>Yes. You're encouraged to use AI tools.</p>
+            </details>
+            <details>
+              <summary>Can I start building beforehand?</summary>
+              <p>You can get familiar with your tools in advance. Build your solution to the challenge during the event.</p>
+            </details>
+            <details>
+              <summary>Will there be mentors?</summary>
+              <p>Yes. Industry professionals, founders, and investors will give guidance and feedback throughout the day.</p>
+            </details>
+          </div>
+
+          <div class="faq-group" data-category="judging">
+            <h3>Competition and judging</h3>
+            <details>
+              <summary>What do I need to submit?</summary>
+              <p>A prototype that demonstrates your solution and a short pitch deck explaining its business potential.</p>
+            </details>
+            <details>
+              <summary>How will projects be judged?</summary>
+              <ol>
+                <li>Is the problem real?</li>
+                <li>Who is the customer?</li>
+                <li>Does the business model work?</li>
+                <li>Does the prototype show it?</li>
+                <li>Can you pitch it and take questions?</li>
+              </ol>
+            </details>
+            <details>
+              <summary>Who will we pitch to?</summary>
+              <p>A panel of venture capital investors, founders, and corporate representatives.</p>
+            </details>
+            <details>
+              <summary>What can I win?</summary>
+              <p>There are prizes for first, second, and third place, plus Best sponsor solution and People's choice. See the <a href="#prizes">prizes section</a> for details.</p>
+            </details>
+          </div>
+
+          <div class="faq-group" data-category="logistics">
+            <h3>Event logistics</h3>
+            <details>
+              <summary>How long is CTRL Build?</summary>
+              <p>10 hours in one day, 10:00 to 20:00.</p>
+            </details>
+            <details>
+              <summary>What should I bring?</summary>
+              <p>Bring a laptop, charger, and student ID.</p>
+            </details>
+            <details>
+              <summary>Can I participate virtually?</summary>
+              <p>TBA</p>
+            </details>
+            <details>
+              <summary>When do applications open?</summary>
+              <p>Applications open in January.</p>
+            </details>
+            <details>
+              <summary>Will travel reimbursements be provided?</summary>
+              <p>We're working on it. Details come with applications in January.</p>
+            </details>
+          </div>
+
+          <div class="faq-group" data-category="partnerships">
+            <h3>Partnerships</h3>
+            <details>
+              <summary>Who is organizing CTRL Build?</summary>
+              <p>RCEO, RCIG, and RCVC, three <a href="#hosts">Rotman Commerce student groups</a>.</p>
+            </details>
+            <details>
+              <summary>How can my company get involved?</summary>
+              <p>You can sponsor the event, provide a challenge, mentor, judge, or contribute in kind. Software credits and development resources are welcome. See the <a href="#sponsors">sponsorship packages</a>.</p>
+            </details>
+            <details>
+              <summary>Still have questions?</summary>
+              <p>Email <a href="mailto:ctrlbuildto@gmail.com">ctrlbuildto@gmail.com</a>.</p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section lower-hosts" id="hosts" aria-labelledby="hosts-title">
+      <div class="wrap">
+        <div class="section-intro">
+          <h2 id="hosts-title"><span class="prompt" aria-hidden="true">&gt;</span> Organizers</h2>
+          <p class="lede">Three Rotman Commerce student groups hold this up together. Every mentor, judge, and sponsor conversation runs through them.</p>
+        </div>
+        <ul class="host-list" role="list">
+          <li>
+            <div class="host-mark"><img src="assets/logo-sky.png" alt="" width="315" height="490" loading="lazy"></div>
+            <h3>RCEO</h3>
+            <p>Rotman Commerce Entrepreneurship Organization</p>
+            <a href="https://www.rotmanceo.com">Visit RCEO</a>
+          </li>
+          <li>
+            <div class="host-mark"><img src="assets/rcig.png" alt="" width="544" height="374" loading="lazy"></div>
+            <h3>RCIG</h3>
+            <p>Rotman Commerce Innovation Group</p>
+            <a href="https://www.rotmancommerceinnovationgroup.org">Visit RCIG</a>
+          </li>
+          <li>
+            <div class="host-mark"><img src="assets/rcvc-sky.png" alt="" width="380" height="494" loading="lazy"></div>
+            <h3>RCVC</h3>
+            <p>Rotman Commerce Venture Capital</p>
+            <a href="https://rcventure.ca">Visit RCVC</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section lower-closing" id="closing" aria-labelledby="closing-title">
+      <div class="wrap section-intro">
+        <h2 id="closing-title"><span class="prompt" aria-hidden="true">&gt;</span> Stop scrolling. Start building.</h2>
+        <p class="lede">Free to attend, meals included, no code required. Bring a laptop and an idea worth arguing about.</p>
+        <div class="lower-actions">
+          <button class="button button-primary" type="button" data-open="notify">Get notified when applications open</button>
+        </div>
+      </div>
+    </section>
     <!-- Lower sections end -->
   </main>
 
   <!-- Footer content start -->
   <footer class="site-footer" id="notify">
     <div class="wrap">
-      <a href="#top">CTRL Build</a>
-      <a href="mailto:ctrlbuildto@gmail.com">ctrlbuildto@gmail.com</a>
+      <div class="footer-index">
+        <div class="footer-contact">
+          <a class="footer-brand" href="#top">CTRL Build</a>
+          <p>Toronto, March 2027</p>
+          <a href="mailto:ctrlbuildto@gmail.com">ctrlbuildto@gmail.com</a>
+        </div>
+        <nav class="footer-nav" aria-label="Footer">
+          <a href="#what">What</a>
+          <a href="#tracks">Tracks</a>
+          <a href="#day">The day</a>
+          <a href="#sponsors">Sponsors</a>
+          <a href="#faq">FAQ</a>
+          <a href="#hosts">Organizers</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p>Event details, sponsorship packages and prizes are subject to confirmation.</p>
+        <a href="#top">Back to top</a>
+      </div>
     </div>
   </footer>
   <!-- Footer content end -->

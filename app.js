@@ -32,10 +32,12 @@ nav.addEventListener('click', event => {
 
 const buildControls = document.querySelectorAll('[data-build-toggle]');
 const buildFeedback = document.querySelector('#build-feedback');
+const buildIndicators = document.querySelectorAll('[data-build-state]');
 
 function toggleBuildMode() {
   const lit = document.body.classList.toggle('build-on');
   buildControls.forEach(control => control.setAttribute('aria-pressed', String(lit)));
+  buildIndicators.forEach(indicator => { indicator.textContent = lit ? 'On' : 'Off'; });
   buildFeedback.textContent = lit ? 'Build mode on.' : 'Build mode off.';
 }
 

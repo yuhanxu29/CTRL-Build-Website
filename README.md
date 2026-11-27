@@ -8,7 +8,8 @@ Plain HTML, CSS and JavaScript. No build step, no dependencies.
 
 - `index.html` - the page
 - `styles.css` - all styles (colour tokens at the top)
-- `app.js` - scroll scenes, popups and forms
+- `app.js` - Build mode, navigation and preview forms
+- `faq.js` - FAQ search and category filtering
 - `assets/` - logos, favicon, link-preview image
 
 ## Run it locally
@@ -23,5 +24,5 @@ Netlify: drag this folder onto app.netlify.com/drop.
 ## Before launch
 
 - Forms are previews: they validate and confirm but send nothing. Connect them to Formspree, Basin or a Google Sheet.
-- Replace placeholders: sponsor names, prize amounts, judge names, sample briefs, contact email.
-- If the site moves to a paid domain, update `og:url`, `og:image` and the canonical link in `index.html` to the new address.
+- Replace placeholders: sponsor names, prize amounts, judge names and unresolved FAQ details, and confirm the contact email.
+- Set `og:image` to the absolute URL of the Terminal preview image when the deployment address is confirmed. Update `og:url` and the canonical link if the site moves.
