@@ -24,7 +24,7 @@
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="wrap header-inner">
-      <button class="keycap-control" type="button" data-build-toggle aria-label="Build mode" aria-pressed="false" aria-keyshortcuts="Control+B">
+      <button class="keycap-control" type="button" data-build-toggle aria-label="CTRL Build: Build mode" aria-pressed="false" aria-keyshortcuts="Control+B" title="Toggle Build mode (Ctrl+B)">
         <svg viewBox="0 0 200 120" width="56" height="34" aria-hidden="true" focusable="false">
           <rect class="kc-base" x="2" y="12" width="92" height="96" rx="20"/>
           <rect class="kc-top" x="2" y="4" width="92" height="96" rx="20"/>
@@ -48,6 +48,7 @@
         <button class="button header-notify" type="button" data-open="notify">Get notified</button>
       </div>
     </div>
+    <p class="sr-only" id="build-feedback" role="status"></p>
   </header>
 
   <main id="main" tabindex="-1">
@@ -81,7 +82,7 @@
       <header class="modal-header">
         <h2 id="mTitle"></h2>
         <p id="mSub"></p>
-        <button class="button modal-close" type="button" id="mClose">Close</button>
+        <button class="button modal-close" type="button" id="mClose" autofocus>Close</button>
       </header>
       <div id="mBody"></div>
       <p class="form-feedback" id="mFeedback" role="status" aria-live="polite" aria-atomic="true"></p>
