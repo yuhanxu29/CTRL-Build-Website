@@ -213,7 +213,10 @@
       const p = progress(daySec);
       const top = mixC(MORN[0], NIGHT[0], p), mid = mixC(MORN[1], NIGHT[1], p), bot = mixC(MORN[2], NIGHT[2], p);
       dayPin.style.background = `linear-gradient(180deg,rgb(${top}) 0%,rgb(${mid}) 55%,rgb(${bot}) 100%)`;
-      dayPin.style.setProperty('--ink', p > .5 ? '#f2faff' : '#0e2540');
+      /* Lettering runs from ink in the morning to amber as the sky goes dark, with a warm glow to match. */
+      const warm = clamp((p - .45) / .4);
+      dayPin.style.setProperty('--ink', `rgb(${mixC([14, 37, 64], [255, 194, 75], warm)})`);
+      dayPin.style.setProperty('--glow', clamp((p - .5) / .5).toFixed(2));
       const minutes = 600 + Math.round(p * 600 / 5) * 5;
       if (dayClock) dayClock.textContent = fmt(minutes);
       if (dayBar) dayBar.style.transform = `scaleX(${p})`;

@@ -396,8 +396,15 @@ section { padding: clamp(96px, 13vw, 180px) 0; }
 .day-pin {
   position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden;
   display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(24px, 4vw, 72px);
-  padding: 110px var(--pad) 40px; background: #f2faff; color: var(--ink); --ink: #0e2540;
+  padding: 110px var(--pad) 40px; background: #f2faff; color: var(--ink); --ink: #0e2540; --glow: 0;
+  text-shadow: 0 0 calc(var(--glow) * 22px) rgba(255, 194, 75, calc(var(--glow) * .55));
 }
+.day-pin::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background: radial-gradient(60% 55% at 22% 62%, rgba(255, 194, 75, .34), transparent 70%);
+  opacity: var(--glow);
+}
+.day-pin > * { position: relative; z-index: 1; }
 .day-pin, .day-pin * { color: inherit; }
 .day-head { display: flex; flex-direction: column; min-height: 0; gap: 14px; }
 .day .label { margin: 0; }
