@@ -44,8 +44,8 @@ button{font:inherit;color:inherit}
 
 /* ---------------- header + progress ---------------- */
 .top{position:fixed;left:var(--gut);right:var(--gut);top:14px;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;pointer-events:none}
-.glass{pointer-events:auto;background:rgba(242,250,255,.86);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(48,102,160,.18);border-radius:999px;transition:background .35s,border-color .35s,color .35s}
-.top.on-dark .glass{background:rgba(11,26,46,.78);border-color:rgba(140,192,224,.24);color:var(--sky)}
+.header-surface{pointer-events:auto;background:var(--sky);border:1px solid rgba(48,102,160,.18);border-radius:999px}
+.top.on-dark .header-surface{background:var(--night);border-color:rgba(140,192,224,.24);color:var(--sky)}
 .badge{display:flex;align-items:center;gap:10px;padding:6px 16px 6px 10px;text-decoration:none}
 .badge img{height:30px;width:auto}
 .badge .lgd{display:none}.top.on-dark .badge .lgl{display:none}.top.on-dark .badge .lgd{display:block}
@@ -63,9 +63,9 @@ button{font:inherit;color:inherit}
 .nav .sp[aria-current]{background:var(--mist)}.top.on-dark .nav .sp[aria-current]{background:var(--line)}
 .menu a.mk{background:var(--mist);font-weight:600}.top.on-dark .menu a.mk{background:var(--line)}
 .menu-btn{display:none}
-.menu{position:absolute;right:0;top:58px;width:min(280px,80vw);padding:8px;border-radius:18px;display:none;flex-direction:column;pointer-events:auto}
+.menu{position:absolute;right:0;top:58px;width:min(280px,80vw);max-height:calc(100dvh - 84px);overflow:auto;overscroll-behavior:contain;scroll-padding:8px;padding:8px;border-radius:18px;display:none;flex-direction:column;pointer-events:auto}
 .menu.open{display:flex}
-.menu a{padding:12px 14px;border-radius:12px;text-decoration:none;font-weight:500}
+.menu a{flex:none;padding:12px 14px;border-radius:12px;text-decoration:none;font-weight:500}
 
 
 /* ---------------- hero ---------------- */
@@ -75,6 +75,7 @@ button{font:inherit;color:inherit}
 .lit .headline{color:var(--ink);text-shadow:0 0 44px rgba(var(--glow),.6)}
 .hero .lede{max-width:31em;margin:clamp(16px,2.6vh,24px) 0 0;font-size:clamp(17px,1.35vw,20px);color:var(--ink-2)}
 .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(20px,3vh,28px)}
+.ctas .btn{max-width:100%;white-space:normal;text-align:center;line-height:1.2}
 .dates{list-style:none;margin:clamp(24px,3.6vh,34px) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));max-width:560px;border-top:2px solid var(--steel)}
 .dates li{position:relative;padding:14px 14px 0 0;font-size:14px;color:var(--ink-3)}
 .dates li::before{content:"";position:absolute;left:0;top:-7px;width:12px;height:12px;border-radius:50%;background:var(--sky);border:2px solid var(--steel)}
@@ -385,7 +386,7 @@ button{font:inherit;color:inherit}
 
 /* ---------------- modal ---------------- */
 dialog.modal{width:min(560px,calc(100vw - 32px));max-height:calc(100vh - 48px);padding:0;border:0;border-radius:24px;background:var(--sky);color:var(--ink);box-shadow:0 30px 80px rgba(11,26,46,.45);overflow:auto;overscroll-behavior:contain}
-dialog.modal::backdrop{background:rgba(11,26,46,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+dialog.modal::backdrop{background:rgba(11,26,46,.55)}
 dialog.modal[open]{animation:pop 240ms var(--ease-out)}
 dialog.modal[open]::backdrop{animation:fade 150ms var(--ease-out)}
 @keyframes pop{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
@@ -449,7 +450,13 @@ dialog.modal[open]::backdrop{animation:fade 150ms var(--ease-out)}
   .two{grid-template-columns:1fr}
   .bands{height:230px}
 }
-@media (max-width:900px),(prefers-reduced-motion:reduce){
+@media (max-width:400px){
+  .top{gap:6px}
+  .badge{gap:6px;padding-right:8px}.badge svg{width:42px}
+  .nav .go,.menu-btn{padding-inline:10px}
+  .signup{flex-direction:column;align-items:stretch}
+}
+@media (max-width:900px),(max-height:600px),(prefers-reduced-motion:reduce){
   .crane-scene{height:auto}
   .crane-pin{position:relative;height:auto;padding:110px 0 64px}
   #craneSvg{display:none}
@@ -464,7 +471,7 @@ dialog.modal[open]::backdrop{animation:fade 150ms var(--ease-out)}
   .road{position:relative;height:84px}.road .far,.road .poles{display:none}
   .day{height:auto}
   .day-pin{position:relative;height:auto;background:linear-gradient(var(--sky) 0 50%,var(--night) 50% 100%)!important}
-  .sky-g,.sun,.moon,.pano,.ruler,.btip,.landmark-hint{display:none}
+  .sky-g,.sun,.moon,.pano,.ruler,.btip,.day-motion{display:none}
   .track{position:relative;flex-direction:column;transform:none!important;padding:24px var(--gut) 64px}
   .day-head{position:relative;left:auto;top:auto;width:auto;padding:110px var(--gut) 0;color:var(--ink)!important}
   .stop{width:auto;height:auto;margin:0 0 20px!important}
