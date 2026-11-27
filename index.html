@@ -31,15 +31,16 @@
     <a class="lk" href="#board" data-sec="board">Challenges</a>
     <a class="lk" href="#prizes" data-sec="prizes">Prizes</a>
     <a class="lk" href="#day" data-sec="day">Schedule</a>
-    <a class="lk" href="#sponsors" data-sec="sponsors">Sponsors</a>
+    <a class="lk" href="#judges" data-sec="judges">Judges</a>
     <a class="lk" href="#faq" data-sec="faq">FAQ</a>
     <a class="lk" href="#hosts" data-sec="hosts">Clubs</a>
     <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    <a class="btn line sp" href="#sponsors">For sponsors</a>
     <button class="btn solid go" type="button" data-open="notify">Get notified</button>
     <span class="rail" aria-hidden="true"><span class="trolley" id="trolley"></span></span>
   </nav>
   <div class="menu glass" id="menu">
-    <a href="#what">About</a><a href="#board">Challenges</a><a href="#prizes">Prizes</a><a href="#day">Schedule</a><a href="#judges">Judges</a><a href="#sponsors">Sponsors</a><a href="#faq">FAQ</a><a href="#hosts">Clubs</a>
+    <a href="#what">About</a><a href="#board">Challenges</a><a href="#prizes">Prizes</a><a href="#day">Schedule</a><a href="#sponsors" class="mk">For sponsors</a><a href="#judges">Judges</a><a href="#faq">FAQ</a><a href="#hosts">Clubs</a>
   </div>
 </header>
 
@@ -100,13 +101,6 @@
   </div>
 </section>
 
-<!-- BANDS -->
-<section class="bands" id="bandsA" data-theme="light" aria-label="Highlights">
-  <div class="tape a" data-speed="70"><div class="run"><span>Build boldly</span><i>/</i><span class="o">CTRL Build</span><i>/</i><span>March 2027</span><i>/</i><span class="o">Toronto</span><i>/</i></div></div>
-  <div class="tape b" data-speed="-52"><div class="run"><span>Applications open in January</span><i>/</i><span>10:00 to 20:00</span><i>/</i><span>150 to 200 students</span><i>/</i><span>No code required</span><i>/</i><span>Pitch to investors</span><i>/</i><span>Free, meals included</span><i>/</i></div></div>
-  <button class="pause" type="button" aria-pressed="false">Pause</button>
-</section>
-
 <!-- WHY -->
 <section class="why grid-bg" id="why" data-scene data-theme="light" aria-labelledby="whyH">
   <div class="lava" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -146,22 +140,22 @@
   </div>
 </section>
 
-<!-- PRIZES -->
-<section class="tracks grid-bg" id="tracks" data-theme="light" aria-labelledby="trkH">
-  <div class="lava" aria-hidden="true"><i></i><i></i><i></i></div>
+<!-- TRACKS -->
+<section class="tracks" id="tracks" data-theme="light" aria-labelledby="trkH">
   <div class="wrap">
-    <h2 class="h2" id="trkH">Pick a track</h2>
-    <p class="lead">Every challenge sits in one of these tracks. Choose the one that fits how you think, and build with a team that mixes programs.</p>
-    <div class="tcard-grid">
-      <article class="tcard"><b>Consumer and retail</b><p>Products people buy, subscriptions, marketplaces and the creator economy.</p></article>
-      <article class="tcard"><b>Future of work</b><p>Hiring, team tools, AI at work and new ways to earn outside a nine to five.</p></article>
-      <article class="tcard"><b>Fintech and payments</b><p>Money tools for students, small businesses and the people who serve them.</p></article>
-      <article class="tcard"><b>Social impact</b><p>Businesses that make Toronto better, from housing and food to access and care.</p></article>
-      <article class="tcard"><b>Open track</b><p>Any commerce problem that does not fit above. Pitch it and make the case.</p></article>
-    </div>
+    <h2 class="h3" id="trkH">Pick a track</h2>
+    <p class="lead">Every challenge sits in one of five tracks. Choose the one that fits how you think.</p>
+    <ul class="tlist">
+      <li><b>Consumer and retail</b><span>Products people buy, subscriptions, marketplaces and the creator economy.</span></li>
+      <li><b>Future of work</b><span>Hiring, team tools, AI at work and new ways to earn outside a nine to five.</span></li>
+      <li><b>Fintech and payments</b><span>Money tools for students, small businesses and the people who serve them.</span></li>
+      <li><b>Social impact</b><span>Businesses that make Toronto better, from housing and food to access and care.</span></li>
+      <li><b>Open track</b><span>Any commerce problem that does not fit above. Pitch it and make the case.</span></li>
+    </ul>
   </div>
 </section>
 
+<!-- PRIZES -->
 <section class="prizes grid-bg" id="prizes" data-scene data-theme="light" aria-labelledby="prizeH">
   <div class="lava" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="wrap">
@@ -217,26 +211,6 @@
   <button class="pause" type="button" aria-pressed="false">Pause</button>
 </section>
 
-<!-- JUDGES -->
-<section class="judges dark" id="judges" data-theme="dark" aria-labelledby="judgeH">
-  <div class="lava" aria-hidden="true"><i></i><i></i><i></i></div>
-  <div class="wrap">
-    <h2 class="h2" id="judgeH">Pitch to the room<br>that writes cheques.</h2>
-    <p class="lead">Finalists pitch for three minutes, then take questions from investors and sponsor judges. A window lights up as each panelist confirms.</p>
-    <div class="jgrid">
-      <div class="facade" role="list" aria-label="Investor panel">
-        <div class="win on" role="listitem"><span><b>[Name]</b>Dragonfruit Ventures</span></div>
-        <div class="win" role="listitem"><span>Lights up when confirmed</span></div>
-        <div class="win" role="listitem"><span>Lights up when confirmed</span></div>
-        <div class="win" role="listitem"><span>Lights up when confirmed</span></div>
-        <div class="win" role="listitem"><span>Lights up when confirmed</span></div>
-        <div class="win" role="listitem"><span>Lights up when confirmed</span></div>
-      </div>
-      <div><p class="rubric-h">How pitches are judged</p><ol class="rubric"><li>Is the problem real?</li><li>Who is the customer?</li><li>Does the business model work?</li><li>Does the prototype show it?</li><li>Can you pitch it and take questions?</li></ol></div>
-    </div>
-  </div>
-</section>
-
 <!-- SPONSORS -->
 <section class="sponsors dark" id="sponsors" data-scene data-theme="dark" aria-labelledby="sponH">
   <div class="lava" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -261,6 +235,26 @@
         <ul class="tiers"><li><span>Title sponsor</span><b>$10,000</b></li><li><span>Gold</span><b>$5,000</b></li><li><span>Silver</span><b>$2,500</b></li><li><span>Community</span><b>$1,000</b></li><li><span>In-kind: credits, food, venue</span><b>Let's talk</b></li></ul>
         <div class="ctas"><button class="btn lamp" type="button" data-open="call">Book a call</button><button class="btn line" type="button" data-open="prospectus">Get the prospectus</button></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- JUDGES -->
+<section class="judges dark" id="judges" data-theme="dark" aria-labelledby="judgeH">
+  <div class="lava" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <h2 class="h2" id="judgeH">Pitch to the room<br>that writes cheques.</h2>
+    <p class="lead">Finalists pitch for three minutes, then take questions from investors and sponsor judges. A window lights up as each panelist confirms.</p>
+    <div class="jgrid">
+      <div class="facade" role="list" aria-label="Investor panel">
+        <div class="win on" role="listitem"><span><b>[Name]</b>Dragonfruit Ventures</span></div>
+        <div class="win" role="listitem"><span>Lights up when confirmed</span></div>
+        <div class="win" role="listitem"><span>Lights up when confirmed</span></div>
+        <div class="win" role="listitem"><span>Lights up when confirmed</span></div>
+        <div class="win" role="listitem"><span>Lights up when confirmed</span></div>
+        <div class="win" role="listitem"><span>Lights up when confirmed</span></div>
+      </div>
+      <div><p class="rubric-h">How pitches are judged</p><ol class="rubric"><li>Is the problem real?</li><li>Who is the customer?</li><li>Does the business model work?</li><li>Does the prototype show it?</li><li>Can you pitch it and take questions?</li></ol></div>
     </div>
   </div>
 </section>

@@ -112,8 +112,8 @@ if(RM)setLit(true);
 /* ================= HEADER ================= */
 const topBar=$('#topBar'),ind=$('#ind'),trolley=$('#trolley'),rail=trolley.parentElement;
 const navLinks=$$('.nav a.lk');
-const navMap={top:null,what:'what',bandsA:'what',why:'what',board:'board',prizes:'prizes',day:'day',bandsN:'day',judges:'day',sponsors:'sponsors',faq:'faq',hosts:'hosts',notify:'hosts'};
-const navSecs=[['top','#top'],['what','#what'],['bandsA','#bandsA'],['why','#why'],['board','#board'],['prizes','#prizes'],['day','#day'],['bandsN','#bandsN'],['judges','#judges'],['sponsors','#sponsors'],['faq','#faq'],['hosts','#hosts'],['notify','#notify']].map(([k,s])=>[k,$(s)]);
+const navMap={top:null,what:'what',why:'what',board:'board',tracks:'board',prizes:'prizes',day:'day',bandsN:'day',sponsors:'sponsors',judges:'judges',faq:'faq',hosts:'hosts',notify:'hosts'};
+const navSecs=[['top','#top'],['what','#what'],['why','#why'],['board','#board'],['tracks','#tracks'],['prizes','#prizes'],['day','#day'],['bandsN','#bandsN'],['sponsors','#sponsors'],['judges','#judges'],['faq','#faq'],['hosts','#hosts'],['notify','#notify']].map(([k,s])=>[k,$(s)]);
 const themed=$$('[data-theme]');
 let curNav=undefined;
 function moveInd(key){if(key===curNav)return;curNav=key;navLinks.forEach(a=>a.removeAttribute('aria-current'));const a=key&&navLinks.find(l=>l.dataset.sec===key);if(!a||!isWide()){ind.style.opacity=0;return}a.setAttribute('aria-current','true');ind.style.left=a.offsetLeft+'px';ind.style.width=a.offsetWidth+'px';ind.style.opacity=1}
