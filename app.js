@@ -93,21 +93,37 @@ function campus(g,ox,H,c,win,r,k=1){
 }
 function makeSky(id,W,H,fn){const s=el('svg',{viewBox:`0 0 ${W} ${H}`,preserveAspectRatio:'xMidYMax slice'});fn(s);document.getElementById(id).appendChild(s);return s}
 function towerCrane(g,x,H,h,c){const t=H-h;el('rect',{x,y:t,width:10,height:h,fill:'none',stroke:c,'stroke-width':2},g);for(let y=t;y<H;y+=14)el('line',{x1:x,y1:y,x2:x+10,y2:y+14,stroke:c,'stroke-width':1.2},g);el('line',{x1:x-150,y1:t,x2:x+60,y2:t,stroke:c,'stroke-width':3},g);el('line',{x1:x+5,y1:t-26,x2:x-150,y2:t,stroke:c,'stroke-width':1.2},g);el('line',{x1:x+5,y1:t-26,x2:x+60,y2:t,stroke:c,'stroke-width':1.2},g);el('rect',{x:x+38,y:t,width:22,height:12,fill:c},g);el('line',{x1:x-90,y1:t,x2:x-90,y2:t+60,stroke:c,'stroke-width':1.2},g)}
-makeSky('far',5200,330,s=>filler(s,0,5200,330,50,190,'#cae6f8',rng(7)));
-makeSky('mid',5200,300,s=>filler(s,0,5200,300,40,170,'#8cc0e0',rng(21)));
-makeSky('near',5200,440,s=>{const r=rng(42);filler(s,0,1420,440,40,120,'#3066a0',r,'#cae6f8');downtown(s,1420,440,'#3066a0','#cae6f8',r);towerCrane(s,3350,440,250,'#0e2540');filler(s,3820,5200,440,40,120,'#3066a0',r,'#cae6f8')});
 // footer city: thin silhouette
 {const s=document.getElementById('footCity');s.setAttribute('viewBox','0 0 3200 440');const r=rng(5);filler(s,0,420,440,40,120,'#12294a',r,null,1,'f');downtown(s,420,440,'#12294a',null,r,1,false,'f');filler(s,2820,3200,440,40,120,'#12294a',r,null,1,'f');filler(s,2820-400,2820,440,40,160,'#12294a',r,null,1,'f')}
 
-/* ================= HERO BULB ================= */
-const bulb=$('#bulb'),ringTP=$('#ringTP');
-let ringRep=0;
-function measureRing(){const m=$('#ringMeasure');if(m)ringRep=m.getComputedTextLength()}
-let userSet=false;
-function setLit(v){document.body.classList.toggle('lit',v);bulb.setAttribute('aria-pressed',String(v));bulb.setAttribute('aria-label',v?'Switch the idea off':'Switch the idea on');$$('#near .rbp').forEach(p=>p.setAttribute('fill',v?'#d9a441':'#3066a0'))}
-bulb.addEventListener('click',()=>{userSet=true;setLit(!document.body.classList.contains('lit'))});
-addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&!e.altKey&&(e.key==='b'||e.key==='B')&&$('#top').getBoundingClientRect().bottom>0&&!$('#modal').open){e.preventDefault();userSet=true;setLit(!document.body.classList.contains('lit'))}});
-if(RM)setLit(true);
+/* ================= INTRO: press Ctrl + B ================= */
+const introEl=$('#intro'),kbdEl=$('#kbd'),haze=$('.haze');
+let introSeen=false;try{introSeen=sessionStorage.getItem('ctrlIntro')==='1'}catch(err){}
+let introPressed=false,introAuto=0,introHide=0;
+if(haze)addEventListener('visibilitychange',()=>{haze.style.animationPlayState=document.hidden?'paused':'running'});
+function markIntroSeen(){try{sessionStorage.setItem('ctrlIntro','1')}catch(err){}}
+function endIntro(){if(!introEl||introEl.classList.contains('leave'))return;clearTimeout(introAuto);markIntroSeen();introEl.classList.add('leave');introHide=setTimeout(()=>{introEl.hidden=true},950)}
+function spawnRipple(){const box=$('#ripple');if(!box)return;box.textContent='';const chars='+*.';for(let i=0;i<28;i++){const a=i/28*Math.PI*2,r=130+((i*37)%90);const sp=document.createElement('span');sp.textContent=chars[i%chars.length];sp.style.setProperty('--x',(Math.cos(a)*r).toFixed(1)+'px');sp.style.setProperty('--y',(Math.sin(a)*r).toFixed(1)+'px');sp.style.animationDelay=(i*8)+'ms';box.appendChild(sp)}box.classList.remove('go');void box.offsetWidth;box.classList.add('go')}
+function pressIntro(){if(introPressed||!introEl||!kbdEl)return;introPressed=true;clearTimeout(introAuto);kbdEl.classList.add('down');setTimeout(()=>kbdEl.classList.remove('down'),260);spawnRipple();setTimeout(endIntro,420)}
+function typeText(el,text){if(!el)return;let i=0;el.textContent='';const t=setInterval(()=>{el.textContent=text.slice(0,++i);if(i>=text.length)clearInterval(t)},70)}
+function startIntro(){
+  introEl.hidden=false;
+  const narrow=matchMedia('(max-width: 900px)').matches;
+  typeText($(narrow?'.i-tap':'.i-desk',introEl),narrow?'TAP CTRL + B':'PRESS CTRL + B');
+  const fill=$('#waitFill');if(fill)requestAnimationFrame(()=>requestAnimationFrame(()=>fill.classList.add('go')));
+  introAuto=setTimeout(pressIntro,5000);
+}
+if(introEl&&kbdEl){
+  if(introSeen||RM||location.hash)introEl.hidden=true;else startIntro();
+  kbdEl.addEventListener('click',pressIntro);
+  $('#introSkip').addEventListener('click',endIntro);
+  addEventListener('keydown',e=>{
+    if(introEl.hidden||introEl.classList.contains('leave'))return;
+    if((e.ctrlKey||e.metaKey)&&!e.altKey&&!e.shiftKey&&(e.key==='b'||e.key==='B')){e.preventDefault();pressIntro()}
+    else if(e.key==='Escape'){endIntro()}
+    else if(e.key==='Enter'&&!e.target.closest('button,a,input,select,textarea')){pressIntro()}
+  });
+}
 
 /* ================= HEADER ================= */
 const topBar=$('#topBar'),ind=$('#ind'),trolley=$('#trolley'),rail=trolley.parentElement;
@@ -346,9 +362,7 @@ function clubsFrame(){
 
 /* ================= HERO LAYERS ================= */
 const par=$$('[data-px],[data-py]');
-function heroFrame(){const vh=innerHeight;for(const e of par){const s=e.closest('[data-scene]');const r=s.getBoundingClientRect();if(r.bottom<0||r.top>vh)continue;const p=(vh-r.top)/(vh+r.height)-.5;e.style.transform=`translate3d(${(+e.dataset.px||0)*p*2}px,${(+e.dataset.py||0)*p*2}px,0)`}
-  if(ringRep&&ringTP)ringTP.setAttribute('startOffset',(-ringRep+((scrollY*.22)%ringRep)).toFixed(1));
-  if(!userSet&&!RM&&scrollY>vh*.15&&!document.body.classList.contains('lit'))setLit(true)}
+function heroFrame(){const vh=innerHeight;for(const e of par){const s=e.closest('[data-scene]');const r=s.getBoundingClientRect();if(r.bottom<0||r.top>vh)continue;const p=(vh-r.top)/(vh+r.height)-.5;e.style.transform=`translate3d(${(+e.dataset.px||0)*p*2}px,${(+e.dataset.py||0)*p*2}px,0)`}}
 
 /* ================= MODALS ================= */
 const modal=$('#modal'),mTitle=$('#mTitle'),mSub=$('#mSub'),mBody=$('#mBody');
@@ -394,7 +408,7 @@ $('#footForm').addEventListener('submit',e=>{e.preventDefault();openModal('notif
 
 /* ================= LOOP ================= */
 function fitHero(){const h=$('.hero'),c=$('.hero-grid > :first-child');if(innerWidth<=900){h.style.removeProperty('--skyH');return}const top=c.getBoundingClientRect().bottom+scrollY-h.getBoundingClientRect().top-scrollY;h.style.setProperty('--skyH',clamp(innerHeight-top-16,170,330)+'px')}
-function rebuild(){fitHero();measureRing();measureTapes();if(motion()){buildCrane();buildRoad();buildPano()}else{load.style.transform='';sign.style.left=sign.style.top='';buildRoad()}alignStage();buildWalls();buildLift();curNav=undefined}
+function rebuild(){fitHero();measureTapes();if(motion()){buildCrane();buildRoad();buildPano()}else{load.style.transform='';sign.style.left=sign.style.top='';buildRoad()}alignStage();buildWalls();buildLift();curNav=undefined}
 let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(rebuild,150)});
 let lastT=performance.now();
 function loop(now){const dt=Math.min(.05,(now-lastT)/1000);lastT=now;
