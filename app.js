@@ -99,15 +99,11 @@ makeSky('near',5200,440,s=>{const r=rng(42);filler(s,0,1420,440,40,120,'#3066a0'
 // footer city: thin silhouette
 {const s=document.getElementById('footCity');s.setAttribute('viewBox','0 0 3200 440');const r=rng(5);filler(s,0,420,440,40,120,'#12294a',r,null,1,'f');downtown(s,420,440,'#12294a',null,r,1,false,'f');filler(s,2820,3200,440,40,120,'#12294a',r,null,1,'f');filler(s,2820-400,2820,440,40,160,'#12294a',r,null,1,'f')}
 
-/* ================= HERO BULB ================= */
-const bulb=$('#bulb'),ringTP=$('#ringTP');
-let ringRep=0;
-function measureRing(){const m=$('#ringMeasure');if(m)ringRep=m.getComputedTextLength()}
-let userSet=false;
-function setLit(v){document.body.classList.toggle('lit',v);bulb.setAttribute('aria-pressed',String(v));bulb.setAttribute('aria-label',v?'Switch the idea off':'Switch the idea on');$$('#near .rbp').forEach(p=>p.setAttribute('fill',v?'#d9a441':'#3066a0'))}
-bulb.addEventListener('click',()=>{userSet=true;setLit(!document.body.classList.contains('lit'))});
-addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&!e.altKey&&(e.key==='b'||e.key==='B')&&$('#top').getBoundingClientRect().bottom>0&&!$('#modal').open){e.preventDefault();userSet=true;setLit(!document.body.classList.contains('lit'))}});
-if(RM.matches)setLit(true);
+/* ================= HERO KEYS ================= */
+const startBtn=$('#startBtn');
+function startBuilding(){startBtn.classList.add('down');setTimeout(()=>startBtn.classList.remove('down'),160);$('#what').scrollIntoView({behavior:RM.matches?'auto':'smooth',block:'start'})}
+startBtn.addEventListener('click',startBuilding);
+addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&!e.altKey&&(e.key==='b'||e.key==='B')&&$('#top').getBoundingClientRect().bottom>0&&!$('#modal').open){e.preventDefault();startBuilding()}});
 
 /* ================= HEADER ================= */
 const topBar=$('#topBar'),ind=$('#ind'),trolley=$('#trolley'),rail=trolley.parentElement;
@@ -256,7 +252,7 @@ function rigFrame(dt){
     const pr=plates[o.i],pad=10;
     if(pr&&ptr.x>pr.left-pad&&ptr.x<pr.right+pad&&ptr.y>pr.top-pad&&ptr.y<pr.bottom+pad)acc+=clamp(ptr.vx,-2200,2200)*.0042;
     acc+=(o.i%2?1:-1)*clamp(scrollV,-3000,3000)*.000012;
-    o.om+=acc*dt;o.th+=o.om*dt;if(Math.abs(o.th)<.0015&&Math.abs(o.om)<.008)o.th=o.om=0;
+    o.om+=acc*dt;o.th+=o.om*dt;if(!scrollV&&!pr&&Math.abs(o.th)<.0015&&Math.abs(o.om)<.008)o.th=o.om=0;
     if(Math.abs(o.th)>.42){o.th=Math.sign(o.th)*.42;o.om*=-.35}
     const x=L*Math.sin(o.th),y=L*(1-Math.cos(o.th));
     o.plate.style.transform=`translate3d(${x.toFixed(2)}px,${y.toFixed(2)}px,0)`;
@@ -367,22 +363,12 @@ function planFrame(){const p=plan.getBoundingClientRect(),vh=innerHeight;walls.s
 $$('.qi').forEach(q=>{const b=$('.q',q),a=$('.a',q);a.hidden=b.getAttribute('aria-expanded')!=='true';b.addEventListener('click',()=>{const open=a.hidden;b.setAttribute('aria-expanded',String(open));q.classList.toggle('open',open);a.hidden=!open})});
 
 /* ================= CLUBS ================= */
-const beam=$('#beam'),beamLbl=$('#beamLbl'),dyn=$('#dyn'),hosts=$('#hosts'),clW=$('.cl.w',dyn),clN=$('.cl.n',dyn);
-let beamY=0;
-function clip(elm,a,b){const t=Math.max(0,b.top-a.top),l=Math.max(0,b.left-a.left),btm=Math.max(0,a.bottom-b.bottom),rt=Math.max(0,a.right-b.right);if(b.bottom<=a.top||b.top>=a.bottom||b.right<=a.left||b.left>=a.right){elm.style.clipPath='inset(0 0 100% 0)';return}elm.style.clipPath=`inset(${t}px ${rt}px ${btm}px ${l}px)`}
-function clubsFrame(){
-  const vh=innerHeight,fr=beam.getBoundingClientRect(),dr=dyn.getBoundingClientRect(),lr=beamLbl.getBoundingClientRect();
-  const top=fr.top-beamY,D=top-dr.top+110,t=easeIO(clamp((vh*.82-top)/(vh*.62))),y=-(1-t)*D,dy=y-beamY;
-  beamY=y;beam.style.transform=`translate3d(0,${y}px,0)`;
-  clip(clW,dr,{top:fr.top+dy,bottom:fr.bottom+dy,left:fr.left,right:fr.right});
-  clip(clN,dr,{top:lr.top+dy-4,bottom:lr.bottom+dy+4,left:lr.left-6,right:lr.right+6});
-}
+const hosts=$('#hosts');
 
 /* ================= HERO LAYERS ================= */
 const hero=$('#top'),par=$$('[data-px],[data-py]',hero);
 function heroFrame(y){const vh=innerHeight,r=hero.getBoundingClientRect(),p=(vh-r.top)/(vh+r.height)-.5;
-  for(const e of par)e.style.transform=`translate3d(${(+e.dataset.px||0)*p*2}px,${(+e.dataset.py||0)*p*2}px,0)`;
-  if(ringRep&&ringTP)ringTP.setAttribute('startOffset',(-ringRep+((y*.22)%ringRep)).toFixed(1))}
+  for(const e of par)e.style.transform=`translate3d(${(+e.dataset.px||0)*p*2}px,${(+e.dataset.py||0)*p*2}px,0)`}
 
 /* ================= MODALS ================= */
 const modal=$('#modal'),mTitle=$('#mTitle'),mSub=$('#mSub'),mBody=$('#mBody'),mClose=$('#mClose'),mStatus=$('#mStatus');
@@ -438,13 +424,12 @@ $('#footForm').addEventListener('submit',e=>{e.preventDefault();const email=foot
 /* ================= LOOP ================= */
 function fitHero(){const h=$('.hero'),c=$('.hero-grid > :first-child');if(innerWidth<=900){h.style.removeProperty('--skyH');return}const top=c.getBoundingClientRect().bottom+scrollY-h.getBoundingClientRect().top-scrollY;h.style.setProperty('--skyH',clamp(innerHeight-top-16,170,330)+'px')}
 function rebuild(){
-  const animated=motion();fitHero();measureRing();measureTapes();buildRoad();alignStage();buildWalls();buildLift();resetPointer();buildPano();
+  const animated=motion();fitHero();measureTapes();buildRoad();alignStage();buildWalls();buildLift();resetPointer();buildPano();
   if(animated){buildCrane()}else{
-    load.style.transform=load.style.opacity='';sign.style.left=sign.style.top='';bb.classList.add('on');for(const e of [dash,poles,roadFar,stage,rig,beam])e.style.transform='';rigY=beamY=0;
+    load.style.transform=load.style.opacity='';sign.style.left=sign.style.top='';bb.classList.add('on');for(const e of [dash,poles,roadFar,stage,rig])e.style.transform='';rigY=0;
     for(const o of pends){o.th=o.om=0;for(const e of [o.plate,...o.chs])e.style.transform=''}rigLanded=false;
-    for(const e of [...cones,...cans,...pools])e.classList.add('on');walls.style.setProperty('--d','0');clW.style.clipPath=clN.style.clipPath='inset(0 0 100% 0)';dpin.classList.remove('night');clock.textContent='10:00';btip.classList.remove('on');
+    for(const e of [...cones,...cans,...pools])e.classList.add('on');walls.style.setProperty('--d','0');dpin.classList.remove('night');clock.textContent='10:00';btip.classList.remove('on');
   }
-  if(RM.matches){if(!userSet)setLit(true);ringTP.setAttribute('startOffset',0)}
   craneSettling=rigSettling=false;invalidate();
 }
 let rz,raf,started=false,dirty=true,lastT=0,craneSettling=false,rigSettling=false;
@@ -461,11 +446,11 @@ function loop(now){
   raf=undefined;const dt=lastT?clamp((now-lastT)/1000,.001,.05):1/60,y=scrollY,draw=dirty;dirty=false;
   scrollV+=((y-lastY)/dt-scrollV)*Math.min(1,dt*8);if(Math.abs(scrollV)<1)scrollV=0;lastY=y;lastT=now;
   const kick=now-ptr.t<80&&Math.abs(ptr.vx)>1;if(!kick)ptr.vx=0;
-  if(draw){header(y);if(!RM.matches&&visible.has(hero))heroFrame(y);if(!userSet&&!RM.matches&&y>innerHeight*.15&&!document.body.classList.contains('lit'))setLit(true)}
+  if(draw){header(y);if(!RM.matches&&visible.has(hero))heroFrame(y)}
   if(motion()){
     if(visible.has(craneScene)&&(draw||kick||craneSettling))craneSettling=craneFrame(dt);
     if(visible.has(why)&&(draw||kick||rigSettling))rigSettling=rigFrame(dt);
-    if(draw){if(visible.has(bbScene))boardFrame();if(visible.has(stage.parentElement))stageFrame();if(visible.has(day))dayFrame();if(visible.has(plan))planFrame();if(visible.has(hosts))clubsFrame()}
+    if(draw){if(visible.has(bbScene))boardFrame();if(visible.has(stage.parentElement))stageFrame();if(visible.has(day))dayFrame();if(visible.has(plan))planFrame()}
   }
   const tapeSettling=tapeFrame();
   if(tapeSettling||craneSettling||rigSettling)wake();else{lastT=0;scrollV=0}
