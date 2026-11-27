@@ -405,3 +405,35 @@ function loop(now){const dt=Math.min(.05,(now-lastT)/1000);lastT=now;
 function start(){rebuild();requestAnimationFrame(loop)}
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(start);else addEventListener('load',start);
 }
+
+/* ---------- ASCII field: a slow character wave behind the page ---------- */
+(() => {
+  const field = document.getElementById('asciiField');
+  if (!field || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const ramp = ' .:-=+*#%';
+  const cw = 7.2, ch = 14;
+  let cols = 0, rows = 0, t = 0, timer = 0;
+  function size() {
+    cols = Math.ceil(innerWidth / cw) + 1;
+    rows = Math.ceil(innerHeight / ch) + 1;
+  }
+  function draw() {
+    const out = [];
+    for (let y = 0; y < rows; y++) {
+      let line = '';
+      for (let x = 0; x < cols; x++) {
+        const v = Math.sin(x * .11 + t) + Math.cos(y * .17 - t * .7) + Math.sin((x + y) * .06 + t * .5);
+        const i = Math.floor((v + 3) / 6 * ramp.length);
+        line += ramp[Math.max(0, Math.min(ramp.length - 1, i))];
+      }
+      out.push(line);
+    }
+    field.textContent = out.join('\n');
+    t += .045;
+  }
+  function start() { if (!timer) timer = setInterval(draw, 110); }
+  function stop() { clearInterval(timer); timer = 0; }
+  size(); draw(); start();
+  addEventListener('resize', () => { size(); draw(); });
+  document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+})();
