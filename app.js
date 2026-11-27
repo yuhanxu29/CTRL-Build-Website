@@ -442,7 +442,7 @@ function rebuild(){
   if(animated){buildCrane()}else{
     load.style.transform=load.style.opacity='';sign.style.left=sign.style.top='';bb.classList.add('on');for(const e of [dash,poles,roadFar,stage,rig,beam])e.style.transform='';rigY=beamY=0;
     for(const o of pends){o.th=o.om=0;for(const e of [o.plate,...o.chs])e.style.transform=''}rigLanded=false;
-    for(const e of [...cones,...cans,...pools])e.classList.add('on');walls.style.setProperty('--d','0');clW.style.clipPath=clN.style.clipPath='inset(0 0 100% 0)';dpin.classList.remove('night');btip.classList.remove('on');
+    for(const e of [...cones,...cans,...pools])e.classList.add('on');walls.style.setProperty('--d','0');clW.style.clipPath=clN.style.clipPath='inset(0 0 100% 0)';dpin.classList.remove('night');clock.textContent='10:00';btip.classList.remove('on');
   }
   if(RM.matches){if(!userSet)setLit(true);ringTP.setAttribute('startOffset',0)}
   craneSettling=rigSettling=false;invalidate();

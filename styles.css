@@ -456,6 +456,7 @@ dialog.modal[open]::backdrop{animation:fade 150ms var(--ease-out)}
   .nav .go,.menu-btn{padding-inline:10px}
   .signup{flex-direction:column;align-items:stretch}
 }
+@media (max-width:340px){.badge span{display:none}}
 @media (max-width:900px),(max-height:680px),(prefers-reduced-motion:reduce){
   .crane-scene{height:auto}
   .crane-pin{position:relative;height:auto;padding:110px 0 64px}
@@ -471,7 +472,10 @@ dialog.modal[open]::backdrop{animation:fade 150ms var(--ease-out)}
   .road{position:relative;height:84px}.road .far,.road .poles{display:none}
   .day{height:auto}
   .day-pin{position:relative;height:auto;background:linear-gradient(var(--sky) 0 50%,var(--night) 50% 100%)!important}
-  .sky-g,.sun,.moon,.pano,.ruler,.btip,.day-motion{display:none}
+  .sky-g,.sun,.moon,.ruler,.btip,.day-motion{display:none}
+  /* Keep focus until the resize rebuild hands it to the schedule heading. */
+  .pano{opacity:0;pointer-events:none}
+  .pano:empty{display:none}
   .track{position:relative;flex-direction:column;transform:none!important;padding:24px var(--gut) 64px}
   .day-head{position:relative;left:auto;top:auto;width:auto;padding:110px var(--gut) 0;color:var(--ink)!important}
   .stop{width:auto;height:auto;margin:0 0 20px!important}
