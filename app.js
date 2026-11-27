@@ -15,7 +15,7 @@ const hex=h=>h.replace('#','').match(/\w\w/g).map(x=>parseInt(x,16));
 function mix(a,b,t){const A=hex(a),B=hex(b);return 'rgb('+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(',')+')'}
 function stopsAt(stops,p){for(let i=1;i<stops.length;i++){if(p<=stops[i][0]){const[a,c0]=stops[i-1],[b,c1]=stops[i];return mix(c0,c1,smooth(clamp((p-a)/((b-a)||1))))}}return mix(stops[stops.length-1][1],stops[stops.length-1][1],0)}
 const isWide=()=>innerWidth>900;
-const motion=()=>!RM.matches&&isWide()&&innerHeight>600;
+const motion=()=>!RM.matches&&isWide()&&innerHeight>680;
 
 /* ================= SKYLINES ================= */
 /* Downtown Toronto from the lake, west to east. Design space: heights for a 440-unit tall view. k scales everything. */

@@ -456,7 +456,7 @@ dialog.modal[open]::backdrop{animation:fade 150ms var(--ease-out)}
   .nav .go,.menu-btn{padding-inline:10px}
   .signup{flex-direction:column;align-items:stretch}
 }
-@media (max-width:900px),(max-height:600px),(prefers-reduced-motion:reduce){
+@media (max-width:900px),(max-height:680px),(prefers-reduced-motion:reduce){
   .crane-scene{height:auto}
   .crane-pin{position:relative;height:auto;padding:110px 0 64px}
   #craneSvg{display:none}
