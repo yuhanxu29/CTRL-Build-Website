@@ -35,11 +35,11 @@ button{font:inherit;color:inherit}
 .dark{background:var(--night);color:var(--sky)}
 
 /* buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;border:2px solid var(--steel);font:600 16px/1 var(--sans);text-decoration:none;cursor:pointer;transition:background 150ms var(--ease-out),color 150ms var(--ease-out),border-color 150ms var(--ease-out),transform 150ms var(--ease-out);white-space:nowrap}
-.btn.solid{background:var(--steel);color:var(--sky)}.btn.solid:hover{background:var(--ink);border-color:var(--ink)}
-.btn.line{background:transparent;color:var(--steel)}.btn.line:hover{background:var(--mist)}
-.btn.lamp{background:var(--fil);border-color:var(--fil);color:var(--night)}.btn.lamp:hover{background:var(--fil-soft);border-color:var(--fil-soft)}
-.dark .btn.line{color:var(--sky);border-color:var(--harbour)}.dark .btn.line:hover{background:var(--deep)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;border:2px solid var(--steel);font:600 16px/1 var(--sans);text-decoration:none;cursor:pointer;transition:transform 150ms var(--ease-out);white-space:nowrap}
+.btn.solid{background:var(--steel);color:var(--sky)}
+.btn.line{background:transparent;color:var(--steel)}
+.btn.lamp{background:var(--fil);border-color:var(--fil);color:var(--night)}
+.dark .btn.line{color:var(--sky);border-color:var(--harbour)}
 .btn:active{transform:translateY(1px)}
 
 /* ---------------- header + progress ---------------- */
@@ -66,7 +66,7 @@ button{font:inherit;color:inherit}
 .menu{position:absolute;right:0;top:58px;width:min(280px,80vw);padding:8px;border-radius:18px;display:none;flex-direction:column;pointer-events:auto}
 .menu.open{display:flex}
 .menu a{padding:12px 14px;border-radius:12px;text-decoration:none;font-weight:500}
-.menu a:hover{background:var(--mist)}.top.on-dark .menu a:hover{background:var(--line)}
+
 
 /* ---------------- hero ---------------- */
 .hero{--skyH:clamp(230px,36vh,330px);position:relative;min-height:100vh;overflow:hidden}
@@ -295,7 +295,7 @@ button{font:inherit;color:inherit}
 .plan svg.walls{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible}
 .room{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:space-between;gap:6px;padding:16px 18px 22px;background:none;border:0;text-align:left;cursor:pointer;color:var(--sky)}
 .room::before{content:"";position:absolute;inset:4px;background:repeating-linear-gradient(45deg,rgba(140,192,224,.07) 0 2px,transparent 2px 12px);transition:background .3s}
-.room:hover::before,.room:focus-visible::before{background:rgba(140,192,224,.08)}
+.room:focus-visible::before{background:rgba(140,192,224,.08)}
 .room small,.room b,.room .open{position:relative}
 .room small{font-size:13px;color:var(--harbour)}
 .room b{font:400 21px/1.1 var(--serif);color:var(--sky);font-weight:400}
@@ -320,10 +320,10 @@ button{font:inherit;color:inherit}
 .faq{padding:12vh 0 14vh}
 .qa{max-width:920px;margin-top:6vh;border-top:1px solid var(--line)}
 .qi{border-bottom:1px solid var(--line)}
-.qi .q{display:flex;width:100%;justify-content:space-between;align-items:center;gap:20px;padding:22px 6px;background:none;border:0;cursor:pointer;text-align:left;font:400 clamp(22px,2.1vw,30px)/1.2 var(--serif);color:var(--sky);transition:color 150ms var(--ease-out)}
+.qi .q{display:flex;width:100%;justify-content:space-between;align-items:center;gap:20px;padding:22px 6px;background:none;border:0;cursor:pointer;text-align:left;font:400 clamp(22px,2.1vw,30px)/1.2 var(--serif);color:var(--sky)}
 .qi .q-label{transition:transform 150ms var(--ease-out)}
-.qi .ic{flex:none;position:relative;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--harbour);transition:transform 150ms var(--ease-out),background 150ms var(--ease-out),border-color 150ms var(--ease-out)}
-.qi .ic::before,.qi .ic::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:2px;background:var(--harbour);transform:translate(-50%,-50%);transition:background 150ms var(--ease-out)}
+.qi .ic{flex:none;position:relative;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--harbour);transition:transform 150ms var(--ease-out)}
+.qi .ic::before,.qi .ic::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:2px;background:var(--harbour);transform:translate(-50%,-50%)}
 .qi .ic::after{transform:translate(-50%,-50%) rotate(90deg)}
 .qi .q:focus-visible .ic,.qi .q:focus-visible .q-label{transition:none}
 .qi.open .ic{transform:rotate(135deg);background:var(--fil);border-color:var(--fil)}
@@ -354,7 +354,7 @@ button{font:inherit;color:inherit}
 .col .full{font-size:14px;font-weight:600;color:var(--harbour)}
 .col p{margin:0;color:var(--on-dark);font-size:16px}
 .col a{margin-top:auto;font-weight:600;color:var(--fil);text-decoration:none;font-size:15px}
-.col a:hover{text-decoration:underline}
+
 .plinth{height:16px;background:var(--line);margin-top:0}
 
 /* ---------------- footer ---------------- */
@@ -373,13 +373,13 @@ button{font:inherit;color:inherit}
 .links h3{margin:0 0 14px;font-size:14px;font-weight:600;color:var(--harbour)}
 .links ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
 .links a,.links button{background:none;border:0;padding:0;cursor:pointer;color:var(--sky);text-decoration:none;font-size:16px;text-align:left}
-.links a:hover,.links button:hover{color:var(--fil)}
+
 .foot-bot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px;margin-top:10vh;padding:24px 0 28px;border-top:1px solid var(--line);font-size:14px;color:var(--on-dark-2)}
 .foot-bot .chip3{display:flex;align-items:center;gap:16px;background:var(--sky);padding:9px 18px;border-radius:999px}
 .foot-bot .chip3 img{height:28px;width:auto}
 .foot-bot nav{display:flex;flex-wrap:wrap;gap:20px}
 .foot-bot button,.foot-bot a{background:none;border:0;padding:0;color:var(--on-dark);cursor:pointer;font-size:14px;text-decoration:none}
-.foot-bot button:hover,.foot-bot a:hover{color:var(--sky)}
+
 .foot .city{position:relative;height:90px;margin-top:0}
 .foot .city svg{width:100%;height:100%}
 
@@ -516,6 +516,16 @@ dialog.modal[open]::backdrop{animation:fade 150ms var(--ease-out)}
 .panel-note{max-width:28em;margin:16px 0 0;font-size:15px;color:var(--on-dark-2)}
 
 @media (hover:hover) and (pointer:fine){
+  .btn.solid:hover{background:var(--ink);border-color:var(--ink)}
+  .btn.line:hover{background:var(--mist)}
+  .btn.lamp:hover{background:var(--fil-soft);border-color:var(--fil-soft)}
+  .dark .btn.line:hover{background:var(--deep)}
+  .menu a:hover{background:var(--mist)}
+  .top.on-dark .menu a:hover{background:var(--line)}
+  .col a:hover{text-decoration:underline}
+  .links a:hover,.links button:hover{color:var(--fil)}
+  .foot-bot button:hover,.foot-bot a:hover{color:var(--sky)}
+  .room:hover::before{background:rgba(140,192,224,.08)}
   .bulb[aria-pressed="false"]:hover .glow{opacity:.35}
   .bulb:hover .tip{opacity:1}
   .row:hover{background:#f7fbff}.row:hover::before{opacity:1}

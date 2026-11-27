@@ -304,11 +304,11 @@ function stageFrame(){
 /* ================= THE DAY ================= */
 const day=$('#day'),track=$('#track'),dpin=$('#dayPin'),skyG=$('#skyG'),sun=$('#sun'),moon=$('#moon'),clock=$('#clock'),head=$('#dayHead'),ruler=$('#ruler'),rFill=$('#rFill'),rKnob=$('#rKnob'),pano=$('#pano'),btip=$('#btip');
 let pwins=[],dayBucket=-1,hoveredLandmark,dismissedLandmark;
-const dayTravel=()=>Math.max(0,track.scrollWidth-innerWidth);
+let dayTravel=0,dayRulerWidth=0;
 function buildPano(){
   const active=focusedLandmark();hoveredLandmark=dismissedLandmark=null;btip.classList.remove('on');
-  pano.innerHTML='';if(!motion()){if(active)$('#dayH').focus({preventScroll:true});return}
-  const H=pano.getBoundingClientRect().height,W=track.scrollWidth;pano.setAttribute('viewBox',`0 0 ${W} ${H}`);pano.setAttribute('width',W);pano.style.width=W+'px';
+  pano.innerHTML='';pano.style.width='';if(!motion()){if(active)$('#dayH').focus({preventScroll:true});return}
+  const H=pano.getBoundingClientRect().height,W=track.scrollWidth;dayTravel=Math.max(0,W-innerWidth);dayRulerWidth=ruler.clientWidth;pano.setAttribute('viewBox',`0 0 ${W} ${H}`);pano.setAttribute('width',W);pano.style.width=W+'px';
   const k=H/520,r=rng(99),c='#3066a0',win='#cae6f8';const stops=$$('.stop',track);const sx=i=>stops[i].offsetLeft;
   const g=el('g',{},pano);
   let x=filler(g,0,Math.max(0,sx(0)-1500*k-60),H,90*k,300*k,c,r,win,k);
@@ -324,13 +324,13 @@ function buildPano(){
 const SKY=[[0,'eaf6ff','f2faff'],[.24,'d6ecfb','eef8ff'],[.42,'cfe7f8','f6ead0'],[.55,'a9cbe6','f5d39c'],[.63,'6b8fbc','f1ae7c'],[.71,'33558a','d28c78'],[.79,'1a3459','4f5d86'],[.88,'0e2038','1a3155'],[1,'0b1a2e','0b1a2e']];
 const SKYT=SKY.map(s=>[s[0],s[1]]),SKYH=SKY.map(s=>[s[0],s[2]]);
 function dayFrame(){
-  const r=day.getBoundingClientRect(),vh=innerHeight,vw=innerWidth,travel=dayTravel(),rw=ruler.clientWidth;
+  const r=day.getBoundingClientRect(),vh=innerHeight,vw=innerWidth;
   const p=clamp(-r.top/(r.height-vh));
-  track.style.transform=`translate3d(${-p*travel}px,0,0)`;
+  track.style.transform=`translate3d(${-p*dayTravel}px,0,0)`;
   const top=stopsAt(SKYT,p),hor=stopsAt(SKYH,p);skyG.style.background=`linear-gradient(${top} 0%, ${hor} 58%, ${hor} 100%)`;
   const dark=p>.66;dpin.classList.toggle('night',dark);head.style.color=dark?'#f2faff':'#0e2540';ruler.style.color=dark?'#cae6f8':'#3066a0';
   const m=Math.round(p*600);clock.textContent=String(10+Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
-  rFill.style.transform=`scaleX(${p})`;rKnob.style.transform=`translateX(${p*rw}px)`;
+  rFill.style.transform=`scaleX(${p})`;rKnob.style.transform=`translateX(${p*dayRulerWidth}px)`;
   // sun arcs left to right and sets behind the buildings (they are drawn above it)
   const q=clamp(p/.8);const sxp=vw*lerp(.38,.9,q);const up=Math.sin(clamp(q/.42)*Math.PI/2);const down=smooth(clamp((q-.42)/.58));const peak=Math.max(vh*.2,196);const syp=lerp(Math.max(vh*.42,peak+90),peak,up)+(vh+70-peak)*down;
   sun.style.transform=`translate(${sxp}px,${syp}px)`;sun.style.background=q<.55?'#ffc24b':mix('#ffc24b','#ff8f4a',smooth((q-.55)/.45));
@@ -345,7 +345,7 @@ function showFocusedLandmark(){const t=focusedLandmark();if(!t||t===dismissedLan
 dpin.addEventListener('pointermove',e=>{if(e.pointerType==='touch'||!fineHover.matches||btip.contains(e.target))return;const t=e.target.closest('.nm');if(t===hoveredLandmark)return;if(hoveredLandmark===dismissedLandmark&&hoveredLandmark!==focusedLandmark())dismissedLandmark=null;hoveredLandmark=t;if(t&&t!==dismissedLandmark&&motion())showLandmark(t,e.clientX,e.clientY);else showFocusedLandmark()});
 dpin.addEventListener('pointerleave',()=>{if(hoveredLandmark!==focusedLandmark())dismissedLandmark=null;hoveredLandmark=null;showFocusedLandmark()});
 pano.addEventListener('focusin',e=>{const t=e.target;if(!t.matches('.nm'))return;hoveredLandmark=dismissedLandmark=null;
-  const r=day.getBoundingClientRect(),item=t.getBoundingClientRect(),trackLeft=track.getBoundingClientRect().left,travel=dayTravel();
+  const r=day.getBoundingClientRect(),item=t.getBoundingClientRect(),trackLeft=track.getBoundingClientRect().left,travel=dayTravel;
   const offset=clamp((item.left+item.right)/2-trackLeft-innerWidth/2,0,travel);
   if(travel){window.scrollTo({top:scrollY+r.top+offset/travel*(r.height-innerHeight),behavior:'instant'});dayFrame()}
   showFocusedLandmark()});
@@ -438,8 +438,8 @@ $('#footForm').addEventListener('submit',e=>{e.preventDefault();const email=foot
 /* ================= LOOP ================= */
 function fitHero(){const h=$('.hero'),c=$('.hero-grid > :first-child');if(innerWidth<=900){h.style.removeProperty('--skyH');return}const top=c.getBoundingClientRect().bottom+scrollY-h.getBoundingClientRect().top-scrollY;h.style.setProperty('--skyH',clamp(innerHeight-top-16,170,330)+'px')}
 function rebuild(){
-  const animated=motion();fitHero();measureRing();measureTapes();buildRoad();alignStage();buildWalls();buildLift();resetPointer();
-  if(animated){buildCrane();buildPano()}else{
+  const animated=motion();fitHero();measureRing();measureTapes();buildRoad();alignStage();buildWalls();buildLift();resetPointer();buildPano();
+  if(animated){buildCrane()}else{
     load.style.transform=load.style.opacity='';sign.style.left=sign.style.top='';bb.classList.add('on');for(const e of [dash,poles,roadFar,stage,rig,beam])e.style.transform='';rigY=beamY=0;
     for(const o of pends){o.th=o.om=0;for(const e of [o.plate,...o.chs])e.style.transform=''}rigLanded=false;
     for(const e of [...cones,...cans,...pools])e.classList.add('on');walls.style.setProperty('--d','0');clW.style.clipPath=clN.style.clipPath='inset(0 0 100% 0)';dpin.classList.remove('night');btip.classList.remove('on');
