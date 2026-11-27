@@ -102,7 +102,7 @@ makeSky('near',5200,440,s=>{const r=rng(42);filler(s,0,1420,440,40,120,'#3066a0'
 /* ================= HERO KEYS ================= */
 const startBtn=$('#startBtn');
 function startBuilding(){startBtn.classList.add('down');setTimeout(()=>startBtn.classList.remove('down'),160);$('#what').scrollIntoView({behavior:RM.matches?'auto':'smooth',block:'start'})}
-startBtn.addEventListener('click',startBuilding);
+startBtn.addEventListener('click',e=>{e.preventDefault();startBuilding()});
 addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&!e.altKey&&(e.key==='b'||e.key==='B')&&$('#top').getBoundingClientRect().bottom>0&&!$('#modal').open){e.preventDefault();startBuilding()}});
 
 /* ================= HEADER ================= */
