@@ -112,8 +112,8 @@ if(RM.matches)setLit(true);
 /* ================= HEADER ================= */
 const topBar=$('#topBar'),ind=$('#ind'),trolley=$('#trolley'),rail=trolley.parentElement;
 const navLinks=$$('.nav a.lk, .nav a.sp');
-const navMap={top:null,what:'what',why:'what',board:'board',tracks:'board',prizes:'prizes',day:'day',bandsN:'day',sponsors:'sponsors',judges:'judges',faq:'faq',hosts:'hosts',notify:'hosts'};
-const navSecs=[['top','#top'],['what','#what'],['why','#why'],['board','#board'],['tracks','#tracks'],['prizes','#prizes'],['day','#day'],['bandsN','#bandsN'],['sponsors','#sponsors'],['judges','#judges'],['faq','#faq'],['hosts','#hosts'],['notify','#notify']].map(([k,s])=>[k,$(s)]).filter(([,s])=>s);
+const navMap={top:null,what:'what',why:'what',board:'board',tracks:'board',prizes:'prizes',day:'day',bandsN:'day',sponsors:'sponsors',judges:'judges',faq:'faq',hosts:'hosts',build:'hosts',notify:'hosts'};
+const navSecs=[['top','#top'],['what','#what'],['why','#why'],['board','#board'],['tracks','#tracks'],['prizes','#prizes'],['day','#day'],['bandsN','#bandsN'],['sponsors','#sponsors'],['judges','#judges'],['faq','#faq'],['hosts','#hosts'],['build','#build'],['notify','#notify']].map(([k,s])=>[k,$(s)]).filter(([,s])=>s);
 const themed=$$('[data-theme]');
 let curNav,headerLayout;
 function measureHeader(y){const bounds=new Map([...new Set([...navSecs.map(([,s])=>s),...themed])].map(s=>{const r=s.getBoundingClientRect();return[s,[r.top+y,r.bottom+y]]}));const links=new Map(navLinks.map(a=>[a,[a.offsetLeft,a.offsetWidth]]));headerLayout={bounds,links,max:document.documentElement.scrollHeight-innerHeight,railW:rail.clientWidth,indW:ind.offsetWidth};curNav=undefined}
@@ -365,6 +365,23 @@ function planFrame(){const p=plan.getBoundingClientRect(),vh=innerHeight;walls.s
 
 /* ================= FAQ ================= */
 $$('.qi').forEach(q=>{const b=$('.q',q),a=$('.a',q);a.hidden=b.getAttribute('aria-expanded')!=='true';b.addEventListener('click',()=>{const open=a.hidden;b.setAttribute('aria-expanded',String(open));q.classList.toggle('open',open);a.hidden=!open})});
+
+const faqFilters=$('#faqFilters'),faqSearch=$('#faqSearch'),faqCategory=$('#faqCategory'),faqCount=$('#faqCount');
+const faqGroups=$$('.faq-group').map(group=>({group,items:$$('.qi',group).map(item=>({item,text:item.textContent.toLowerCase()}))}));
+function filterFaq(){
+  const terms=faqSearch.value.trim().toLowerCase().split(/\s+/).filter(Boolean),category=faqCategory.value;
+  let count=0;
+  for(const {group,items} of faqGroups){
+    const matchesCategory=!category||category===group.dataset.category;
+    let visible=0;
+    for(const {item,text} of items){item.hidden=!matchesCategory||!terms.every(term=>text.includes(term));if(!item.hidden)visible++}
+    group.hidden=visible===0;count+=visible;
+  }
+  faqCount.textContent=count===0?'No questions match.':`${count} ${count===1?'question':'questions'}`;
+}
+faqSearch.addEventListener('input',filterFaq);
+faqCategory.addEventListener('change',filterFaq);
+filterFaq();faqFilters.hidden=false;
 
 /* ================= CLUBS ================= */
 const beam=$('#beam'),beamLbl=$('#beamLbl'),dyn=$('#dyn'),hosts=$('#hosts'),clW=$('.cl.w',dyn),clN=$('.cl.n',dyn);
