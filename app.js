@@ -44,7 +44,21 @@
   }
   const DAY_HEIGHTS = [3, 5, 4, 7, 6, 9, 5, 4, 6, 3, 4, 8, 5, 3, 4];
   const DAY_WIDTHS = [5, 6, 4, 7, 5, 6, 4, 5, 6, 4, 5, 7, 5, 4, 6];
-  const dayArt = $('#dayArt'); if (dayArt) dayArt.textContent = skyline(DAY_HEIGHTS, DAY_WIDTHS);
+  /* The skyline's windows (":") get a second, amber layer that fades in as the scroll moves toward night. */
+  const dayArt = $('#dayArt');
+  let cityLit = null;
+  if (dayArt) {
+    const art = skyline(DAY_HEIGHTS, DAY_WIDTHS);
+    dayArt.textContent = art;
+    const wrap = document.createElement('div');
+    wrap.className = 'city';
+    cityLit = document.createElement('pre');
+    cityLit.className = 'ascii city-lit';
+    cityLit.setAttribute('aria-hidden', 'true');
+    cityLit.textContent = art.replace(/[^:\n]/g, ' ');
+    dayArt.replaceWith(wrap);
+    wrap.append(dayArt, cityLit);
+  }
   const footArt = $('#footArt'); if (footArt) footArt.textContent = skyline(DAY_HEIGHTS.slice(4), DAY_WIDTHS.slice(4)) + '\n' + lake(120, 5);
 
   /* ---------- Intro: press Ctrl + B ---------- */
@@ -220,6 +234,7 @@
       const minutes = 600 + Math.round(p * 600 / 5) * 5;
       if (dayClock) dayClock.textContent = fmt(minutes);
       if (dayBar) dayBar.style.transform = `scaleX(${p})`;
+      if (cityLit) cityLit.style.opacity = clamp((p - .3) / .45).toFixed(2);
       if (dayTrack) {
         const max = Math.max(0, dayTrack.offsetHeight - dayPin.clientHeight * .45);
         dayTrack.style.transform = `translate3d(0,${(-p * max).toFixed(1)}px,0)`;

@@ -418,6 +418,12 @@ section { padding: clamp(96px, 13vw, 180px) 0; }
   opacity: .85;
 }
 .day-head .ascii { margin-top: auto; }
+.city { position: relative; margin-top: auto; }
+.city .ascii { margin-top: 0; }
+.city-lit {
+  position: absolute; left: 0; bottom: 0; color: var(--amber); opacity: 0; pointer-events: none;
+  text-shadow: 0 0 8px rgba(255, 194, 75, .85);
+}
 .mini-tower { width: 54px; height: auto; color: currentColor; opacity: .8; }
 .day-scroll { position: relative; overflow: hidden; min-height: 0; }
 .track { list-style: none; margin: 0; padding: 0; will-change: transform; }
