@@ -111,12 +111,12 @@ if(RM)setLit(true);
 
 /* ================= HEADER ================= */
 const topBar=$('#topBar'),ind=$('#ind'),trolley=$('#trolley'),rail=trolley.parentElement;
-const navLinks=$$('.nav a.lk');
+const navLinks=$$('.nav a.lk, .nav a.sp');
 const navMap={top:null,what:'what',why:'what',board:'board',tracks:'board',prizes:'prizes',day:'day',bandsN:'day',sponsors:'sponsors',judges:'judges',faq:'faq',hosts:'hosts',notify:'hosts'};
 const navSecs=[['top','#top'],['what','#what'],['why','#why'],['board','#board'],['tracks','#tracks'],['prizes','#prizes'],['day','#day'],['bandsN','#bandsN'],['sponsors','#sponsors'],['judges','#judges'],['faq','#faq'],['hosts','#hosts'],['notify','#notify']].map(([k,s])=>[k,$(s)]);
 const themed=$$('[data-theme]');
 let curNav=undefined;
-function moveInd(key){if(key===curNav)return;curNav=key;navLinks.forEach(a=>a.removeAttribute('aria-current'));const a=key&&navLinks.find(l=>l.dataset.sec===key);if(!a||!isWide()){ind.style.opacity=0;return}a.setAttribute('aria-current','true');ind.style.left=a.offsetLeft+'px';ind.style.width=a.offsetWidth+'px';ind.style.opacity=1}
+function moveInd(key){if(key===curNav)return;curNav=key;navLinks.forEach(a=>a.removeAttribute('aria-current'));const a=key&&navLinks.find(l=>l.dataset.sec===key);if(a)a.setAttribute('aria-current','true');if(!a||!a.offsetWidth||a.classList.contains('sp')){ind.style.opacity=0;return}ind.style.left=a.offsetLeft+'px';ind.style.width=a.offsetWidth+'px';ind.style.opacity=1}
 const menuBtn=$('#menuBtn'),menu=$('#menu');
 menuBtn.addEventListener('click',()=>{const o=!menu.classList.contains('open');menu.classList.toggle('open',o);menuBtn.setAttribute('aria-expanded',String(o))});
 menu.addEventListener('click',e=>{if(e.target.closest('a')){menu.classList.remove('open');menuBtn.setAttribute('aria-expanded','false')}});

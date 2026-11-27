@@ -56,6 +56,7 @@ button{font:inherit;color:inherit}
 .nav .go{margin-left:6px;min-height:38px;padding:0 16px;font-size:15px;border-width:0}
 .nav .sp{margin-left:6px;min-height:38px;padding:0 16px;font-size:15px;display:inline-flex;align-items:center;text-decoration:none;white-space:nowrap}
 .top.on-dark .nav .sp{color:var(--sky);border-color:var(--harbour)}
+.nav .sp[aria-current]{background:var(--mist)}.top.on-dark .nav .sp[aria-current]{background:var(--line)}
 .menu a.mk{background:var(--mist);font-weight:600}.top.on-dark .menu a.mk{background:var(--line)}
 .menu-btn{display:none}
 .menu{position:absolute;right:0;top:58px;width:min(280px,80vw);padding:8px;border-radius:18px;display:none;flex-direction:column;pointer-events:auto}
@@ -415,18 +416,15 @@ dialog.modal[open]::backdrop{animation:fade .3s ease}
 
 /* ---------------- responsive ---------------- */
 @media (max-width:1180px){
-  .nav a.lk[data-sec=hosts]{display:none}
-}
-@media (max-width:1060px){
-  .nav a.lk{padding:8px 9px;font-size:14px}
+  .nav a.lk,.nav .ind{display:none}
+  .nav .rail{right:18px}
+  .menu-btn{display:inline-flex;align-items:center;min-height:38px;padding:0 14px;border-radius:999px;border:0;background:transparent;font-weight:600;cursor:pointer}
 }
 @media (max-width:900px){
   body{font-size:16px}
-  .nav a.lk,.nav .ind,.nav .sp{display:none}
-  .nav .rail{right:18px}
+  .nav .sp{display:none}
   .nav{padding:5px 5px 9px}
   .badge{padding:6px 12px 6px 8px}.badge span{font-size:18px}.badge img{height:26px}
-  .menu-btn{display:inline-flex;align-items:center;min-height:38px;padding:0 14px;border-radius:999px;border:0;background:transparent;font-weight:600;cursor:pointer}
   .hero-grid{grid-template-columns:1fr;padding-top:104px;padding-bottom:270px}
   .bulb{width:min(300px,76vw);grid-row:2}
   .dates{grid-template-columns:1fr;gap:10px;border-top:0}.dates li::before{display:none}.dates li{padding-top:0}
