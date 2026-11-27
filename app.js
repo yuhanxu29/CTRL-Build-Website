@@ -103,16 +103,20 @@ makeSky('near',5200,440,s=>{const r=rng(42);filler(s,0,1420,440,40,120,'#3066a0'
 const startBtn=$('#startBtn');
 function startBuilding(){startBtn.classList.add('down');setTimeout(()=>startBtn.classList.remove('down'),160);$('#what').scrollIntoView({behavior:RM.matches?'auto':'smooth',block:'start'})}
 startBtn.addEventListener('click',e=>{e.preventDefault();startBuilding()});
-addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&!e.altKey&&(e.key==='b'||e.key==='B')&&$('#top').getBoundingClientRect().bottom>0&&!$('#modal').open){e.preventDefault();startBuilding()}});
+// the keycaps mirror the real Ctrl (or Cmd) and B keys so the shortcut teaches itself
+const mirrorKey=(key,on)=>{if(key==='Control'||key==='Meta')startBtn.classList.toggle('dn-c',on);else if(key.toLowerCase()==='b')startBtn.classList.toggle('dn-b',on)};
+addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('input,textarea,select,[contenteditable]'))return;mirrorKey(e.key,true);if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&!e.altKey&&(e.key==='b'||e.key==='B')&&$('#top').getBoundingClientRect().bottom>0&&!$('#modal').open){e.preventDefault();startBuilding()}});
+addEventListener('keyup',e=>mirrorKey(e.key,false));
+addEventListener('blur',()=>startBtn.classList.remove('dn-c','dn-b'));
 
 /* ================= HEADER ================= */
-const topBar=$('#topBar'),ind=$('#ind'),trolley=$('#trolley'),rail=trolley.parentElement;
+const topBar=$('#topBar'),ind=$('#ind'),prog=$('#prog');
 const navLinks=$$('.nav a.lk, .nav a.sp');
 const navMap={top:null,what:'what',why:'what',board:'board',tracks:'board',prizes:'prizes',day:'day',bandsN:'day',sponsors:'sponsors',judges:'judges',faq:'faq',hosts:'hosts',build:null,notify:'hosts'};
 const navSecs=[['top','#top'],['what','#what'],['why','#why'],['board','#board'],['tracks','#tracks'],['prizes','#prizes'],['day','#day'],['bandsN','#bandsN'],['sponsors','#sponsors'],['judges','#judges'],['faq','#faq'],['hosts','#hosts'],['build','#build'],['notify','#notify']].map(([k,s])=>[k,$(s)]).filter(([,s])=>s);
 const themed=$$('[data-theme]');
 let curNav,headerLayout;
-function measureHeader(y){const bounds=new Map([...new Set([...navSecs.map(([,s])=>s),...themed])].map(s=>{const r=s.getBoundingClientRect();return[s,[r.top+y,r.bottom+y]]}));const links=new Map(navLinks.map(a=>[a,[a.offsetLeft,a.offsetWidth]]));headerLayout={bounds,links,max:document.documentElement.scrollHeight-innerHeight,railW:rail.clientWidth,indW:ind.offsetWidth};curNav=undefined}
+function measureHeader(y){const bounds=new Map([...new Set([...navSecs.map(([,s])=>s),...themed])].map(s=>{const r=s.getBoundingClientRect();return[s,[r.top+y,r.bottom+y]]}));const links=new Map(navLinks.map(a=>[a,[a.offsetLeft,a.offsetWidth]]));headerLayout={bounds,links,max:document.documentElement.scrollHeight-innerHeight,indW:ind.offsetWidth};curNav=undefined}
 function moveInd(key,links,indW){if(key===curNav)return;curNav=key;const a=key&&navLinks.find(l=>l.dataset.sec===key),[x,w]=links.get(a)||[],show=indW&&w&&!a.classList.contains('sp');navLinks.forEach(l=>{if(l===a)l.setAttribute('aria-current','true');else l.removeAttribute('aria-current')});if(show)ind.style.transform=`translateX(${x}px) scaleX(${w/indW})`;ind.style.opacity=show?1:0}
 const menuBtn=$('#menuBtn'),menu=$('#menu');
 function closeMenu(restore=false){if(!menu.classList.contains('open'))return;menu.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');if(restore)menuBtn.focus()}
@@ -124,9 +128,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.cont
 addEventListener('resize',()=>{if(!menu.classList.contains('open')||menuBtn.getClientRects().length)return;const active=document.activeElement;closeMenu();if(menu.contains(active)){const link=navLinks.find(a=>a.hash===active.hash&&a.offsetWidth)||navLinks.find(a=>a.offsetWidth);link?.focus()}});
 function header(y){
   if(!headerLayout)measureHeader(y);
-  const {bounds,links,max,railW,indW}=headerLayout,active=(s,line)=>{const [top,bottom]=bounds.get(s);return top<=line&&bottom>line};
+  const {bounds,links,max,indW}=headerLayout,active=(s,line)=>{const [top,bottom]=bounds.get(s);return top<=line&&bottom>line};
   const key=navSecs.find(([,s])=>active(s,y+innerHeight*.45))?.[0],sec=themed.find(s=>active(s,y+40));
-  moveInd(navMap[key]??null,links,indW);topBar.classList.toggle('on-dark',sec?.dataset.theme==='dark');if(!RM.matches)trolley.style.transform=`translateX(${max>0?clamp(y/max)*railW:0}px)`;
+  moveInd(navMap[key]??null,links,indW);topBar.classList.toggle('on-dark',sec?.dataset.theme==='dark');prog.style.transform=`scaleX(${max>0?clamp(y/max).toFixed(4):0})`;
 }
 
 /* ================= POINTER ================= */
@@ -490,6 +494,6 @@ function loop(now){
   const tapeSettling=tapeFrame();
   if(tapeSettling||craneSettling||rigSettling)wake();else{lastT=0;scrollV=0}
 }
-function start(){started=true;lastY=scrollY;rebuild();for(const s of new Set([hero,craneScene,why,bbScene,stage.parentElement,day,plan,hosts,...tapes.map(o=>o.sec)]))sceneIO.observe(s);for(const s of new Set([...navSecs.map(([,s])=>s),...themed,rail,...navLinks]))layoutRO.observe(s)}
+function start(){started=true;lastY=scrollY;rebuild();for(const s of new Set([hero,craneScene,why,bbScene,stage.parentElement,day,plan,hosts,...tapes.map(o=>o.sec)]))sceneIO.observe(s);for(const s of new Set([...navSecs.map(([,s])=>s),...themed,...navLinks]))layoutRO.observe(s)}
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(start);else addEventListener('load',start);
 }
