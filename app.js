@@ -118,8 +118,12 @@ const themed=$$('[data-theme]');
 let curNav=undefined;
 function moveInd(key){if(key===curNav)return;curNav=key;navLinks.forEach(a=>a.removeAttribute('aria-current'));const a=key&&navLinks.find(l=>l.dataset.sec===key);if(a)a.setAttribute('aria-current','true');if(!a||!a.offsetWidth||a.classList.contains('sp')){ind.style.opacity=0;return}ind.style.left=a.offsetLeft+'px';ind.style.width=a.offsetWidth+'px';ind.style.opacity=1}
 const menuBtn=$('#menuBtn'),menu=$('#menu');
-menuBtn.addEventListener('click',()=>{const o=!menu.classList.contains('open');menu.classList.toggle('open',o);menuBtn.setAttribute('aria-expanded',String(o))});
-menu.addEventListener('click',e=>{if(e.target.closest('a')){menu.classList.remove('open');menuBtn.setAttribute('aria-expanded','false')}});
+function closeMenu(restore=false){menu.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');if(restore)menuBtn.focus()}
+menuBtn.addEventListener('click',()=>{if(menu.classList.contains('open')){closeMenu();return}menu.classList.add('open');menuBtn.setAttribute('aria-expanded','true');$('a',menu).focus()});
+menu.addEventListener('click',e=>{const a=e.target.closest('a');if(!a||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;const section=$(a.hash);if(section){section.tabIndex=-1;section.focus({preventScroll:true})}closeMenu()});
+document.addEventListener('focusin',e=>{if(e.target!==menuBtn&&!menu.contains(e.target))closeMenu()});
+document.addEventListener('click',e=>{if(!menu.contains(e.target)&&!menuBtn.contains(e.target))closeMenu(menu.contains(document.activeElement))});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.contains('open')){e.preventDefault();closeMenu(true)}});
 function header(){
   const vh=innerHeight;let k=null;
   for(const[key,s]of navSecs){const r=s.getBoundingClientRect();if(r.top<=vh*.45&&r.bottom>vh*.45){k=navMap[key];break}}
@@ -204,9 +208,9 @@ function craneFrame(dt){
 }
 
 /* ================= BANDS ================= */
-const tapes=$$('.tape').map(t=>{const run=$('.run',t);const unit=run.innerHTML;run.innerHTML=unit+unit+unit+unit;return{t,run,unitW:0,x:0,sp:+t.dataset.speed,sec:t.closest('.bands'),paused:false}});
+const tapes=$$('.tape').map(t=>{const run=$('.run',t);const unit=run.innerHTML;run.insertAdjacentHTML('beforeend',`<span class="tape-copy" aria-hidden="true">${unit}</span>`.repeat(3));return{t,run,unitW:0,x:0,sp:+t.dataset.speed,sec:t.closest('.bands'),paused:false}});
 function measureTapes(){tapes.forEach(o=>{o.unitW=o.run.scrollWidth/4})}
-$$('.bands .pause').forEach(b=>b.addEventListener('click',()=>{const sec=b.closest('.bands');const now=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(now));b.textContent=now?'Play':'Pause';tapes.filter(o=>o.sec===sec).forEach(o=>o.paused=now)}));
+$$('.bands .pause').forEach(b=>b.addEventListener('click',()=>{const sec=b.closest('.bands');const now=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(now));tapes.filter(o=>o.sec===sec).forEach(o=>o.paused=now)}));
 let scrollV=0,lastY=scrollY;
 function tapeFrame(dt){if(RM)return;for(const o of tapes){const r=o.sec.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight||o.paused||!o.unitW)continue;const boost=1+Math.min(4,Math.abs(scrollV)/700);const dir=scrollV<-30?-1:1;o.x+=o.sp*boost*dir*dt;o.x=((o.x%o.unitW)+o.unitW)%o.unitW;o.run.style.transform=`translate3d(${-o.x}px,0,0)`}}
 
@@ -292,6 +296,7 @@ function buildPano(){
   const dt0=Math.max(x+40*k,sx(4)-1100*k);x=filler(g,x,dt0,H,90*k,300*k,c,r,win,k);
   x=downtown(g,dt0,H,c,win,r,k,true);
   filler(g,x,W+50,H,90*k,300*k,c,r,win,k);
+  $$('.nm',pano).forEach((landmark,i)=>{const id='landmark-desc-'+i;const desc=el('desc',{id},landmark);desc.textContent=landmark.dataset.fact;landmark.setAttribute('tabindex','0');landmark.setAttribute('role','img');landmark.setAttribute('aria-label',landmark.dataset.name);landmark.setAttribute('aria-describedby',id)});
   pwins=$$('.w',pano);dayBucket=-1;
 }
 const SKY=[[0,'eaf6ff','f2faff'],[.24,'d6ecfb','eef8ff'],[.42,'cfe7f8','f6ead0'],[.55,'a9cbe6','f5d39c'],[.63,'6b8fbc','f1ae7c'],[.71,'33558a','d28c78'],[.79,'1a3459','4f5d86'],[.88,'0e2038','1a3155'],[1,'0b1a2e','0b1a2e']];
@@ -312,8 +317,16 @@ function dayFrame(){
   $$('.rbp',pano).forEach(e=>e.setAttribute('fill',p>.6?'#b8893a':'#3066a0'));
   const b=Math.floor(p*100);if(b!==dayBucket){dayBucket=b;for(const w of pwins){const k=+w.dataset.k;w.setAttribute('fill',p>k?(k<.72?'#ffc24b':'#f7d27a'):(p>.6?'#1a3459':'#cae6f8'))}}
 }
-dpin.addEventListener('pointermove',e=>{const t=e.target.closest&&e.target.closest('.nm');if(!t||!motion()){btip.classList.remove('on');return}const pr=dpin.getBoundingClientRect();btip.innerHTML=`<b>${t.dataset.name}</b>${t.dataset.fact}`;btip.style.left=clamp(e.clientX-pr.left,150,pr.width-150)+'px';btip.style.top=(e.clientY-pr.top)+'px';btip.classList.add('on')});
-dpin.addEventListener('pointerleave',()=>btip.classList.remove('on'));
+function showLandmark(t,x,y){const r=dpin.getBoundingClientRect();btip.innerHTML=`<b>${t.dataset.name}</b>${t.dataset.fact}`;btip.style.left=clamp(x-r.left,150,r.width-150)+'px';btip.style.top=Math.max(110,y-r.top)+'px';btip.classList.add('on')}
+function focusedLandmark(){const t=document.activeElement;return pano.contains(t)&&t.matches('.nm')?t:null}
+dpin.addEventListener('pointermove',e=>{if(focusedLandmark())return;const t=e.target.closest('.nm');if(t&&motion())showLandmark(t,e.clientX,e.clientY);else btip.classList.remove('on')});
+dpin.addEventListener('pointerleave',()=>{if(!focusedLandmark())btip.classList.remove('on')});
+pano.addEventListener('focusin',e=>{const t=e.target;if(!t.matches('.nm'))return;const r=day.getBoundingClientRect(),item=t.getBoundingClientRect(),trackLeft=track.getBoundingClientRect().left;
+  const offset=clamp((item.left+item.right)/2-trackLeft-innerWidth/2,0,track.scrollWidth-innerWidth);
+  window.scrollTo({top:scrollY+r.top+offset/(track.scrollWidth-innerWidth)*(r.height-innerHeight),behavior:'instant'});dayFrame();
+  const visible=t.getBoundingClientRect();showLandmark(t,(visible.left+visible.right)/2,visible.top)});
+pano.addEventListener('focusout',()=>btip.classList.remove('on'));
+dpin.addEventListener('keydown',e=>{if(e.key==='Escape'&&btip.classList.contains('on')){e.preventDefault();btip.classList.remove('on')}});
 
 /* ================= FLOOR PLAN ================= */
 const plan=$('#plan'),walls=$('#walls');
@@ -327,9 +340,7 @@ $$('.room',plan).forEach(r=>{const s=el('svg',{class:'door',viewBox:'0 0 40 40',
 function planFrame(){const p=plan.getBoundingClientRect(),vh=innerHeight;if(p.bottom<0||p.top>vh)return;const t=motion()?clamp((vh*.92-p.top)/(vh*.6)):1;walls.style.setProperty('--d',String(1-t))}
 
 /* ================= FAQ ================= */
-$$('.qi').forEach(q=>{const b=$('.q',q),a=$('.a',q);b.addEventListener('click',()=>{const open=!q.classList.contains('open');b.setAttribute('aria-expanded',String(open));if(open){q.classList.add('open');a.style.height=a.scrollHeight+'px';const done=()=>{if(q.classList.contains('open'))a.style.height='auto';a.removeEventListener('transitionend',done)};a.addEventListener('transitionend',done)}else{a.style.height=a.scrollHeight+'px';requestAnimationFrame(()=>{q.classList.remove('open');a.style.height='0px'})}})});
-const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const items=$$('.qi',e.target);items.forEach((q,i)=>{q.style.transitionDelay=(i*110)+'ms';q.classList.add('in');setTimeout(()=>q.style.transitionDelay='',900+i*110)});io.unobserve(e.target)}})},{threshold:.15});
-io.observe($('#qa'));
+$$('.qi').forEach(q=>{const b=$('.q',q),a=$('.a',q);a.hidden=b.getAttribute('aria-expanded')!=='true';b.addEventListener('click',()=>{const open=a.hidden;b.setAttribute('aria-expanded',String(open));q.classList.toggle('open',open);a.hidden=!open})});
 
 /* ================= CLUBS ================= */
 const beam=$('#beam'),beamLbl=$('#beamLbl'),dyn=$('#dyn'),hosts=$('#hosts'),clW=$('.cl.w',dyn),clN=$('.cl.n',dyn),frame=$('.frame');
@@ -351,7 +362,7 @@ function heroFrame(){const vh=innerHeight;for(const e of par){const s=e.closest(
   if(!userSet&&!RM&&scrollY>vh*.15&&!document.body.classList.contains('lit'))setLit(true)}
 
 /* ================= MODALS ================= */
-const modal=$('#modal'),mTitle=$('#mTitle'),mSub=$('#mSub'),mBody=$('#mBody');
+const modal=$('#modal'),mTitle=$('#mTitle'),mSub=$('#mSub'),mBody=$('#mBody'),mClose=$('#mClose'),mStatus=$('#mStatus');
 const BRIEFS=[
   {sponsor:'Sponsor TBA',track:'Fintech',problem:'Cut sign-up drop-off for first-time investors',context:'Most people who start opening an investing account never finish. The sponsor wants to know why, and what would get them over the line.',win:'A tested onboarding flow or prototype, a clear customer insight, and a plan to measure the change.'},
   {sponsor:'Sponsor TBA',track:'Health',problem:'Turn clinic wait times into a better patient experience',context:'Patients spend a long time waiting with no idea what is happening. The sponsor wants to make that time less stressful and more useful.',win:'A pilot plan a clinic could run next month, with a prototype of what the patient sees.'},
@@ -359,10 +370,10 @@ const BRIEFS=[
 ];
 const okIcon='<svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#ffc24b"/><path d="M19 33 l9 9 l17 -19" fill="none" stroke="#0e2540" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const previewNote='<small>Preview build: this form is not connected yet, so nothing was sent.</small>';
-const F=(id,label,type='text',attrs='')=>`<label class="fld" for="${id}">${label}<input id="${id}" name="${id}" type="${type}" ${attrs}><span class="err" id="${id}-err"></span></label>`;
+const F=(id,label,type='text',attrs='')=>`<div class="fld"><label for="${id}">${label}</label><input id="${id}" name="${id}" type="${type}" ${attrs}${type==='email'?' spellcheck="false"':''} aria-describedby="${id}-err"><span class="err" id="${id}-err"></span></div>`;
 const S=(id,label,opts,sel)=>`<label class="fld" for="${id}">${label}<select id="${id}" name="${id}">${opts.map(o=>`<option${o===sel?' selected':''}>${o}</option>`).join('')}</select></label>`;
 const VIEWS={
-  notify:o=>({t:'Get notified',s:'We\'ll send one email when applications open in January.',b:`<form novalidate data-form="notify">${F('n-name','Full name','text','autocomplete="name" required')}${F('n-email','Email','email',`autocomplete="email" required value="${o.email||''}"`)}<div class="two">${S('n-school','School',['University of Toronto','University of Waterloo','Toronto Metropolitan University','York University','Another school'])}${S('n-year','Year',['First','Second','Third','Fourth or later','Graduate'])}</div><label class="chk"><input type="checkbox" id="n-ok" required><span>Email me about CTRL Build. I can unsubscribe any time.</span></label><span class="err" id="n-ok-err" style="color:#b3261e;font-size:13px"></span><button class="btn solid" type="submit">Get notified</button></form>`,
+  notify:o=>({t:'Get notified',s:'We\'ll send one email when applications open in January.',b:`<form novalidate data-form="notify">${F('n-name','Full name','text','autocomplete="name" required')}${F('n-email','Email','email','autocomplete="email" required')}<div class="two">${S('n-school','School',['University of Toronto','University of Waterloo','Toronto Metropolitan University','York University','Another school'])}${S('n-year','Year',['First','Second','Third','Fourth or later','Graduate'])}</div><label class="chk"><input type="checkbox" id="n-ok" name="consent" required aria-describedby="n-ok-err"><span>Email me about CTRL Build. I can unsubscribe any time.</span></label><span class="err" id="n-ok-err"></span><button class="btn solid" type="submit">Get notified</button></form>`,
     done:v=>`<div class="done">${okIcon}<h3>You're on the list, ${v.first}.</h3><p>We'll email ${v.email} when applications open in January.</p>${previewNote}</div>`}),
   sponsor:o=>({t:o.call?'Book a call':'Sponsor a challenge',s:o.call?'Twenty minutes with the sponsorship team. Pick a time that works.':'Tell us a little about your company and the problem you would bring.',b:`<form novalidate data-form="sponsor">${F('s-name','Your name','text','autocomplete="name" required')}<div class="two">${F('s-co','Company','text','autocomplete="organization" required')}${F('s-email','Work email','email','autocomplete="email" required')}</div>${S('s-pkg','Package',['Not sure yet','Title, $10,000','Gold, $5,000','Silver, $2,500','Community, $1,000','In-kind'],o.pkg?({Title:'Title, $10,000',Gold:'Gold, $5,000',Silver:'Silver, $2,500',Community:'Community, $1,000'}[o.pkg]):'Not sure yet')}<label class="fld" for="s-msg">What problem would you bring? (optional)<textarea id="s-msg" name="s-msg"></textarea></label><label class="chk"><input type="checkbox" id="s-call" ${o.call?'checked':''}><span>I'd like a 20-minute call</span></label><div id="s-when" ${o.call?'':'hidden'}>${S('s-time','Best time for a call',['Weekday mornings','Weekday afternoons','Weekday evenings'])}</div><button class="btn solid" type="submit">${o.call?'Request a call':'Send to the team'}</button></form>`,
     done:v=>`<div class="done">${okIcon}<h3>Thanks, ${v.first}.</h3><p>The sponsorship team will reply to ${v.email}${v.call?' to set up your call':''}.</p>${previewNote}</div>`}),
@@ -372,25 +383,34 @@ const VIEWS={
   coc:()=>({t:'Code of conduct',s:'Draft. The final version is published before applications open.',b:`<div class="legal-t"><p>CTRL Build is for everyone. We expect every participant, mentor, judge, sponsor and organizer to:</p><ul><li>Treat people with respect, in person and online.</li><li>Keep it free of harassment, discrimination and intimidation.</li><li>Respect sponsor confidentiality and other teams' work.</li><li>Follow organizer and venue instructions.</li></ul><p>Anyone who breaks these rules may be asked to leave. Raise concerns with any organizer on the day, or contact the team before the event.</p></div>`}),
   privacy:()=>({t:'Privacy',s:'Draft. The final notice is published with the application form.',b:`<div class="legal-t"><p>We collect only what we need to run the event: your name, email, school and year, plus anything you choose to add.</p><ul><li>We use it to contact you about CTRL Build.</li><li>We share your profile with sponsors only if you opt in.</li><li>We delete application data after the event unless you ask us to keep you on the list.</li></ul><p>Photos may be taken on the day. You can ask an organizer to leave you out.</p></div>`})
 };
-let lastOpts={};
-function openModal(kind,opts={}){
+let modalTrigger;
+const emailError='Enter an email like name@mail.utoronto.ca.';
+const validEmail=value=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+const escapeHTML=value=>value.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function fieldError(input,message){$('#'+input.id+'-err').textContent=message;if(message)input.setAttribute('aria-invalid','true');else input.removeAttribute('aria-invalid')}
+function openModal(kind,opts={},trigger=document.activeElement){
   if(kind==='call'){kind='sponsor';opts.call=true}
-  const v=VIEWS[kind](opts);lastOpts={kind,opts};mTitle.textContent=v.t;mSub.textContent=v.s;mBody.innerHTML=v.b;
-  if(!modal.open)modal.showModal();
-  const first=mBody.querySelector('input,select,textarea,button');if(first)setTimeout(()=>first.focus(),30);
-  const f=mBody.querySelector('form');if(!f)return;
+  const v=VIEWS[kind](opts);mTitle.textContent=v.t;mSub.textContent=v.s;mBody.innerHTML=v.b;mStatus.textContent='';
+  if(kind==='notify'&&opts.email)$('#n-email',mBody).value=opts.email;
+  if(!modal.open){modalTrigger=trigger;modal.showModal()}
+  const first=matchMedia('(pointer:fine)').matches?$('input,select,textarea,button',mBody):null;(first||mTitle).focus();
+  const f=$('form',mBody);if(!f)return;
   const callBox=$('#s-call',f);if(callBox)callBox.addEventListener('change',()=>{$('#s-when',f).hidden=!callBox.checked});
-  f.addEventListener('submit',e=>{e.preventDefault();let ok=true;
-    $$('[required]',f).forEach(i=>{const err=$('#'+i.id+'-err',f)||$('#'+i.id+'-err');let m='';if(i.type==='checkbox'){if(!i.checked)m='Tick this box so we can email you.'}else if(!i.value.trim())m=i.closest('label').firstChild.textContent.trim()+' is required.';else if(i.type==='email'&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(i.value.trim()))m='Enter an email like name@mail.utoronto.ca.';if(err)err.textContent=m;i.setAttribute('aria-invalid',m?'true':'false');if(m&&ok){ok=false;i.focus()}});
-    if(!ok)return;const val=id=>{const i=$('#'+id,f);return i?i.value.trim():''};const name=val('n-name')||val('s-name')||val('p-name');
-    const vv={first:name.split(/\s+/)[0],email:val('n-email')||val('s-email')||val('p-email'),call:callBox&&callBox.checked};
-    mBody.innerHTML=VIEWS[kind](opts).done(vv);mTitle.textContent=kind==='notify'?'You\'re in':kind==='prospectus'?'Prospectus requested':'Message ready';mSub.textContent='';
+  f.addEventListener('submit',e=>{e.preventDefault();let invalid;
+    $$('[required]',f).forEach(i=>{let message='';if(i.type==='checkbox'){if(!i.checked)message='Tick this box so we can email you.'}else if(!i.value.trim())message=i.labels[0].textContent.trim()+' is required.';else if(i.type==='email'&&!validEmail(i.value.trim()))message=emailError;fieldError(i,message);if(message&&!invalid)invalid=i});
+    if(invalid){invalid.focus();return}const val=id=>{const i=$('#'+id,f);return i?i.value.trim():''};const name=val('n-name')||val('s-name')||val('p-name');
+    const vv={first:escapeHTML(name.split(/\s+/)[0]),email:escapeHTML(val('n-email')||val('s-email')||val('p-email')),call:callBox&&callBox.checked};
+    mBody.innerHTML=v.done(vv);mTitle.textContent=kind==='notify'?'You\'re in':kind==='prospectus'?'Prospectus requested':'Message ready';mSub.textContent='';mClose.focus();
+    mStatus.textContent=$('.done h3',mBody).textContent+' '+$('.done small',mBody).textContent;
   });
 }
-document.addEventListener('click',e=>{const b=e.target.closest('[data-open]');if(!b)return;e.preventDefault();openModal(b.dataset.open,{i:+b.dataset.brief||0,pkg:b.dataset.pkg})});
-$('#mClose').addEventListener('click',()=>modal.close());
+document.addEventListener('click',e=>{const b=e.target.closest('[data-open]');if(!b)return;e.preventDefault();openModal(b.dataset.open,{i:+b.dataset.brief||0,pkg:b.dataset.pkg},b)});
+mClose.addEventListener('click',()=>modal.close());
 modal.addEventListener('click',e=>{if(e.target===modal)modal.close()});
-$('#footForm').addEventListener('submit',e=>{e.preventDefault();openModal('notify',{email:$('#footEmail').value.trim()})});
+modal.addEventListener('close',()=>{if(modal.open)return;if(modalTrigger?.isConnected)modalTrigger.focus();modalTrigger=null});
+const footEmail=$('#footEmail');
+footEmail.addEventListener('input',()=>{if(footEmail.hasAttribute('aria-invalid'))fieldError(footEmail,'')});
+$('#footForm').addEventListener('submit',e=>{e.preventDefault();const email=footEmail.value.trim();const message=validEmail(email)?'':emailError;fieldError(footEmail,message);if(message){footEmail.focus();return}openModal('notify',{email},e.submitter||footEmail)});
 
 /* ================= LOOP ================= */
 function fitHero(){const h=$('.hero'),c=$('.hero-grid > :first-child');if(innerWidth<=900){h.style.removeProperty('--skyH');return}const top=c.getBoundingClientRect().bottom+scrollY-h.getBoundingClientRect().top-scrollY;h.style.setProperty('--skyH',clamp(innerHeight-top-16,170,330)+'px')}
