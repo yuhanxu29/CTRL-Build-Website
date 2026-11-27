@@ -212,6 +212,20 @@
     menuBtn.setAttribute('aria-expanded', String(open));
     menu.classList.toggle('open', open);
   });
+  /* Close the mobile menu when a link is tapped, and on Escape. */
+  if (menuBtn && menu) {
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menu.classList.remove('open');
+    }));
+    addEventListener('keydown', e => {
+      if (e.key === 'Escape' && menu.classList.contains('open')) {
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menu.classList.remove('open');
+        menuBtn.focus();
+      }
+    });
+  }
   const navLinks = $$('.nav a[data-sec]');
   const secs = navLinks.map(a => $('#' + a.dataset.sec)).filter(Boolean);
   const bar = $('#bottomBar'), hero = $('#top');
