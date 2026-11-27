@@ -60,7 +60,7 @@ document.addEventListener('keydown', event => {
 
   if (event.key.toLowerCase() === 'b' && event.ctrlKey &&
       !event.metaKey && !event.altKey && !event.shiftKey && !event.isComposing &&
-      !event.target.closest('input, textarea, select, [contenteditable]:not([contenteditable="false"])')) {
+      !(event.target instanceof Element && event.target.closest('input, textarea, select, [contenteditable]:not([contenteditable="false"])'))) {
     event.preventDefault();
     if (!event.repeat) toggleBuildMode();
   }
@@ -152,7 +152,7 @@ function validateField(field) {
   if (field.type === 'checkbox' && !field.checked) {
     message = 'Check this box so we can email you.';
   } else if (!value) {
-    message = `Enter your ${field.labels[0].textContent.toLowerCase()}.`;
+    message = `Enter your ${field.labels[0].textContent.toLowerCase().replace(/^your\s+/, '')}.`;
   } else if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
     message = 'Enter an email like name@mail.utoronto.ca.';
   }
@@ -214,6 +214,7 @@ function openModal(trigger) {
   });
 
   modal.showModal();
+  (form.querySelector('input, select, textarea') || closeModal).focus();
 }
 
 document.addEventListener('click', event => {

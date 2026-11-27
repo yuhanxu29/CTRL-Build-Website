@@ -17,6 +17,8 @@
     })),
   }));
 
+  let announceResults = false;
+
   function filterQuestions() {
     const query = search.value.trim().toLowerCase();
     const terms = query ? query.split(/\s+/) : [];
@@ -41,7 +43,7 @@
     const message = count === 0
       ? 'No matching questions. Try another search or category.'
       : `${count} ${count === 1 ? 'question' : 'questions'} found.`;
-    if (status.textContent !== message) status.textContent = message;
+    if (announceResults && status.textContent !== message) status.textContent = message;
   }
 
   function updateFilters() {
@@ -67,5 +69,6 @@
   search.addEventListener('input', updateFilters);
   category.addEventListener('change', updateFilters);
   filterQuestions();
+  announceResults = true;
   controls.hidden = false;
 }
