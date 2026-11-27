@@ -59,7 +59,22 @@
     dayArt.replaceWith(wrap);
     wrap.append(dayArt, cityLit);
   }
-  const footArt = $('#footArt'); if (footArt) footArt.textContent = skyline(DAY_HEIGHTS.slice(4), DAY_WIDTHS.slice(4)) + '\n' + lake(120, 5);
+  /* Footer skyline: same two-layer idea, lit as the footer scrolls into view. */
+  const footArt = $('#footArt');
+  let footLit = null;
+  if (footArt) {
+    const art = skyline(DAY_HEIGHTS.slice(4), DAY_WIDTHS.slice(4)) + '\n' + lake(120, 5);
+    footArt.textContent = art;
+    const wrap = document.createElement('div');
+    wrap.className = 'city';
+    footLit = document.createElement('pre');
+    footLit.className = 'ascii foot-art city-lit';
+    footLit.setAttribute('aria-hidden', 'true');
+    footLit.textContent = art.replace(/[^:\n]/g, ' ');
+    footArt.replaceWith(wrap);
+    wrap.append(footArt, footLit);
+  }
+  const footEl = $('.foot');
 
   /* ---------- Intro: press Ctrl + B ---------- */
   const introEl = $('#intro'), kbdEl = $('#kbd'), haze = $('.haze');
@@ -240,6 +255,10 @@
         dayTrack.style.transform = `translate3d(0,${(-p * max).toFixed(1)}px,0)`;
       }
       stops.forEach(s => s.classList.toggle('past', +s.dataset.m <= minutes));
+    }
+    if (footLit && footEl) {
+      const fr = footEl.getBoundingClientRect();
+      footLit.style.opacity = clamp((innerHeight - fr.top) / (innerHeight * .9)).toFixed(2);
     }
     if (bar && hero) bar.classList.toggle('show', hero.getBoundingClientRect().bottom < 0);
     let current = null;
