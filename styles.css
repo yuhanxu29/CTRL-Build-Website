@@ -76,16 +76,10 @@ button{font:inherit;color:inherit}
 .dates li::before{content:"";position:absolute;left:0;top:-7px;width:12px;height:12px;border-radius:50%;background:var(--sky);border:2px solid var(--steel)}
 .dates b{display:block;font:400 21px/1.1 var(--serif);color:var(--ink);margin-bottom:2px}
 
-.keys-btn{text-decoration:none;position:relative;justify-self:center;display:block;width:min(100%,440px);padding:0;border:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent;color:var(--ink)}
+.keys-btn{text-decoration:none;position:relative;justify-self:center;display:block;width:min(100%,380px);padding:0;border:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent;color:var(--ink)}
 .keys-btn svg{width:100%;height:auto;overflow:visible}
-.kcap{transition:transform 100ms var(--ease-out)}
-.keys-btn.down .kcap,.keys-btn:active .kcap,.keys-btn.dn-c .kcap-c,.keys-btn.dn-b .kcap-b{transform:translateY(9px)}
-.kdish{fill:none;stroke:rgba(255,255,255,.2);stroke-width:1.4}
-.kleg{font:600 7px var(--sans);letter-spacing:.1em;fill:rgba(242,250,255,.8)}
-.keys-btn .kbig{font-size:25px}.keys-btn .kbigb{font-size:58px}
+.keys-btn.down .kb,.keys-btn:active .kb{transform:translateY(8px)}
 .keys-note{display:block;margin-top:18px;text-align:center;font:500 16px/1.3 var(--sans);color:var(--ink-2)}
-.keys-note kbd{font:600 13px var(--sans);border:1.5px solid var(--steel);border-radius:6px;padding:1px 7px;margin:0 1px;color:var(--steel);transition:background-color 100ms var(--ease-out),color 100ms var(--ease-out)}
-.keys-btn.dn-c kbd:nth-of-type(1),.keys-btn.dn-b kbd:nth-of-type(2){background:var(--steel);color:var(--sky)}
 
 .layer{position:absolute;bottom:0;pointer-events:none;will-change:transform}
 .layer svg{width:100%;height:100%}
@@ -543,7 +537,7 @@ dialog.modal[open]::backdrop{animation:fade 150ms var(--ease-out)}
   .qi .q:hover .q-label{transform:translateX(6px)}
   .qi:not(.open) .q:hover .ic{transform:rotate(90deg)}
   .col:hover::before{transform:scaleX(1)}
-  .badge:hover .kb{transform:translateY(5px)}
+  .badge:hover .kb,.keys-btn:hover .kb{transform:translateY(5px)}
 }
 
 .clubs-head{position:relative;z-index:10}

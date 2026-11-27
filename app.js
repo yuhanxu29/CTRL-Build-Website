@@ -103,11 +103,7 @@ makeSky('near',5200,440,s=>{const r=rng(42);filler(s,0,1420,440,40,120,'#3066a0'
 const startBtn=$('#startBtn');
 function startBuilding(){startBtn.classList.add('down');setTimeout(()=>startBtn.classList.remove('down'),160);$('#what').scrollIntoView({behavior:RM.matches?'auto':'smooth',block:'start'})}
 startBtn.addEventListener('click',e=>{e.preventDefault();startBuilding()});
-// the keycaps mirror the real Ctrl (or Cmd) and B keys so the shortcut teaches itself
-const mirrorKey=(key,on)=>{if(key==='Control'||key==='Meta')startBtn.classList.toggle('dn-c',on);else if(key.toLowerCase()==='b')startBtn.classList.toggle('dn-b',on)};
-addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('input,textarea,select,[contenteditable]'))return;mirrorKey(e.key,true);if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&!e.altKey&&(e.key==='b'||e.key==='B')&&$('#top').getBoundingClientRect().bottom>0&&!$('#modal').open){e.preventDefault();startBuilding()}});
-addEventListener('keyup',e=>mirrorKey(e.key,false));
-addEventListener('blur',()=>startBtn.classList.remove('dn-c','dn-b'));
+addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&!e.altKey&&(e.key==='b'||e.key==='B')&&$('#top').getBoundingClientRect().bottom>0&&!$('#modal').open){e.preventDefault();startBuilding()}});
 
 /* ================= HEADER ================= */
 const topBar=$('#topBar'),ind=$('#ind'),prog=$('#prog');
