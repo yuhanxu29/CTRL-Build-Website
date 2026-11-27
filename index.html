@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CTRL Build: Build boldly</title>
-<meta name="description" content="CTRL Build is a one-day commerce hackathon in Toronto, hosted by RCEO, RCIG and RCVC at Rotman Commerce. March 2027, 10:00 to 20:00. No code required.">
-<meta name="theme-color" content="#f2faff">
+<meta name="description" content="CTRL Build is a one-day commerce hackathon in Toronto, hosted by RCEO, RCIG and RCVC at Rotman Commerce. March 2027. About 8 to 10 hours. No code required.">
+<meta name="theme-color" content="#0b1a2e">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="CTRL Build: Build boldly">
-<meta property="og:description" content="A one-day commerce hackathon in Toronto. March 2027, 10:00 to 20:00. No code required.">
+<meta property="og:description" content="A one-day commerce hackathon in Toronto. March 2027. No code required.">
 <meta property="og:url" content="https://ctrlbuild.vercel.app/">
 <meta property="og:image" content="https://ctrlbuild.vercel.app/assets/og.jpg">
 <link rel="canonical" href="https://ctrlbuild.vercel.app/">
@@ -21,7 +21,10 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<a class="sr skip" href="#main">Skip to content</a>
 <div class="haze" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+<!-- INTRO -->
 <div class="intro" id="intro" role="dialog" aria-modal="true" aria-labelledby="introT" hidden>
   <div class="intro-in">
     <p class="intro-t" id="introT"><span class="i-desk" aria-hidden="true"></span><span class="i-tap" aria-hidden="true"></span><span class="sr">Press Control and B, or tap the two keys, to enter the site.</span></p>
@@ -34,25 +37,29 @@
     <button class="intro-skip" id="introSkip" type="button">Skip intro</button>
   </div>
 </div>
-<a class="sr skip" href="#main">Skip to content</a>
 
+<!-- HEADER -->
 <header class="top" id="topBar">
-  <a class="badge glass" href="#top" aria-label="CTRL Build, back to top"><svg class="lgl" viewBox="0 0 200 120" width="56" height="34" aria-hidden="true" focusable="false"><rect class="kc-base" x="2" y="12" width="92" height="96" rx="20"/><rect class="kc-top" x="2" y="4" width="92" height="96" rx="20"/><text class="kc-t" x="48" y="60" text-anchor="middle">CTRL</text><rect class="kc-base" x="106" y="12" width="92" height="96" rx="20"/><g class="kb"><rect class="kc-b" x="106" y="4" width="92" height="96" rx="20"/><text class="kc-bt" x="152" y="72" text-anchor="middle">B</text></g></svg><svg class="lgd" viewBox="0 0 200 120" width="56" height="34" aria-hidden="true" focusable="false"><rect class="kc-base" x="2" y="12" width="92" height="96" rx="20"/><rect class="kc-top" x="2" y="4" width="92" height="96" rx="20"/><text class="kc-t" x="48" y="60" text-anchor="middle">CTRL</text><rect class="kc-base" x="106" y="12" width="92" height="96" rx="20"/><g class="kb"><rect class="kc-b" x="106" y="4" width="92" height="96" rx="20"/><text class="kc-bt" x="152" y="72" text-anchor="middle">B</text></g></svg><span>CTRL Build</span></a>
+  <a class="badge glass" href="#top" aria-label="CTRL Build, back to top">
+    <svg class="lgl" viewBox="0 0 200 120" width="56" height="34" aria-hidden="true" focusable="false"><rect class="kc-base" x="2" y="12" width="92" height="96" rx="20"/><rect class="kc-top" x="2" y="4" width="92" height="96" rx="20"/><text class="kc-t" x="48" y="60" text-anchor="middle">CTRL</text><rect class="kc-base" x="106" y="12" width="92" height="96" rx="20"/><g class="kb"><rect class="kc-b" x="106" y="4" width="92" height="96" rx="20"/><text class="kc-bt" x="152" y="72" text-anchor="middle">B</text></g></svg>
+    <svg class="lgd" viewBox="0 0 200 120" width="56" height="34" aria-hidden="true" focusable="false"><rect class="kc-base" x="2" y="12" width="92" height="96" rx="20"/><rect class="kc-top" x="2" y="4" width="92" height="96" rx="20"/><text class="kc-t" x="48" y="60" text-anchor="middle">CTRL</text><rect class="kc-base" x="106" y="12" width="92" height="96" rx="20"/><g class="kb"><rect class="kc-b" x="106" y="4" width="92" height="96" rx="20"/><text class="kc-bt" x="152" y="72" text-anchor="middle">B</text></g></svg>
+    <span>CTRL Build</span>
+  </a>
   <nav class="nav glass" aria-label="Main">
-    <span class="ind" id="ind" aria-hidden="true"></span>
     <a class="lk" href="#what" data-sec="what">About</a>
     <a class="lk" href="#board" data-sec="board">Challenges</a>
+    <a class="lk" href="#tracks" data-sec="tracks">Tracks</a>
     <a class="lk" href="#prizes" data-sec="prizes">Prizes</a>
     <a class="lk" href="#day" data-sec="day">Schedule</a>
+    <a class="lk" href="#judges" data-sec="judges">Judges</a>
     <a class="lk" href="#sponsors" data-sec="sponsors">Sponsors</a>
     <a class="lk" href="#faq" data-sec="faq">FAQ</a>
     <a class="lk" href="#hosts" data-sec="hosts">Clubs</a>
-    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
     <button class="btn solid go" type="button" data-open="notify">Get notified</button>
-    <span class="rail" aria-hidden="true"><span class="trolley" id="trolley"></span></span>
   </nav>
+  <button class="menu-btn glass" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
   <div class="menu glass" id="menu">
-    <a href="#what">About</a><a href="#board">Challenges</a><a href="#prizes">Prizes</a><a href="#day">Schedule</a><a href="#judges">Judges</a><a href="#sponsors">Sponsors</a><a href="#faq">FAQ</a><a href="#hosts">Clubs</a>
+    <a href="#what">About</a><a href="#board">Challenges</a><a href="#tracks">Tracks</a><a href="#prizes">Prizes</a><a href="#day">Schedule</a><a href="#judges">Judges</a><a href="#sponsors">Sponsors</a><a href="#faq">FAQ</a><a href="#hosts">Clubs</a>
   </div>
 </header>
 
@@ -74,255 +81,338 @@
   </div>
 </section>
 
-<!-- WHAT: crane -->
-<section class="crane-scene" id="what" data-theme="light" aria-labelledby="whatH">
-  <div class="crane-pin grid-bg" id="cranePin">
-    <svg id="craneSvg" aria-hidden="true"></svg>
-    <div class="load" id="load">
-      <svg class="slings" id="slings" aria-hidden="true"></svg>
-      <div class="sign" id="sign">
-        <div class="bar" aria-hidden="true"></div>
-        <div class="plate">
-          <h2 class="h2" id="whatH">What is CTRL Build?</h2>
-          <p>A hackathon for people who build businesses. Sponsors bring real problems from Toronto startups and companies. Teams of three or four pick one, build a prototype with whatever tools get them there, and pitch it to investors before the lights go out.</p>
-          <div class="specs"><div><b>10 hours</b><span>one day, no all-nighter</span></div><div><b>150 to 200</b><span>students, any program</span></div><div><b>$0</b><span>free, lunch and dinner included</span></div></div>
-        </div>
+<!-- WHAT: pinned key and sliding word -->
+<section class="what" id="what" aria-labelledby="whatH">
+  <div class="pin">
+    <span class="label">(01)</span>
+    <div class="what-word" id="whatWord" aria-hidden="true">BUILD</div>
+    <div class="what-grid">
+      <div class="what-copy">
+        <h2 class="h2" id="whatH">What is <em>CTRL Build?</em></h2>
+        <p class="lead">A hackathon for people who build businesses. Sponsors bring real problems from Toronto startups and companies. Teams of three or four pick one, build a prototype with whatever tools get them there, and pitch it to investors before the day ends.</p>
+        <ul class="facts">
+          <li><b>One day</b><span>about 8 to 10 hours, no all-nighter</span></li>
+          <li><b>150 to 200</b><span>students from any program</span></li>
+          <li><b>Free</b><span>with lunch and dinner included</span></li>
+        </ul>
       </div>
+      <div class="what-key" aria-hidden="true"><div class="cube" id="whatKey"><span class="cf">B</span><span class="cb"></span></div></div>
     </div>
   </div>
 </section>
 
-<!-- BANDS -->
-<section class="bands" id="bandsA" data-theme="light" aria-label="Highlights">
-  <div class="tape a" data-speed="70"><div class="run"><span>Build boldly</span><i>/</i><span class="o">CTRL Build</span><i>/</i><span>March 2027</span><i>/</i><span class="o">Toronto</span><i>/</i></div></div>
-  <div class="tape b" data-speed="-52"><div class="run"><span>Applications open in January</span><i>/</i><span>10:00 to 20:00</span><i>/</i><span>150 to 200 students</span><i>/</i><span>No code required</span><i>/</i><span>Pitch to investors</span><i>/</i><span>Free, meals included</span><i>/</i></div></div>
+<!-- BANDS A -->
+<section class="bands" aria-label="Highlights">
+  <div class="tape"><div class="run"><span>Build boldly</span><i>/</i><span>CTRL Build</span><i>/</i><span>March 2027</span><i>/</i><span>Toronto</span><i>/</i><span>Pitch to investors</span><i>/</i><span>No code required</span><i>/</i></div></div>
   <button class="pause" type="button" aria-pressed="false">Pause</button>
 </section>
 
 <!-- WHY -->
-<section class="why grid-bg" id="why" data-scene data-theme="light" aria-labelledby="whyH">
-  <div class="lava" aria-hidden="true"><i></i><i></i><i></i></div>
+<section class="why" id="why" aria-labelledby="whyH">
   <div class="wrap">
-    <h2 class="h2" id="whyH">Why you should come</h2>
-    <p class="lead">Three reasons, hung where you can't miss them. Give them a push.</p>
-    <div class="rig" id="rig">
-      <svg class="lift" id="lift" aria-hidden="true"></svg>
-      <div class="girder" aria-hidden="true"></div>
-      <div class="pends">
-        <div class="pend m"><span class="sh l" aria-hidden="true"></span><span class="sh r" aria-hidden="true"></span><span class="ch l" aria-hidden="true"></span><span class="ch r" aria-hidden="true"></span><div class="plate"><h3>No code required</h3><p>Build with no-code and AI tools. Business judgment is what gets scored, not lines of code.</p></div></div>
-        <div class="pend"><span class="sh l" aria-hidden="true"></span><span class="sh r" aria-hidden="true"></span><span class="ch l" aria-hidden="true"></span><span class="ch r" aria-hidden="true"></span><div class="plate"><h3>Home by 20:00</h3><p>Ten hours, start to finish. Lunch and dinner are on us, and you sleep in your own bed.</p></div></div>
-        <div class="pend m"><span class="sh l" aria-hidden="true"></span><span class="sh r" aria-hidden="true"></span><span class="ch l" aria-hidden="true"></span><span class="ch r" aria-hidden="true"></span><div class="plate"><h3>Real problems, real investors</h3><p>Sponsors write the briefs. Investors hear the finalists. You leave with a portfolio piece and people who remember it.</p></div></div>
-      </div>
-    </div>
+    <span class="label">(02)</span>
+    <h2 class="h2" id="whyH">Why you should <em>come</em></h2>
+    <ol class="stmts">
+      <li class="rv"><span class="n">01</span><p><b>Real problems, not practice ones.</b> Sponsors bring challenges they face now, so your prototype could matter to someone.</p></li>
+      <li class="rv"><span class="n">02</span><p><b>Leave with something you can show.</b> Every team finishes with a working prototype and a pitch.</p></li>
+      <li class="rv"><span class="n">03</span><p><b>Pitch to people who decide.</b> Finalists present to a panel of venture capital investors, founders and corporate representatives.</p></li>
+    </ol>
   </div>
 </section>
 
 <!-- CHALLENGE BOARD -->
-<section class="board-scene grid-bg" id="board" data-theme="light" aria-labelledby="boardH">
-  <div class="board-pin" id="boardPin">
-    <div class="wrap"><h2 class="h2" id="boardH">The challenge board</h2><p class="lead">Every challenge comes from a sponsor with a real problem. New ones go up as sponsors sign on. Pick one on the day.</p></div>
-    <div class="road" aria-hidden="true"><svg class="far" id="roadFar"></svg><div class="ground"></div><svg class="poles" id="roadPoles"></svg><div class="asphalt"></div><div class="dash" id="roadDash"></div></div>
-    <div class="billboard" id="bb">
-      <div class="bb-in">
-        <div class="lamps" aria-hidden="true"><span class="lmp"><s></s><b></b><i></i></span><span class="lmp"><s></s><b></b><i></i></span><span class="lmp"><s></s><b></b><i></i></span><span class="lmp"><s></s><b></b><i></i></span><span class="lmp"><s></s><b></b><i></i></span></div>
-        <div class="face">
-          <div class="face-head"><b>Now posting</b><span>Briefs released at the opening bell</span></div>
-          <button class="row" type="button" data-open="brief" data-brief="0"><span class="who">[Sponsor]</span><span class="what">Cut sign-up drop-off for first-time investors</span><span class="tag">Fintech</span></button>
-          <button class="row" type="button" data-open="brief" data-brief="1"><span class="who">[Sponsor]</span><span class="what">Turn clinic wait times into a better patient experience</span><span class="tag">Health</span></button>
-          <button class="row" type="button" data-open="brief" data-brief="2"><span class="who">[Sponsor]</span><span class="what">Price a subscription students will actually keep</span><span class="tag">Consumer</span></button>
-          <button class="row" type="button" data-open="sponsor"><span class="who">Your company?</span><span class="what">This space is open. Bring your hardest problem.</span><span class="tag open">Open slot</span></button>
-        </div>
-        <div class="legs" aria-hidden="true"><svg id="legs" viewBox="0 0 1040 120" preserveAspectRatio="none"></svg></div>
-      </div>
-    </div>
+<section class="board dark" id="board" aria-labelledby="boardH">
+  <div class="wrap">
+    <span class="label">(03)</span>
+    <h2 class="h2" id="boardH">The challenge <em>board</em></h2>
+    <p class="lead">Sponsors post real problems here, and new ones are added as they sign on. The briefs below are examples only, to show the format.</p>
+    <ol class="board-list">
+      <li class="row rv"><span class="tag">Example</span><span class="ttl" data-scramble data-text="A campus food pre-order app">A campus food pre-order app</span><span class="sub">Consumer and retail</span></li>
+      <li class="row rv"><span class="tag">Example</span><span class="ttl" data-scramble data-text="Cash flow tools for a small shop">Cash flow tools for a small shop</span><span class="sub">Fintech and payments</span></li>
+      <li class="row rv"><span class="tag">Example</span><span class="ttl" data-scramble data-text="Onboarding for a remote team">Onboarding for a remote team</span><span class="sub">Future of work</span></li>
+      <li class="row rv"><span class="tag">Example</span><span class="ttl" data-scramble data-text="Volunteer matching for a food bank">Volunteer matching for a food bank</span><span class="sub">Social impact</span></li>
+    </ol>
   </div>
+</section>
+
+<!-- TRACKS -->
+<section class="tracks" id="tracks" aria-labelledby="trkH">
+  <div class="lava" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <span class="label">(04)</span>
+    <h2 class="h2" id="trkH">Pick a <em>track</em></h2>
+    <ol class="trk-list">
+      <li class="trk rv"><button class="trk-h" type="button" aria-expanded="false" aria-controls="t1"><span class="n">01</span><span class="nm">Consumer and retail</span><span class="pm" aria-hidden="true"></span></button><div class="trk-body" id="t1"><div><p>Products people buy, subscriptions, marketplaces and the creator economy.</p></div></div></li>
+      <li class="trk rv"><button class="trk-h" type="button" aria-expanded="false" aria-controls="t2"><span class="n">02</span><span class="nm">Future of work</span><span class="pm" aria-hidden="true"></span></button><div class="trk-body" id="t2"><div><p>Hiring, team tools, AI at work and new ways to earn outside a nine to five.</p></div></div></li>
+      <li class="trk rv"><button class="trk-h" type="button" aria-expanded="false" aria-controls="t3"><span class="n">03</span><span class="nm">Fintech and payments</span><span class="pm" aria-hidden="true"></span></button><div class="trk-body" id="t3"><div><p>Money tools for students, small businesses and the people who serve them.</p></div></div></li>
+      <li class="trk rv"><button class="trk-h" type="button" aria-expanded="false" aria-controls="t4"><span class="n">04</span><span class="nm">Social impact</span><span class="pm" aria-hidden="true"></span></button><div class="trk-body" id="t4"><div><p>Businesses that make Toronto better, from housing and food to access and care.</p></div></div></li>
+      <li class="trk rv"><button class="trk-h" type="button" aria-expanded="false" aria-controls="t5"><span class="n">05</span><span class="nm">Open track</span><span class="pm" aria-hidden="true"></span></button><div class="trk-body" id="t5"><div><p>Any commerce problem that does not fit above. Pitch it and make the case.</p></div></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- BANDS B -->
+<section class="bands alt" aria-label="Demo Day">
+  <div class="tape"><div class="run"><span>Demo Day</span><i>/</i><span>Finalists pitch to the panel</span><i>/</i><span>Everyone watches</span><i>/</i><span>Awards at the close</span><i>/</i></div></div>
+  <button class="pause" type="button" aria-pressed="false">Pause</button>
 </section>
 
 <!-- PRIZES -->
-<section class="tracks grid-bg" id="tracks" data-theme="light" aria-labelledby="trkH">
+<section class="prizes" id="prizes" aria-labelledby="prizeH">
   <div class="lava" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="wrap">
-    <h2 class="h2" id="trkH">Pick a track</h2>
-    <p class="lead">Every challenge sits in one of these tracks. Choose the one that fits how you think, and build with a team that mixes programs.</p>
-    <div class="tcard-grid">
-      <article class="tcard"><b>Consumer and retail</b><p>Products people buy, subscriptions, marketplaces and the creator economy.</p></article>
-      <article class="tcard"><b>Future of work</b><p>Hiring, team tools, AI at work and new ways to earn outside a nine to five.</p></article>
-      <article class="tcard"><b>Fintech and payments</b><p>Money tools for students, small businesses and the people who serve them.</p></article>
-      <article class="tcard"><b>Social impact</b><p>Businesses that make Toronto better, from housing and food to access and care.</p></article>
-      <article class="tcard"><b>Open track</b><p>Any commerce problem that does not fit above. Pitch it and make the case.</p></article>
-    </div>
-  </div>
-</section>
-
-<section class="prizes grid-bg" id="prizes" data-scene data-theme="light" aria-labelledby="prizeH">
-  <div class="lava" aria-hidden="true"><i></i><i></i><i></i></div>
-  <div class="wrap">
-    <h2 class="h2" id="prizeH">What you can win</h2>
-    <p class="lead">Every finalist takes the stage at Demo Day. The top three take the lecterns, and two more awards go to the teams that stand out. Final amounts announced in February.</p>
-    <div class="stage-wrap">
-      <div class="stage" id="stage">
-        <div class="back"></div><div class="truss"></div>
-        <span class="can" data-for="0"></span><span class="can" data-for="1"></span><span class="can" data-for="2"></span>
-        <span class="cone" data-for="0"></span><span class="cone" data-for="1"></span><span class="cone" data-for="2"></span>
-        <span class="pool" data-for="0"></span><span class="pool" data-for="1"></span><span class="pool" data-for="2"></span>
-        <div class="floor"></div>
-        <div class="lecterns">
-          <div class="lec p2" data-i="1"><svg class="mic" viewBox="0 0 46 70" aria-hidden="true"><path d="M8 70 C 8 40, 30 36, 30 12" fill="none" stroke="#8cc0e0" stroke-width="3" stroke-linecap="round"/><rect x="24" y="0" width="12" height="18" rx="6" fill="#8cc0e0"/></svg><div class="desk"></div><div class="body"><div class="panel"><small>Second place</small><b>[Prize]</b></div></div><div class="base"></div></div>
-          <div class="lec p1" data-i="0"><svg class="mic" viewBox="0 0 46 70" aria-hidden="true"><path d="M8 70 C 8 40, 30 36, 30 12" fill="none" stroke="#8cc0e0" stroke-width="3" stroke-linecap="round"/><rect x="24" y="0" width="12" height="18" rx="6" fill="#8cc0e0"/></svg><div class="desk"></div><div class="body"><div class="panel"><small>First place</small><b>[Prize]</b></div></div><div class="base"></div></div>
-          <div class="lec p3" data-i="2"><svg class="mic" viewBox="0 0 46 70" aria-hidden="true"><path d="M8 70 C 8 40, 30 36, 30 12" fill="none" stroke="#8cc0e0" stroke-width="3" stroke-linecap="round"/><rect x="24" y="0" width="12" height="18" rx="6" fill="#8cc0e0"/></svg><div class="desk"></div><div class="body"><div class="panel"><small>Third place</small><b>[Prize]</b></div></div><div class="base"></div></div>
-        </div>
-      </div>
-    </div>
-    <div class="awards">
-      <div class="award"><svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="#ffc24b" stroke="#3066a0" stroke-width="2.5"/><path d="M24 12 l3.6 7.4 8.1 1.1 -5.9 5.7 1.4 8 -7.2 -3.8 -7.2 3.8 1.4 -8 -5.9 -5.7 8.1 -1.1z" fill="#0e2540"/></svg><div><h3>Best sponsor solution</h3><p>Chosen by each sponsor for the team that cracked their brief.</p></div></div>
-      <div class="award"><svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="#ffc24b" stroke="#3066a0" stroke-width="2.5"/><path d="M24 34 c-9 -6 -13 -10 -13 -15 a6.5 6.5 0 0 1 13 -1.5 a6.5 6.5 0 0 1 13 1.5 c0 5 -4 9 -13 15z" fill="#0e2540"/></svg><div><h3>People's choice</h3><p>Voted by everyone in the room at Demo Day.</p></div></div>
+    <span class="label">(05)</span>
+    <h2 class="h2" id="prizeH">What you can <em>win</em></h2>
+    <p class="lead">Every finalist takes the stage at Demo Day. The total prize pool will be announced closer to the event.</p>
+    <div class="results rv">
+      <table>
+        <caption class="sr">Prizes</caption>
+        <thead><tr><th scope="col">Place</th><th scope="col">Award</th><th scope="col">Prize</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">First</th><td>Top team</td><td>To be announced</td></tr>
+          <tr><th scope="row">Second</th><td>Runner-up team</td><td>To be announced</td></tr>
+          <tr><th scope="row">Third</th><td>Third-place team</td><td>To be announced</td></tr>
+          <tr><th scope="row">Award</th><td>Best sponsor solution</td><td>To be announced</td></tr>
+          <tr><th scope="row">Award</th><td>People's choice</td><td>To be announced</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
 
 <!-- THE DAY -->
-<section class="day" id="day" data-theme="light" aria-label="Schedule, 10:00 to 20:00">
+<section class="day" id="day" aria-label="Estimated schedule, about 10:00 to 20:00">
   <div class="day-pin" id="dayPin">
-    <div class="sky-g" id="skyG"></div>
-    <div class="sun" id="sun" aria-hidden="true"></div>
-    <div class="moon" id="moon" aria-hidden="true"></div>
-    <div class="ruler" id="ruler" aria-hidden="true"><span class="trk"></span><span class="fill" id="rFill"></span><span class="knob" id="rKnob"></span><div class="ticks"><span>10:00</span><span>12:00</span><span>14:00</span><span>16:00</span><span>18:00</span><span>20:00</span></div></div>
-    <div class="day-head" id="dayHead"><div class="clock" id="clock" aria-hidden="true">10:00</div><p>One day, opening bell to closing bell. Keep scrolling to live through it, and hover the landmarks.</p></div>
-    <div class="track" id="track">
-      <svg class="pano" id="pano" aria-hidden="true"></svg>
-      <div class="stop"><div class="card"><div class="t">10:00</div><h3>Opening bell</h3><p>Sponsors reveal the challenges. Teams pick one and lock in.</p></div><div class="pin"></div></div>
-      <div class="stop"><div class="card"><div class="t">12:30</div><h3>Lunch and mentor rounds</h3><p>Founders and investors walk the floor and pressure-test your idea.</p></div><div class="pin"></div></div>
-      <div class="stop"><div class="card"><div class="t">14:00</div><h3>Pitch workshop</h3><p>Twenty minutes on telling an investor story in three minutes.</p></div><div class="pin"></div></div>
-      <div class="stop"><div class="card"><div class="t">16:00</div><h3>Pencils down</h3><p>Prototype and deck in. Finalists announced.</p></div><div class="pin"></div></div>
-      <div class="stop pm"><div class="card"><div class="t">17:00</div><h3>Demo Day</h3><p>Finalists pitch to the investor panel. Everyone watches.</p></div><div class="pin"></div></div>
-      <div class="stop pm"><div class="card"><div class="t">19:15</div><h3>Closing bell</h3><p>Awards, dinner, and the people you'll want to keep in touch with.</p></div><div class="pin"></div></div>
-      <div class="stop pm"><div class="card"><div class="t">20:00</div><h3>Lights out</h3><p>Home by eight. The idea keeps going.</p></div><div class="pin"></div></div>
+    <div class="day-head">
+      <span class="label">(06)</span>
+      <p class="day-note">Estimated schedule, about 10:00 to 20:00</p>
+      <div class="clock" id="dayClock" aria-live="off">10:00</div>
+      <div class="day-bar" aria-hidden="true"><i id="dayBar"></i></div>
+      <p class="day-lede">One day, opening bell to closing bell. Keep scrolling to move through it.</p>
+      <pre class="ascii" id="dayArt" aria-hidden="true"></pre>
+      <svg class="mini-tower" viewBox="0 0 200 600" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M40 600 L70 556 L83 500 L92 400 L96 300 L98 130 L99 60 L99.5 14 M160 600 L130 556 L117 500 L108 400 L104 300 L102 130 L101 60 L100.5 14 M40 600 H160 M70 556 H130"/><ellipse cx="100" cy="224" rx="24" ry="10"/><ellipse cx="100" cy="122" rx="13" ry="9"/></svg>
     </div>
-    <div class="btip" id="btip" role="tooltip"></div>
+    <div class="day-scroll">
+      <ol class="track" id="dayTrack">
+        <li class="stop" data-m="600"><span class="t">10:00</span><h3>Opening bell</h3><p>Sponsors reveal the challenges. Teams pick one and lock in.</p></li>
+        <li class="stop" data-m="750"><span class="t">12:30</span><h3>Lunch and mentor rounds</h3><p>Founders and investors walk the floor and pressure-test your idea.</p></li>
+        <li class="stop" data-m="840"><span class="t">14:00</span><h3>Pitch workshop</h3><p>Twenty minutes on telling an investor story in three minutes.</p></li>
+        <li class="stop" data-m="960"><span class="t">16:00</span><h3>Pencils down</h3><p>Prototype and deck in. Finalists announced.</p></li>
+        <li class="stop" data-m="1020"><span class="t">17:00</span><h3>Demo Day</h3><p>Finalists pitch to the investor panel. Everyone watches.</p></li>
+        <li class="stop" data-m="1155"><span class="t">19:15</span><h3>Closing bell</h3><p>Awards, dinner, and the people you will want to keep in touch with.</p></li>
+        <li class="stop" data-m="1200"><span class="t">20:00</span><h3>Lights out</h3><p>Home by eight. The idea keeps going.</p></li>
+      </ol>
+    </div>
   </div>
 </section>
 
-<!-- BANDS (night) -->
-<section class="bands dark-b" id="bandsN" data-theme="dark" aria-label="Demo Day highlights">
-  <div class="tape a" data-speed="-64"><div class="run"><span>Demo Day</span><i>/</i><span class="o">Pitch to investors</span><i>/</i><span>17:00</span><i>/</i><span class="o">Every finalist presents</span><i>/</i></div></div>
-  <div class="tape b" data-speed="50"><div class="run"><span>Three minutes on stage</span><i>/</i><span>Questions from the panel</span><i>/</i><span>Awards at the closing bell</span><i>/</i><span>Dinner after</span><i>/</i></div></div>
-  <button class="pause" type="button" aria-pressed="false">Pause</button>
-</section>
-
 <!-- JUDGES -->
-<section class="judges dark" id="judges" data-theme="dark" aria-labelledby="judgeH">
+<section class="judges dark" id="judges" aria-labelledby="judgeH">
   <div class="lava" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="wrap">
-    <h2 class="h2" id="judgeH">Pitch to the room<br>that writes cheques.</h2>
-    <p class="lead">Finalists pitch for three minutes, then take questions from investors and sponsor judges. A window lights up as each panelist confirms.</p>
-    <div class="jgrid">
-      <div class="facade" role="list" aria-label="Investor panel">
-        <div class="win on" role="listitem"><span><b>[Name]</b>Dragonfruit Ventures</span></div>
-        <div class="win" role="listitem"><span>Lights up when confirmed</span></div>
-        <div class="win" role="listitem"><span>Lights up when confirmed</span></div>
-        <div class="win" role="listitem"><span>Lights up when confirmed</span></div>
-        <div class="win" role="listitem"><span>Lights up when confirmed</span></div>
-        <div class="win" role="listitem"><span>Lights up when confirmed</span></div>
+    <span class="label">(07)</span>
+    <h2 class="h2" id="judgeH">The <em>panel</em></h2>
+    <p class="lead">Finalists pitch to venture capital investors, founders and corporate representatives. A dot lights when a seat is confirmed, and names appear only once they are confirmed.</p>
+    <div class="judge-grid">
+      <ul class="slots" aria-label="Panel seats">
+        <li class="slot"><span class="dot" aria-hidden="true"></span><span>Panel seat, to be announced</span></li>
+        <li class="slot"><span class="dot" aria-hidden="true"></span><span>Panel seat, to be announced</span></li>
+        <li class="slot"><span class="dot" aria-hidden="true"></span><span>Panel seat, to be announced</span></li>
+        <li class="slot"><span class="dot" aria-hidden="true"></span><span>Panel seat, to be announced</span></li>
+      </ul>
+      <div>
+        <p class="sub-h">How pitches are judged</p>
+        <ol class="rubric">
+          <li>Innovation and creativity</li>
+          <li>Customer and problem understanding</li>
+          <li>Commercial viability</li>
+          <li>Prototype functionality</li>
+          <li>Pitch quality</li>
+        </ol>
       </div>
-      <div><p class="rubric-h">How pitches are judged</p><ol class="rubric"><li>Is the problem real?</li><li>Who is the customer?</li><li>Does the business model work?</li><li>Does the prototype show it?</li><li>Can you pitch it and take questions?</li></ol></div>
     </div>
   </div>
 </section>
 
 <!-- SPONSORS -->
-<section class="sponsors dark" id="sponsors" data-scene data-theme="dark" aria-labelledby="sponH">
+<section class="sponsors dark" id="sponsors" aria-labelledby="sponH">
   <div class="lava" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="wrap">
-    <h2 class="h2" id="sponH">Room for your company</h2>
-    <p class="lead">This is the floor plan for March. Every room is a sponsor seat, and signed sponsors move in as they join. Pick a room to talk to us about it.</p>
+    <span class="label">(08)</span>
+    <h2 class="h2" id="sponH">Room for your <em>company</em></h2>
+    <p class="lead">This is the floor plan for March. Each room is a sponsor seat. Pick a room to talk to us about it.</p>
     <div class="plan-wrap">
-      <div class="plan" id="plan">
-        <svg class="walls" id="walls" aria-hidden="true"></svg>
-        <button class="room r-title" type="button" data-open="sponsor" data-pkg="Title"><small>Title sponsor, $10,000</small><b>Presented by you</b><span class="open">1 room open</span></button>
-        <button class="room r-g1" type="button" data-open="sponsor" data-pkg="Gold"><small>Gold, $5,000</small><b>Your challenge, your judge</b><span class="open">Open</span></button>
-        <button class="room r-g2" type="button" data-open="sponsor" data-pkg="Gold"><small>Gold, $5,000</small><b>Your challenge, your judge</b><span class="open">Open</span></button>
-        <button class="room r-s1" type="button" data-open="sponsor" data-pkg="Silver"><small>Silver, $2,500</small><b>Booth and resumes</b><span class="open">Open</span></button>
-        <button class="room r-s2" type="button" data-open="sponsor" data-pkg="Silver"><small>Silver, $2,500</small><b>Booth and resumes</b><span class="open">Open</span></button>
-        <button class="room r-s3" type="button" data-open="sponsor" data-pkg="Silver"><small>Silver, $2,500</small><b>Booth and resumes</b><span class="open">Open</span></button>
-        <button class="room r-c1" type="button" data-open="sponsor" data-pkg="Community"><small>Community, $1,000</small><b>Mentor seat</b></button>
-        <button class="room r-c2" type="button" data-open="sponsor" data-pkg="Community"><small>Community, $1,000</small><b>Mentor seat</b></button>
-        <button class="room r-c3" type="button" data-open="sponsor" data-pkg="Community"><small>Community, $1,000</small><b>Mentor seat</b></button>
-        <button class="room r-c4" type="button" data-open="sponsor" data-pkg="Community"><small>Community, $1,000</small><b>Mentor seat</b></button>
+      <div class="plan" role="list" aria-label="Sponsor floor plan">
+        <button class="room r-title" type="button" role="listitem" data-open="sponsor" data-pkg="Title sponsor"><small>Title sponsor</small><b>Presented by you</b></button>
+        <button class="room r-gold" type="button" role="listitem" data-open="sponsor" data-pkg="Gold"><small>Gold</small><b>Your challenge, your judge</b></button>
+        <button class="room r-gold" type="button" role="listitem" data-open="sponsor" data-pkg="Gold"><small>Gold</small><b>Your challenge, your judge</b></button>
+        <button class="room r-silver" type="button" role="listitem" data-open="sponsor" data-pkg="Silver"><small>Silver</small><b>Booth and resumes</b></button>
+        <button class="room r-silver" type="button" role="listitem" data-open="sponsor" data-pkg="Silver"><small>Silver</small><b>Booth and resumes</b></button>
+        <button class="room r-silver" type="button" role="listitem" data-open="sponsor" data-pkg="Silver"><small>Silver</small><b>Booth and resumes</b></button>
+        <button class="room r-comm" type="button" role="listitem" data-open="sponsor" data-pkg="Community"><small>Community</small><b>Mentor seat</b></button>
+        <button class="room r-comm" type="button" role="listitem" data-open="sponsor" data-pkg="Community"><small>Community</small><b>Mentor seat</b></button>
+        <button class="room r-comm" type="button" role="listitem" data-open="sponsor" data-pkg="Community"><small>Community</small><b>Mentor seat</b></button>
+        <button class="room r-comm" type="button" role="listitem" data-open="sponsor" data-pkg="Community"><small>Community</small><b>Mentor seat</b></button>
       </div>
-      <div>
-        <ul class="tiers"><li><span>Title sponsor</span><b>$10,000</b></li><li><span>Gold</span><b>$5,000</b></li><li><span>Silver</span><b>$2,500</b></li><li><span>Community</span><b>$1,000</b></li><li><span>In-kind: credits, food, venue</span><b>Let's talk</b></li></ul>
-        <div class="ctas"><button class="btn lamp" type="button" data-open="call">Book a call</button><button class="btn line" type="button" data-open="prospectus">Get the prospectus</button></div>
+      <div class="plan-side">
+        <ul class="tiers">
+          <li><span>Title sponsor</span><b>Ask us for the package</b></li>
+          <li><span>Gold</span><b>Ask us for the package</b></li>
+          <li><span>Silver</span><b>Ask us for the package</b></li>
+          <li><span>Community</span><b>Ask us for the package</b></li>
+          <li><span>In-kind</span><b>Software credits, development resources</b></li>
+        </ul>
+        <p class="inkind">We welcome in-kind support, including software credits and development resources.</p>
+        <div class="ctas"><button class="btn solid" type="button" data-open="sponsor">Ask us for the package</button><button class="btn line" type="button" data-open="sponsor" data-pkg="Book a call">Book a call</button></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- FAQ -->
-<section class="faq dark" id="faq" data-theme="dark" aria-labelledby="faqH">
-  <div class="lava" aria-hidden="true"><i></i><i></i><i></i></div>
+<section class="faq dark" id="faq" aria-labelledby="faqH">
   <div class="wrap">
-    <h2 class="h2" id="faqH">Questions</h2>
-    <div class="qa" id="qa">
-      <div class="qi"><button class="q" type="button" aria-expanded="false" aria-controls="a1" id="q1">Do I need to know how to code?<span class="ic" aria-hidden="true"></span></button><div class="a" id="a1" role="region" aria-labelledby="q1"><p>No. Use no-code tools, AI, slides, spreadsheets, whatever gets your idea across. Judges score the business, the customer and the pitch.</p></div></div>
-      <div class="qi"><button class="q" type="button" aria-expanded="false" aria-controls="a2" id="q2">Who can apply?<span class="ic" aria-hidden="true"></span></button><div class="a" id="a2" role="region" aria-labelledby="q2"><p>University students in Ontario, any program and any year. Apply alone or with a team of up to four.</p></div></div>
-      <div class="qi"><button class="q" type="button" aria-expanded="false" aria-controls="a3" id="q3">What does it cost?<span class="ic" aria-hidden="true"></span></button><div class="a" id="a3" role="region" aria-labelledby="q3"><p>Nothing. Lunch and dinner are included.</p></div></div>
-      <div class="qi"><button class="q" type="button" aria-expanded="false" aria-controls="a4" id="q4">How are teams formed?<span class="ic" aria-hidden="true"></span></button><div class="a" id="a4" role="region" aria-labelledby="q4"><p>Bring your own team, or tell us you want one and we'll match you before the day.</p></div></div>
-      <div class="qi"><button class="q" type="button" aria-expanded="false" aria-controls="a5" id="q5">When will I hear back?<span class="ic" aria-hidden="true"></span></button><div class="a" id="a5" role="region" aria-labelledby="q5"><p>Applications open in January. Decisions go out a few weeks before the event, with a waitlist if we fill up.</p></div></div>
-      <div class="qi"><button class="q" type="button" aria-expanded="false" aria-controls="a6" id="q6">Is there travel support?<span class="ic" aria-hidden="true"></span></button><div class="a" id="a6" role="region" aria-labelledby="q6"><p>We're working on it. Details come with applications in January.</p></div></div>
+    <span class="label">(09)</span>
+    <h2 class="h2" id="faqH">Quick <em>answers</em></h2>
+    <div class="faq-tools">
+      <label class="sr" for="faqQ">Search questions</label>
+      <input id="faqQ" class="search" type="search" placeholder="Search questions" autocomplete="off">
+      <div class="chips" role="group" aria-label="Filter by category">
+        <button type="button" data-cat="all" aria-pressed="true">All</button>
+        <button type="button" data-cat="start" aria-pressed="false">Getting started</button>
+        <button type="button" data-cat="teams" aria-pressed="false">Teams and building</button>
+        <button type="button" data-cat="judge" aria-pressed="false">Competition and judging</button>
+        <button type="button" data-cat="logi" aria-pressed="false">Logistics</button>
+        <button type="button" data-cat="partner" aria-pressed="false">Partnerships</button>
+      </div>
+    </div>
+    <p class="faq-empty" id="faqEmpty" hidden>No questions match that search. Email ctrlbuildto@gmail.com and we will help.</p>
+    <div class="qa">
+      <div class="qi" data-cat="start"><button class="q" type="button" aria-expanded="false" aria-controls="a1" id="q1"><span>What is CTRL Build?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a1" role="region" aria-labelledby="q1"><div><p>A commerce-focused hackathon bringing together 150 to 200 students to solve real-world business challenges, build prototypes, and pitch to investors and industry leaders.</p></div></div></div>
+      <div class="qi" data-cat="start"><button class="q" type="button" aria-expanded="false" aria-controls="a2" id="q2"><span>Who can participate?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a2" role="region" aria-labelledby="q2"><div><p>University students from any program, year of study, or technical background.</p></div></div></div>
+      <div class="qi" data-cat="start"><button class="q" type="button" aria-expanded="false" aria-controls="a3" id="q3"><span>Do I need to know how to code?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a3" role="region" aria-labelledby="q3"><div><p>No. Participants are encouraged to use AI, vibe coding, no-code platforms, and traditional programming.</p></div></div></div>
+      <div class="qi" data-cat="start"><button class="q" type="button" aria-expanded="false" aria-controls="a4" id="q4"><span>How is CTRL Build different from a traditional hackathon?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a4" role="region" aria-labelledby="q4"><div><p>We prioritize business viability, creativity, customer needs, and execution rather than technical complexity.</p></div></div></div>
+      <div class="qi" data-cat="start"><button class="q" type="button" aria-expanded="false" aria-controls="a5" id="q5"><span>How is it different from a case competition?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a5" role="region" aria-labelledby="q5"><div><p>Instead of simply recommending a solution, you will build a tangible prototype demonstrating how your solution works.</p></div></div></div>
+      <div class="qi" data-cat="start"><button class="q" type="button" aria-expanded="false" aria-controls="a6" id="q6"><span>How much does it cost?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a6" role="region" aria-labelledby="q6"><div><p>CTRL Build is free to attend, with meals provided.</p></div></div></div>
+      <div class="qi" data-cat="start"><button class="q" type="button" aria-expanded="false" aria-controls="a7" id="q7"><span>Can I participate virtually?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a7" role="region" aria-labelledby="q7"><div><p>CTRL Build is an in-person experience hosted in Toronto.</p></div></div></div>
+      <div class="qi" data-cat="teams"><button class="q" type="button" aria-expanded="false" aria-controls="a8" id="q8"><span>How many people can be on a team?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a8" role="region" aria-labelledby="q8"><div><p>Teams will consist of 3 to 4 participants.</p></div></div></div>
+      <div class="qi" data-cat="teams"><button class="q" type="button" aria-expanded="false" aria-controls="a9" id="q9"><span>What if I don't have a team?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a9" role="region" aria-labelledby="q9"><div><p>You can apply individually and receive assistance finding teammates.</p></div></div></div>
+      <div class="qi" data-cat="teams"><button class="q" type="button" aria-expanded="false" aria-controls="a10" id="q10"><span>What will we be building?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a10" role="region" aria-labelledby="q10"><div><p>Solutions to real-world business challenges presented by corporate and startup partners. These could include websites, applications, AI-powered tools, or other digital products.</p></div></div></div>
+      <div class="qi" data-cat="teams"><button class="q" type="button" aria-expanded="false" aria-controls="a11" id="q11"><span>Can I use AI tools?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a11" role="region" aria-labelledby="q11"><div><p>Yes. We encourage participants to use AI-powered development tools.</p></div></div></div>
+      <div class="qi" data-cat="teams"><button class="q" type="button" aria-expanded="false" aria-controls="a12" id="q12"><span>Can I start building beforehand?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a12" role="region" aria-labelledby="q12"><div><p>Participants can familiarize themselves with development tools beforehand, but challenge-specific solutions must be built during the event.</p></div></div></div>
+      <div class="qi" data-cat="teams"><button class="q" type="button" aria-expanded="false" aria-controls="a13" id="q13"><span>Will there be mentors?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a13" role="region" aria-labelledby="q13"><div><p>Yes. Industry professionals, founders, and investors will provide guidance and feedback throughout the day.</p></div></div></div>
+      <div class="qi" data-cat="teams"><button class="q" type="button" aria-expanded="false" aria-controls="a14" id="q14"><span>What do I need to submit?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a14" role="region" aria-labelledby="q14"><div><p>A prototype demonstrating your solution and a short pitch deck explaining its business potential.</p></div></div></div>
+      <div class="qi" data-cat="judge"><button class="q" type="button" aria-expanded="false" aria-controls="a15" id="q15"><span>How will projects be judged?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a15" role="region" aria-labelledby="q15"><div><p>Five criteria: innovation and creativity; customer and problem understanding; commercial viability; prototype functionality; and pitch quality.</p></div></div></div>
+      <div class="qi" data-cat="judge"><button class="q" type="button" aria-expanded="false" aria-controls="a16" id="q16"><span>Who will we pitch to?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a16" role="region" aria-labelledby="q16"><div><p>A panel of venture capital investors, founders, and corporate representatives.</p></div></div></div>
+      <div class="qi" data-cat="judge"><button class="q" type="button" aria-expanded="false" aria-controls="a17" id="q17"><span>What can I win?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a17" role="region" aria-labelledby="q17"><div><p>Prizes will be awarded to top-performing teams. The total prize pool will be announced closer to the event.</p></div></div></div>
+      <div class="qi" data-cat="logi"><button class="q" type="button" aria-expanded="false" aria-controls="a18" id="q18"><span>How long is CTRL Build?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a18" role="region" aria-labelledby="q18"><div><p>A single day, approximately 8 to 10 hours, featuring building, mentorship, pitching, networking, and awards. No overnight hacking.</p></div></div></div>
+      <div class="qi" data-cat="logi"><button class="q" type="button" aria-expanded="false" aria-controls="a19" id="q19"><span>What should I bring?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a19" role="region" aria-labelledby="q19"><div><p>Your laptop, charger, student ID, and an entrepreneurial mindset.</p></div></div></div>
+      <div class="qi" data-cat="logi"><button class="q" type="button" aria-expanded="false" aria-controls="a20" id="q20"><span>When do applications open?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a20" role="region" aria-labelledby="q20"><div><p>Application details will be announced closer to the event.</p></div></div></div>
+      <div class="qi" data-cat="logi"><button class="q" type="button" aria-expanded="false" aria-controls="a21" id="q21"><span>Will travel reimbursements be provided?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a21" role="region" aria-labelledby="q21"><div><p>Further information will be communicated once available.</p></div></div></div>
+      <div class="qi" data-cat="partner"><button class="q" type="button" aria-expanded="false" aria-controls="a22" id="q22"><span>Who is organizing CTRL Build?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a22" role="region" aria-labelledby="q22"><div><p>Rotman Commerce Entrepreneurship Organization (RCEO), Rotman Commerce Innovation Group (RCIG), and Rotman Commerce Venture Capital (RCVC).</p></div></div></div>
+      <div class="qi" data-cat="partner"><button class="q" type="button" aria-expanded="false" aria-controls="a23" id="q23"><span>How can my company get involved?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a23" role="region" aria-labelledby="q23"><div><p>Companies can participate as sponsors, challenge providers, mentors, judges, or in-kind partners. We also welcome software credits and development resources.</p></div></div></div>
+      <div class="qi" data-cat="partner"><button class="q" type="button" aria-expanded="false" aria-controls="a24" id="q24"><span>Still have questions?</span><span class="ic" aria-hidden="true"></span></button><div class="a" id="a24" role="region" aria-labelledby="q24"><div><p>Contact ctrlbuildto@gmail.com or visit <a href="https://ctrlbuild.vercel.app/">ctrlbuild.vercel.app</a>.</p></div></div></div>
     </div>
   </div>
 </section>
 
 <!-- CLUBS -->
-<section class="hosts dark" id="hosts" data-theme="dark" aria-labelledby="hostH">
+<section class="hosts dark" id="hosts" aria-labelledby="hostH">
   <div class="lava" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="wrap">
-    <div class="dyn" id="dyn">
-      <div class="base"><h2 class="h2" id="hostH">Built on three clubs</h2><p class="lead">Three Rotman Commerce student groups hold this up together.</p></div>
-      <div class="cl w" aria-hidden="true"><p class="h2">Built on three clubs</p><p class="lead">Three Rotman Commerce student groups hold this up together.</p></div>
-      <div class="cl n" aria-hidden="true"><p class="h2">Built on three clubs</p><p class="lead">Three Rotman Commerce student groups hold this up together.</p></div>
-    </div>
-    <div class="frame">
-      <div class="beam" id="beam"><span class="lbl" id="beamLbl">CTRL Build</span></div>
-      <div class="cols">
-        <div class="col"><div class="chip"><img src="assets/logo-night.png" alt="RCEO logo"></div><b>RCEO</b><span class="full">Rotman Commerce Entrepreneurship Organization</span><p>RCEO empowers students to explore entrepreneurship through case competitions, networking events, workshops, and mentorship programs. The organization connects aspiring entrepreneurs with founders, industry leaders, and innovative companies to bridge the gap between education and real-world business experience.</p><a href="https://www.rotmanceo.com" target="_blank" rel="noopener">rotmanceo.com</a></div>
-        <div class="col"><div class="chip"><img src="assets/rcig.png" alt="RCIG logo"></div><b>RCIG</b><span class="full">Rotman Commerce Innovation Group</span><p>RCIG develops the next generation of innovators by providing students with hands-on consulting projects, professional development opportunities, and industry-focused events. The organization emphasizes creative problem-solving, business transformation, and meaningful social impact.</p><a href="https://www.rotmancommerceinnovationgroup.org" target="_blank" rel="noopener">rotmancommerceinnovationgroup.org</a></div>
-        <div class="col"><div class="chip"><img src="assets/rcvc-night.png" alt="RCVC logo"></div><b>RCVC</b><span class="full">Rotman Commerce Venture Capital</span><p>RCVC introduces students to the venture capital and startup ecosystem through investment research, industry events, and experiential learning opportunities. The organization connects aspiring investors with venture capital firms, founders, and industry professionals to develop the next generation of venture capitalists.</p><a href="https://rcventure.ca" target="_blank" rel="noopener">rcventure.ca</a></div>
-      </div>
-      <div class="plinth"></div>
+    <span class="label">(10)</span>
+    <h2 class="h2" id="hostH">Built on three <em>clubs</em></h2>
+    <p class="lead">Three Rotman Commerce student groups hold this up together.</p>
+    <div class="cols">
+      <article class="col rv"><div class="chip"><img src="assets/logo-night.png" alt="RCEO logo"></div><b>RCEO</b><span class="full">Rotman Commerce Entrepreneurship Organization</span><p>RCEO empowers students to explore entrepreneurship through case competitions, networking events, workshops, and mentorship programs. The organization connects aspiring entrepreneurs with founders, industry leaders, and innovative companies to bridge the gap between education and real-world business experience.</p><a href="https://www.rotmanceo.com" target="_blank" rel="noopener">rotmanceo.com</a></article>
+      <article class="col rv"><div class="chip"><img src="assets/rcig.png" alt="RCIG logo"></div><b>RCIG</b><span class="full">Rotman Commerce Innovation Group</span><p>RCIG develops the next generation of innovators by providing students with hands-on consulting projects, professional development opportunities, and industry-focused events. The organization emphasizes creative problem-solving, business transformation, and meaningful social impact.</p><a href="https://www.rotmancommerceinnovationgroup.org" target="_blank" rel="noopener">rotmancommerceinnovationgroup.org</a></article>
+      <article class="col rv"><div class="chip"><img src="assets/rcvc-night.png" alt="RCVC logo"></div><b>RCVC</b><span class="full">Rotman Commerce Venture Capital</span><p>RCVC introduces students to the venture capital and startup ecosystem through investment research, industry events, and experiential learning opportunities. The organization connects aspiring investors with venture capital firms, founders, and industry professionals to develop the next generation of venture capitalists.</p><a href="https://rcventure.ca" target="_blank" rel="noopener">rcventure.ca</a></article>
     </div>
   </div>
 </section>
+
 </main>
 
 <!-- FOOTER -->
-<footer class="foot dark" id="notify" data-theme="dark">
+<footer class="foot dark" id="notify">
   <div class="wrap">
     <div class="foot-top">
       <div>
-        <p class="big"><img src="assets/logo-sky.png" alt="">Build boldly.</p>
-        <form class="signup" id="footForm" novalidate><label class="sr" for="footEmail">Email address</label><input id="footEmail" type="email" placeholder="Your email address" autocomplete="email"><button class="btn lamp" type="submit">Get notified</button></form>
-        <p class="note">One email when applications open in January. No spam.</p>
+        <p class="kicker-l">Get notified</p>
+        <form class="signup" data-form="student" novalidate>
+          <div class="fld"><label for="fEmail">School email</label><input id="fEmail" name="email" type="email" required autocomplete="email" placeholder="you@mail.utoronto.ca"></div>
+          <div class="fld"><label for="fName" class="sr">Name</label><input id="fName" name="name" type="text" required autocomplete="name" placeholder="Your name"></div>
+          <label class="hp" aria-hidden="true">Leave this field empty<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+          <button class="btn solid" type="submit">Notify me</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </form>
+        <p class="use">We will use this email only to send CTRL Build updates. Ask us to remove it at <a href="mailto:ctrlbuildto@gmail.com" data-contact>ctrlbuildto@gmail.com</a>.</p>
       </div>
-      <div class="links">
+      <div class="foot-links">
         <div><h3>Event</h3><ul><li><a href="#what">About</a></li><li><a href="#board">Challenges</a></li><li><a href="#prizes">Prizes</a></li><li><a href="#day">Schedule</a></li><li><a href="#faq">FAQ</a></li></ul></div>
-        <div><h3>Sponsors</h3><ul><li><a href="#sponsors">Packages</a></li><li><button type="button" data-open="call">Book a call</button></li><li><button type="button" data-open="prospectus">Prospectus</button></li></ul></div>
-        <div><h3>Clubs</h3><ul><li><a href="https://www.rotmanceo.com" target="_blank" rel="noopener">RCEO</a></li><li><a href="https://www.rotmancommerceinnovationgroup.org" target="_blank" rel="noopener">RCIG</a></li><li><a href="#hosts">RCVC</a></li></ul></div>
+        <div><h3>Sponsors</h3><ul><li><a href="#sponsors">Packages</a></li><li><button type="button" data-open="sponsor">Ask us for the package</button></li><li><a href="mailto:ctrlbuildto@gmail.com" data-contact>Email the team</a></li></ul></div>
       </div>
+    </div>
+    <div class="foot-mid">
+      <pre class="ascii foot-art" id="footArt" aria-hidden="true"></pre>
+      <svg class="mini-tower foot-tower" viewBox="0 0 200 600" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M40 600 L70 556 L83 500 L92 400 L96 300 L98 130 L99 60 L99.5 14 M160 600 L130 556 L117 500 L108 400 L104 300 L102 130 L101 60 L100.5 14 M40 600 H160 M70 556 H130"/><ellipse cx="100" cy="224" rx="24" ry="10"/><ellipse cx="100" cy="122" rx="13" ry="9"/></svg>
     </div>
     <div class="foot-bot">
       <span class="chip3"><img src="assets/logo-night.png" alt="RCEO"><img src="assets/rcig.png" alt="RCIG"><img src="assets/rcvc-night.png" alt="RCVC"></span>
-      <span>Event details, sponsorship packages and prizes are subject to confirmation.</span>
-      <nav aria-label="Legal"><button type="button" data-open="coc">Code of conduct</button><button type="button" data-open="privacy">Privacy</button><a href="#top">Back to top</a></nav>
+      <span>Event details and packages are subject to confirmation.</span>
+      <a href="mailto:ctrlbuildto@gmail.com" data-contact>ctrlbuildto@gmail.com</a>
+      <a href="#top">Back to top</a>
     </div>
+    <p class="huge" aria-hidden="true">Build boldly.</p>
   </div>
-  <div class="city" aria-hidden="true"><svg id="footCity" preserveAspectRatio="xMidYMax slice"></svg></div>
 </footer>
 
-<dialog class="modal" id="modal" aria-labelledby="mTitle">
-  <div class="m-head"><div class="bar" aria-hidden="true"></div><h2 id="mTitle"></h2><p id="mSub"></p><button class="m-x" type="button" id="mClose" aria-label="Close"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2 L14 14 M14 2 L2 14" stroke="#0e2540" stroke-width="2" stroke-linecap="round"/></svg></button></div>
-  <div class="m-body" id="mBody"></div>
+<!-- BOTTOM BAR (after hero) -->
+<div class="bottom-bar" id="bottomBar">
+  <span>Applications open soon</span>
+  <button class="btn solid" type="button" data-open="notify">Get notified</button>
+</div>
+
+<!-- MODAL -->
+<dialog class="modal" id="modal" aria-labelledby="modalT">
+  <button class="m-x" id="modalClose" type="button" aria-label="Close">Close</button>
+  <div id="modalBody"></div>
 </dialog>
+
+<template id="tpl-notify">
+  <div class="m-body">
+    <p class="m-kicker">Get notified</p>
+    <h2 class="m-h" id="modalT">Get notified</h2>
+    <p class="m-p">Applications open soon. Application details will be announced closer to the event.</p>
+    <form class="m-form" data-form="student" novalidate>
+      <div class="fld"><label for="nName">Name</label><input id="nName" name="name" type="text" required autocomplete="name"></div>
+      <div class="fld"><label for="nEmail">School email</label><input id="nEmail" name="email" type="email" required autocomplete="email"></div>
+      <label class="hp" aria-hidden="true">Leave this field empty<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+      <p class="use">We will use this email only to send CTRL Build updates. Ask us to remove it at <a href="mailto:ctrlbuildto@gmail.com" data-contact>ctrlbuildto@gmail.com</a>.</p>
+      <button class="btn solid" type="submit">Notify me</button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</template>
+
+<template id="tpl-sponsor">
+  <div class="m-body">
+    <p class="m-kicker">Sponsor</p>
+    <h2 class="m-h" id="modalT">Sponsor a challenge</h2>
+    <p class="m-p">Ask us for the package. We welcome in-kind support, including software credits and development resources.</p>
+    <form class="m-form" data-form="sponsor" novalidate>
+      <div class="fld"><label for="sCo">Company</label><input id="sCo" name="company" type="text" required autocomplete="organization"></div>
+      <div class="fld"><label for="sContact">Contact name</label><input id="sContact" name="contact" type="text" required autocomplete="name"></div>
+      <div class="fld"><label for="sEmail">Email</label><input id="sEmail" name="email" type="email" required autocomplete="email"></div>
+      <div class="fld"><label for="sPkg">Interested in</label><select id="sPkg" name="package"><option>Ask us for the package</option><option>Title sponsor</option><option>Gold</option><option>Silver</option><option>Community</option><option>In-kind</option><option>Book a call</option></select></div>
+      <div class="fld"><label for="sMsg">Short message</label><textarea id="sMsg" name="message" rows="3"></textarea></div>
+      <label class="hp" aria-hidden="true">Leave this field empty<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+      <p class="use">We will use these details only to reply about sponsoring CTRL Build.</p>
+      <button class="btn solid" type="submit">Send to the team</button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</template>
 
 <script src="app.js"></script>
 </body>
